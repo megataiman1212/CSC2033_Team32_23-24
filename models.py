@@ -25,7 +25,11 @@ class Product(db.Model):
         self.product = product
         self.stock = stock
         self.category = category
-        self. required_level = required_level
+        self.required_level = required_level
+
+    # def add_product(self,product, stock, category, required_level):
+    #     db.session.add(Product(product, stock, category, required_level))
+    #     db.session.commit()
 
 def init_db():
     with app.app_context():
@@ -36,4 +40,4 @@ def init_db():
         db.session.commit()
 
 # Run this to initialise db
-init_db()
+#init_db()
