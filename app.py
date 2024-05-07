@@ -10,35 +10,20 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-
-# @app.route('/')
-# def index():
-#     return render_template('main/index.html')
-#
-# # import blueprints
-# from admin.views import admin_blueprint
-# from database.views import database_blueprint
-# from users.views import users_blueprint
-#
-# # register blueprints with app
-# app.register_blueprint(admin_blueprint)
-# app.register_blueprint(database_blueprint)
-# app.register_blueprint(users_blueprint)
-
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('main/index.html')
 @app.route('/login')
 def login():
-    return render_template('login.html')
+    return render_template('users/login.html')
 
 @app.route('/database')
 def database():
-    return render_template('database.html')
+    return render_template('database/database.html')
 
 @app.route('/admin')
 def admin():
-    return render_template('admin.html')
+    return render_template('admin/admin.html')
 
 
 if __name__ == "__main__":
