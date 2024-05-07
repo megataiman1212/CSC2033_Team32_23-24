@@ -1,12 +1,18 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+from pymongo import MongoClient
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Warehouse.db'
+
+#Connect to MySQL
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Team32@localhost/Inventory'
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
+
+
+
 
 
 @app.route('/')
@@ -24,6 +30,8 @@ def database():
 @app.route('/admin')
 def admin():
     return render_template('admin.html')
+
+
 
 if __name__ == "__main__":
     app.run()
