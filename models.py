@@ -1,4 +1,5 @@
-from app import db
+from app import db, app
+
 
 class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
@@ -27,5 +28,5 @@ class Product(db.Model):
         self.category = category
         self.required_level = required_level
 
-
-
+# with app.app_context():
+#     db.create_all()
