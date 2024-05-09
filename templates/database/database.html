@@ -1,5 +1,31 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
-    <h1>{% block title %} Database {% endblock %}</h1>
+
+    <div class="column is-6 is-offset-3">
+        <h1>{% block title %} Database {% endblock %}</h1>
+        <table class="table" cellpadding="4">
+            <tbody>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Add Stock</th>
+                    <th>Current Stock</th>
+                    <th>Remove Stock</th>
+                    <th>Reorder Level</th>
+                    <th>Category</th>
+                </tr>
+            <!--{% for product in products %}
+                <tr>
+                    <td>product.product</td>
+                    <td><a class="navbar-item" href="{{ url_for('database.addstock', id=product.id) }}">+</a></td>
+                    <td>product.stock</td>
+                    <td><a class="navbar-item" href="{{ url_for('database.removestock', id=product.id) }}">-</a></td>
+                    <td>product.required_level</td>
+                    <td>product.category</td>
+                </tr>
+            {% endfor %}-->
+            </tbody>
+        </table>
+    </div>
+
 {% endblock %}
