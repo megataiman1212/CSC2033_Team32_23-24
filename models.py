@@ -28,7 +28,7 @@ class Product(db.Model):
         self.required_level = required_level
 
 #Instructions to create db
-#Run docker compose file
+##Run docker compose file
 #Run create_db file
 #Run models file
 with app.app_context():
