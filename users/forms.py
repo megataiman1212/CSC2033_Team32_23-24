@@ -92,6 +92,4 @@ def validate_pin(self, pin):
 class LoginForm(FlaskForm):
     email = StringField(validators=[DataRequired(), Email()])
     password = PasswordField(validators=[DataRequired()])
-    postcode = StringField(validators=[validate_postcode, DataRequired()])
-    pin = StringField(validators=[DataRequired(), validate_pin])
     submit = SubmitField()

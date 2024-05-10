@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, flash
 from flask_login import login_user, current_user
 from users.forms import LoginForm
+from models import User
 
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
 
@@ -12,8 +13,7 @@ def login():
             user = User.query.filter_by(email=form.email.data).first()
 
             # Checks the users credentials
-            if not user or not user.verify_password(form.password.data) or not user.verify_postcode(
-                    form.postcode.data) or not user.verify_pin(form.pin.data):
+            if not user or not user.verify_password(form.password.data):
                 return render_template('users/login.html', form=form)
 
             else:
