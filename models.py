@@ -1,5 +1,4 @@
-from app import db, app
-
+from app import db,app
 
 class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
@@ -28,5 +27,9 @@ class Product(db.Model):
         self.category = category
         self.required_level = required_level
 
-# with app.app_context():
-#     db.create_all()
+#Instructions to create db
+#Run docker compose file
+#Run create_db file
+#Run models file
+with app.app_context():
+    db.create_all()
