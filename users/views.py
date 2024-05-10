@@ -1,17 +1,28 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, flash
+from flask_login import login_user, current_user
+from users.forms import LoginForm
 
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
 
-@users_blueprint.route('/register', methods=['GET', 'POST'])
-def register():
-    return render_template('users/register.html')
-
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('users/login.html')
+    if current_user.is_anonymous:
+        form = LoginForm()
+        if form.validate_on_submit():
+            user = User.query.filter_by(email=form.email.data).first()
 
-@users_blueprint.route('/account', methods=['GET', 'POST'])
-def account():
-    return render_template('users/account.html')
+            # Checks the users credentials
+            if not user or not user.verify_password(form.password.data) or not user.verify_postcode(
+                    form.postcode.data) or not user.verify_pin(form.pin.data):
+                return render_template('users/login.html', form=form)
 
+            else:
+                # Log the user in
+                login_user(user)
 
+                # Redirects the user depending on their role
+        return render_template('users/login.html', form=form)
+    else:
+        # Displays error message
+        flash("You are already logged in")
+        return render_template('main/index.html')
