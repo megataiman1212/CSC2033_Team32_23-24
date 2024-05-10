@@ -2,26 +2,28 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Warehouse.db'
+
+#Connect to MySQL
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/Inventory'
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-
 @app.route('/')
 def index():
     return render_template('main/index.html')
+@app.route('/login')
+def login():
+    return render_template('users/login.html')
 
-# import blueprints
-from admin.views import admin_blueprint
-from database.views import database_blueprint
-from users.views import users_blueprint
+@app.route('/database')
+def database():
+    return render_template('database/database.html')
 
-# register blueprints with app
-app.register_blueprint(admin_blueprint)
-app.register_blueprint(database_blueprint)
-app.register_blueprint(users_blueprint)
+@app.route('/admin')
+def admin():
+    return render_template('admin/admin.html')
 
 
 if __name__ == "__main__":

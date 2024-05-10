@@ -1,4 +1,4 @@
-from app import db, app
+from app import db,app
 
 class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
@@ -27,17 +27,9 @@ class Product(db.Model):
         self.category = category
         self.required_level = required_level
 
-    # def add_product(self,product, stock, category, required_level):
-    #     db.session.add(Product(product, stock, category, required_level))
-    #     db.session.commit()
-
-def init_db():
-    with app.app_context():
-        db.drop_all()
-        db.create_all()
-        admin = User(email='admin@email.com', password="admin123!",access_level="admin")
-        db.session.add(admin)
-        db.session.commit()
-
-# Run this to initialise db
-#init_db()
+#Instructions to create db
+#Run docker compose file
+#Run create_db file
+#Run models file
+with app.app_context():
+    db.create_all()

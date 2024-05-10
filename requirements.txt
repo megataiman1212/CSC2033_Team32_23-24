@@ -4,3 +4,8 @@ flask_sqlalchemy
 flask_login
 flask_wtf
 WTForms
+mysql
+pymysql
+cryptography
+mysql-connector-python
+mysql-connector
