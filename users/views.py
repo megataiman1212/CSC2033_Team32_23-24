@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, flash
+from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_user, current_user
 from users.forms import LoginForm
 from models import User
@@ -19,6 +19,7 @@ def login():
             else:
                 # Log the user in
                 login_user(user)
+                return redirect(url_for('admin.admin'))
 
                 # Redirects the user depending on their role
         return render_template('users/login.html', form=form)

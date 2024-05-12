@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
-
+from flask_login import LoginManager
 from users.forms import LoginForm
 
 app = Flask(__name__)
@@ -15,6 +15,16 @@ app.config['SQLALCHEMY_ECHO'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
+
+# Initalise login manager
+login_manager = LoginManager()
+login_manager.login_view = 'users.login'
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
+
 
 @app.route('/')
 def index():
