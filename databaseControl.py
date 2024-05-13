@@ -63,7 +63,7 @@ def add_product(Product, Stock, Category, Required_Level):
     # close connection
 
 #FR10
-def adjust_stock(ProductID, mode)
+def adjust_stock(ProductID, mode):
     # mode is true (increase) or false (decrease)
     # check ProductID is int
     #
@@ -162,7 +162,7 @@ def change_password(ID, CurrentPassword, NewPassword):
     # return true
 
 #FR1,3
-def add_staff(Email, Password, AccessLevel)
+def add_staff(Email, Password, AccessLevel):
     # Check email is string, Access level is bool (1=Admin, 2=Staff)
     # Password should be encrypted by this stage
     #
@@ -180,7 +180,7 @@ def add_staff(Email, Password, AccessLevel)
     # close connection
 
 #FR4
-def delete_staff(UserID);
+def delete_staff(UserID):
     # check UserID is int
     # connect to server
     # create cursor
@@ -210,7 +210,7 @@ def verify_password(UserID, test_password):
     #
     # execute query
     #
-    # close cursur
+    # close cursor
     # close connection
     #
     # return test_password = cursor.password
