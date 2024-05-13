@@ -8,3 +8,4 @@ mysql
 pymysql
 cryptography
 mysql-connector-python
+pytest
