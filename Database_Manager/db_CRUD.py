@@ -1,10 +1,9 @@
-from app import db,app
+from app import db, app
 from models import Product
 from sqlmodel import Session
 from models import Product
 from sqlmodel import Session
 from sqlalchemy import create_engine
-
 
 
 class DB_Manager():
@@ -41,8 +40,6 @@ class DB_Manager():
             raise e
         finally:
             session.close()
-
-
 
     # FR11
     def get_required_stock(self, session: Session):
@@ -87,50 +84,23 @@ class DB_Manager():
     #     # close connection
     #
     # #FR10
-    # def adjust_stock(ProductID, mode)
-    #     # mode is true (increase) or false (decrease)
-    #     # check ProductID is int
-    #     #
-    #     # connect to server
-    #     # create cursor
-    #     #
-    #     # form query
-    #     # from Products get Stock where ID = Product ID
-    #     #
-    #     # if product returned and mode
-    #     # form query
-    #     # update products Stock+1 where ID = Product ID
-    #     #
-    #     # id product returned and !mode and stock!=0
-    #     # form query
-    #     # update products Stock-1 where ID = Product ID
-    #     #
-    #     # execute query
-    #     #
-    #     # commit with cursor
-    #     #
-    #     # close cursor
-    #     # close connection
-    #     # return true if successful
-    #     # return false if not
-    #
+
+    def adjust_stock(self,session, product_id, mode):
+        # need to add type checking
+        product_to_edit = Product.query.get(product_id)
+        if mode:
+            product_to_edit.stock += 1
+        else:
+            product_to_edit.stock -= 1
+        session.commit()
+
+
     # #FR17
-    # def change_order_level(ProductID, NewNumber):
-    #     # check ProductID and NewNumber are ints
-    #     # connect to server
-    #     # create cursor
-    #     #
-    #     # form query
-    #     # update products stock==NewNumber where ProductID = ProductID
-    #     #
-    #     # execute query
-    #     #
-    #     # try commit with cursur
-    #     # else close cursor, connection and return false
-    #     #
-    #     # close cursor
-    #     # close connection
-    #     # return true
+    def change_order_level(self,session, product_id, new_stock):
+        # check ProductID and NewNumber are ints
+        product = Product.query.get(product_id)
+        product.stock = new_stock
+        session.commit()
     #
     # #FR5
     # def delete_product(ProductID):
@@ -238,7 +208,3 @@ class DB_Manager():
     #     # close connection
     #     #
     #     # return test_password = cursor.password
-
-
-
-
