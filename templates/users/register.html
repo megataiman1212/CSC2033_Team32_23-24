@@ -23,22 +23,6 @@
                 </div>
                 <div class="field">
                     <div class="control">
-                        {{ form.firstname(class="input", placeholder="First Name") }}
-                        {% for error in form.firstname.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="control">
-                        {{ form.lastname(class="input", placeholder="Last Name") }}
-                        {% for error in form.lastname.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="control">
                         {{ form.password(class="input", placeholder="Password") }}
                         {% for error in form.password.errors %}
                             {{ error }}
@@ -49,22 +33,6 @@
                     <div class="control">
                         {{ form.confirm_password(class="input", placeholder="Confirm Password") }}
                         {% for error in form.confirm_password.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="control">
-                        {{ form.date_of_birth(class="input", placeholder="Date of Birth") }}
-                        {% for error in form.date_of_birth.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="control">
-                        {{ form.postcode(class="input", placeholder="Postcode") }}
-                        {% for error in form.postcode.errors %}
                             {{ error }}
                         {% endfor %}
                     </div>

@@ -18,10 +18,10 @@
         <div id="navbarMenuHeroA" class="navbar-menu">
             <div class="navbar-end align-items-center">
                 <a href="{{ url_for('index') }}" class="navbar-item btn-link"> Home</a>
-                <a href="{{ url_for('login')}}" class="navbar-item btn-link"> Login</a>
-                <a href="{{ url_for('database')}}" class="navbar-item btn-link" >Database</a>
-                <a href="{{ url_for('admin')}}" class="navbar-item btn-link">Admin</a>
-                <a href="#" class="navbar-item btn-link">Logout</a>
+                <a href="{{ url_for('users.register') }}" class="navbar-item btn-link"> Register</a>
+                <a href="{{ url_for('users.login')}}" class="navbar-item btn-link"> Login</a>
+                <a href="{{ url_for('database.database')}}" class="navbar-item btn-link" >Database</a>
+                <a href="{{ url_for('admin.admin')}}" class="navbar-item btn-link">Admin</a>
             </div>
         </div>
     </nav>
