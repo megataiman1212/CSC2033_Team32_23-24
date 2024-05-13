@@ -5,6 +5,7 @@ from models import User
 
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
 
+
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_anonymous:

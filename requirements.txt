@@ -8,3 +8,5 @@ mysql
 pymysql
 cryptography
 mysql-connector-python
+email_validator
+bcrypt

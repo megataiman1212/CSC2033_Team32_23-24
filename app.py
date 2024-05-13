@@ -4,6 +4,7 @@ from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager
 from users.forms import LoginForm
 
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'SECRETKEY'
 
@@ -21,6 +22,7 @@ login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.init_app(app)
 
+from models import User
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(int(id))
@@ -42,6 +44,14 @@ def database():
 def admin():
     return render_template('admin/admin.html')
 
+
+from users.views import users_blueprint
+from admin.views import admin_blueprint
+from database.views import database_blueprint
+
+app.register_blueprint(users_blueprint)
+app.register_blueprint(admin_blueprint)
+app.register_blueprint((database_blueprint))
 
 if __name__ == "__main__":
     app.run()
