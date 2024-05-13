@@ -1,8 +1,6 @@
 from app import db,app
-from flask_login import UserMixin
-import bcrypt
 
-class User(db.Model, UserMixin):
+class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
 
     email = db.Column(db.String(100), nullable=False, unique=True)
@@ -12,11 +10,8 @@ class User(db.Model, UserMixin):
 
     def __init__(self,email, password, access_level="user"):
         self.email = email
-        self.password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        self.password = password
         self.access_level = access_level
-
-    def verify_password(self, password):
-        return bcrypt.checkpw(password.encode('utf-8'), self.password)
 
 class Product(db.Model):
     product_id = db.Column(db.Integer, primary_key=True)
@@ -41,3 +36,4 @@ with app.app_context():
     db.create_all()
     db.session.add(User(email="admin@admin.com", password="admin123!", access_level="admin"))
     db.session.commit()
+
