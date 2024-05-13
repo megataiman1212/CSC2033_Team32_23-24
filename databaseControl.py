@@ -9,24 +9,16 @@ def get_required_stock():
 
 #FR8
 def get_all_products():
+    # Returns list of all product Objects
     stock = Product.query.all()
     return stock
 
-# #FR15
-# def query_products(SearchString):
-#     # check SearchString is string
-#     #
-#     # connect to server
-#     # create cursor
-#     #
-#     # form query:
-#     # from Products select all ID, name, stock, required level where name contains SearchString
-#     # execute query
-#     #
-#     # create returnable variable (list / 2D array)
-#     # close cursor
-#     # close connection
-#     # return variable
+#FR15
+def query_products(search_string):
+    if not isinstance(search_string, str):
+        raise TypeError("SearchString must be a string")
+    stock = Product.query.filter(search_string in Product.product).all()
+    return stock
 
 #
 # #FR9
