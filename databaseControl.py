@@ -15,10 +15,15 @@ def get_all_products():
 
 #FR15
 def query_products(search_string):
+    # Returns any products that contain the substring search_string not case dependant
     if not isinstance(search_string, str):
         raise TypeError("SearchString must be a string")
-    stock = Product.query.filter(search_string in Product.product).all()
-    return stock
+    stock = Product.query.all()
+    searched_stock = []
+    for i in stock:
+        if search_string.upper() in i.product.upper():
+            searched_stock.append(i)
+    return searched_stock
 
 #
 # #FR9
