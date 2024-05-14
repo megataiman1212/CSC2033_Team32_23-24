@@ -1,6 +1,8 @@
+"""contains models of each table in the database and the method to create them"""
 from app import db,app
 
 class User(db.Model):
+    """User table """
     user_id = db.Column(db.Integer, primary_key=True)
 
     email = db.Column(db.String(100), nullable=False, unique=True)
@@ -27,6 +29,7 @@ class User(db.Model):
         self.access_level = access_level
 
 class Product(db.Model):
+    """Product table"""
     product_id = db.Column(db.Integer, primary_key=True)
 
     product = db.Column(db.String(100))
@@ -66,4 +69,3 @@ with app.app_context():
     db.create_all()
     db.session.add(User(email="admin@admin.com", password="admin123!", access_level="admin"))
     db.session.commit()
-
