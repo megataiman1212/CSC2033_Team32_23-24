@@ -3,7 +3,7 @@ from models import Product, User
 import pytest
 from sqlmodel import Session
 
-from Database_Manager.db_CRUD import DbManager
+from Database_Manager.db_crud import DbManager
 
 # create a product that is in stock
 @pytest.fixture

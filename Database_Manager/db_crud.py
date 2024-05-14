@@ -1,10 +1,9 @@
-
-from models import Product, User
+"""This Module contains all the crud methods"""
 from sqlmodel import Session
 from sqlalchemy import create_engine
-
-
+from models import Product, User
 class DbManager():
+    """Class containing all the crud methods which interact with the database"""
     def __init__(self):
         # Define the database URI
         db_uri = 'mysql+pymysql://root:Team32@localhost/Inventory'
@@ -87,6 +86,15 @@ class DbManager():
     #FR9
     @staticmethod
     def add_product(session, product, stock, category, required_level):
+        """
+        Add a prodcut in the database
+        :param session: current session
+        :param product: string product name
+        :param stock: int stock of product
+        :param category: string either "food" or "hygiene"
+        :param required_level: int required level of stock of product
+        :return:
+        """
         session.add(Product(product, stock, category, required_level))
         session.commit()
 
