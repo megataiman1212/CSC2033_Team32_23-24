@@ -1,9 +1,12 @@
-from models import Product, User
 from sqlmodel import Session
 from sqlalchemy import create_engine
+from models import Product, User
+
 
 class DbManager():
-
+    """
+    Class with all the crud of
+    """
     def __init__(self):
         # Define the database URI
         db_uri = 'mysql+pymysql://root:Team32@localhost/Inventory'
@@ -100,7 +103,7 @@ class DbManager():
         :param product_id: int id of the product to adjust
         :param mode: boolean, true to increase by one false to decrease by one
         """
-        product_to_edit = Product.query.get(product_id)
+        product_to_edit = session.query(Product).get(product_id)
         if mode:
             product_to_edit.stock += 1
         else:
@@ -116,7 +119,7 @@ class DbManager():
         :param product_id: int id of the product to change
         :param new_stock: new stock level of the product
         """
-        product = Product.query.get(product_id)
+        product = session.query(Product).get(product_id)
         product.stock = new_stock
         session.commit()
 
@@ -128,7 +131,7 @@ class DbManager():
         :param session: current session
         :param product_id: id of the product to delete
         """
-        session.delete(Product.query.get(product_id))
+        session.delete(session.query(Product).get(product_id))
         session.commit()
 
     #FR4
@@ -150,7 +153,7 @@ class DbManager():
         :param current_password: string of the current password
         :param new_password: string of the new password
         """
-        user = User.query.get(user_id)
+        user = session.query(User).get(user_id)
         if user.password == current_password:
             user.password = new_password
             session.commit()
@@ -180,17 +183,18 @@ class DbManager():
         :param session: current session
         :param user_id: int id of the staff member to delete
         """
-        session.delete(User.query.get(user_id))
+        session.delete(session.query(User).get(user_id))
         session.commit()
 
     #FR12
     @staticmethod
-    def verify_password(user_id, test_password):
+    def verify_password(session, user_id, test_password):
         """
         Verify the password of a user
+        :param session: current session
         :param user_id: id of the user of password to verify
         :param test_password: password to be verified against the users password
         :return: boolean true if password matches false if not
         """
-        user = User.query.get(user_id)
+        user = session.query(User).get(user_id)
         return user.password == test_password
