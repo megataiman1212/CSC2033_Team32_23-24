@@ -26,6 +26,12 @@ class DbManager():
         session.commit()
 
     @staticmethod
+    def create_user(user, session):
+
+        session.add(user)
+        session.commit()
+
+    @staticmethod
     def delete_all_products(session):
         """
         Delete all products in the database
@@ -53,17 +59,17 @@ class DbManager():
 
     #FR8
     @staticmethod
-    def get_all_products():
+    def get_all_products(session):
         """
         Get all products in the database
         :return: A list of product objects
         """
-        stock = Product.query.all()
+        stock = session.query(Product).all()
         return stock
 
     #FR15
     @staticmethod
-    def query_products(search_string):
+    def query_products(session,search_string):
         """
         Returns any products that contain the substring search_string
         :param search_string: String to search (not case dependant)
@@ -126,12 +132,12 @@ class DbManager():
 
     #FR4
     @staticmethod
-    def get_all_users():
+    def get_all_users(session):
         """
         Get all users in the database
         :return: list of user objects
         """
-        return User.query.all()
+        return session.query(User).all()
 
     #FR2,7
     @staticmethod

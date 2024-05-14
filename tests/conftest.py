@@ -1,5 +1,5 @@
 from app import app
-from models import Product
+from models import Product, User
 import pytest
 from sqlmodel import Session
 
@@ -20,6 +20,15 @@ def unstocked_food_product():
     unstocked_food_product = Product(product="Grapes", stock=5, category="food", required_level=25)
 
     yield unstocked_food_product
+
+@pytest.fixture
+def non_admin_user():
+
+    non_admin_user = User(email= "Test@Test.com", password="password123", access_level="user")
+
+    yield non_admin_user
+
+
 
 @pytest.fixture
 def db_instance(scope="session"):
