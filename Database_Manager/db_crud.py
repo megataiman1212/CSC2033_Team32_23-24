@@ -1,10 +1,9 @@
-
 from models import Product, User
 from sqlmodel import Session
 from sqlalchemy import create_engine
-
-
+"""This Module contains all the crud methods"""
 class DbManager():
+    """Class containing all the crud methods which interact with the database"""
     def __init__(self):
         # Define the database URI
         db_uri = 'mysql+pymysql://root:Team32@localhost/Inventory'
