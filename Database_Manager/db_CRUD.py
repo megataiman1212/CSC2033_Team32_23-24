@@ -1,5 +1,5 @@
 
-from models import Product
+from models import Product, User
 from sqlmodel import Session
 from sqlalchemy import create_engine
 
@@ -31,7 +31,6 @@ class DbManager():
 
     @staticmethod
     def delete_all_products(self, session):
-
         try:
             session.query(Product).delete()
             session.commit()
@@ -68,25 +67,13 @@ class DbManager():
                 searched_stock.append(i)
         return searched_stock
 
-    #
-    # #FR9
-    # def add_product(Product, Stock, Category, Required_Level):
-    #     # check passed datatypes
-    #     #
-    #     # connect to server
-    #     # create cursor
-    #     #
-    #     # create add_product query
-    #     # create data_product list
-    #     # https: // dev.mysql.com / doc / connector - python / en / connector - python - example - cursor - transaction.html
-    #     #
-    #     # execute using cursor
-    #     #
-    #     # commit with connection
-    #     # close cursor
-    #     # close connection
-    #
-    # #FR10
+    #FR9
+    @staticmethod
+    def add_product(session, product, stock, category, required_level):
+        session.add(Product(product, stock, category, required_level))
+        session.commit()
+
+    #FR10
     @staticmethod
     def adjust_stock(session, product_id, mode):
         # need to add type checking
@@ -97,7 +84,6 @@ class DbManager():
             product_to_edit.stock -= 1
         session.commit()
 
-
     #FR17
     @staticmethod
     def change_order_level(self,session, product_id, new_stock):
@@ -107,109 +93,42 @@ class DbManager():
         session.commit()
 
     #FR5
-    # @staticmethod
-    # def delete_product(self,ProductID):
-        # check ProductID is int
-        # connect to server
-        # create cursor
-        #
-        # form query
-        # delete from Product where ID = ProductID
-        #
-        # execute query
-        #
-        # try commit with cursor
-        # else close cursor, connection and return false
-        #
-        # close cursor
-        # close connection
-        # return true
-    #
-    # #FR4
-    # def get_all_users():
-    #     # connect to server
-    #     # create cursor
-    #     #
-    #     # form query:
-    #     # from Users select all ID, Email, access level
-    #     # execute query
-    #     #
-    #     # create returnable variable (list / 2D array)
-    #     # close cursor
-    #     # close connection
-    #     # return variable
-    #
-    # #FR2,7
-    # def change_password(ID, CurrentPassword, NewPassword):
-    #     # (Both passwords should already be encrypted)
-    #     # connect to server
-    #     # create cursor
-    #     #
-    #     # bool = verify_password(ID, CurrentPassword)
-    #     #
-    #     # if !bool
-    #     #    close cursor
-    #     #    close connection
-    #     #    return false
-    #     #
-    #     # form query
-    #     # update products password
-    #     #
-    #     # commit with cursor
-    #     # close cursor
-    #     # close connection
-    #     # return true
-    #
-    # #FR1,3
-    # def add_staff(Email, Password, AccessLevel)
-    #     # Check email is string, Access level is bool (1=Admin, 2=Staff)
-    #     # Password should be encrypted by this stage
-    #     #
-    #     # connect to server
-    #     # create cursor
-    #     #
-    #     # create add_user query (AccessLevel decides admin/staff)
-    #     # create data_user list
-    #     # https: // dev.mysql.com / doc / connector - python / en / connector - python - example - cursor - transaction.html
-    #     #
-    #     # execute using cursor
-    #     #
-    #     # commit with connection
-    #     # close cursor
-    #     # close connection
-    #
-    # #FR4
-    # def delete_staff(UserID);
-    #     # check UserID is int
-    #     # connect to server
-    #     # create cursor
-    #     #
-    #     # form query
-    #     # delete from User where ID = ProductID
-    #     #
-    #     # execute query
-    #     #
-    #     # try commit with cursor
-    #     # else close cursor, connection and return false
-    #     #
-    #     # close cursor
-    #     # close connection
-    #     # return true
-    #
-    # #FR12
-    # def verify_password(UserID, test_password):
-    #     # check UserID is int
-    #     # password should be encrypted
-    #     #
-    #     # connect to server
-    #     # create cursor
-    #     #
-    #     # form query
-    #     # select password from Users where ID = UserID
-    #     #
-    #     # execute query
-    #     #
-    #     # close cursur
-    #     # close connection
-    #     #
-    #     # return test_password = cursor.password
+    @staticmethod
+    def delete_product(session, product_id):
+        session.delete(Product.query.get(product_id))
+        session.commit()
+
+    #FR4
+    @staticmethod
+    def get_all_users():
+        return User.query.all()
+
+    #FR2,7
+    @staticmethod
+    def change_password(session, user_id, current_password, new_password):
+        user = User.query.get(user_id)
+        if user.password == current_password:
+            user.password = new_password
+            session.commit()
+        else:
+            raise ValueError("Password does not match")
+
+    #FR1,3#
+    @staticmethod
+    def add_staff(session, email, password, access_level):
+        if access_level != ("user" or "admin"):
+            raise ValueError("Access level must be user or admin")
+        session.add(User(email, password, access_level))
+        session.commit()
+
+    #FR4
+    @staticmethod
+    def delete_staff(session, user_id):
+        session.delete(User.query.get(user_id))
+        session.commit()
+
+    #FR12
+    @staticmethod
+    def verify_password(user_id, test_password):
+        user = User.query.get(user_id)
+        return user.password == test_password
