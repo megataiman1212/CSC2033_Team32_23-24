@@ -9,3 +9,5 @@ pymysql
 cryptography
 mysql-connector-python
 pytest
+sqlmodel
+sqlalchemy

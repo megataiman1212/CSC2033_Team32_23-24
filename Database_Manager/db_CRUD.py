@@ -1,10 +1,9 @@
-
 from models import Product, User
 from sqlmodel import Session
 from sqlalchemy import create_engine
 
-
 class DbManager():
+
     def __init__(self):
         # Define the database URI
         db_uri = 'mysql+pymysql://root:Team32@localhost/Inventory'
@@ -16,21 +15,22 @@ class DbManager():
     @staticmethod
     def create_product(product: Product, session: Session) -> None:
         """
-        Create a task in the database
+        Create a product in the database
 
-        Args:
-            product (Product): The product to create
-            session (Session): The database session
-
-        Returns:
-            int: The ID of the created task
+        :param product: The product to create
+        :param session: The database session
         """
         # Write to database
         session.add(product)
         session.commit()
 
     @staticmethod
-    def delete_all_products(self, session):
+    def delete_all_products(session):
+        """
+        Delete all products in the database
+
+        :param session: The database session
+        """
         try:
             session.query(Product).delete()
             session.commit()
@@ -42,22 +42,32 @@ class DbManager():
 
     # FR11
     @staticmethod
-    def get_required_stock(session: Session):
-        # Returns list of Product objects
+    def get_required_stock():
+        """
+        Get a list of products with stock below the required stock
+        :return: A list of Product objects
+        """
         stock = Product.query.filter(Product.stock < Product.required_level).all()
         return stock
 
     #FR8
     @staticmethod
     def get_all_products():
-        # Returns list of all product Objects
+        """
+        Get all products in the database
+        :return: A list of product objects
+        """
         stock = Product.query.all()
         return stock
 
     #FR15
     @staticmethod
     def query_products(search_string):
-        # Returns any products that contain the substring search_string not case dependant
+        """
+        Returns any products that contain the substring search_string
+        :param search_string: String to search (not case dependant)
+        :return: list of product objects
+        """
         if not isinstance(search_string, str):
             raise TypeError("SearchString must be a string")
         stock = Product.query.all()
@@ -70,13 +80,26 @@ class DbManager():
     #FR9
     @staticmethod
     def add_product(session, product, stock, category, required_level):
+        """
+        Add a product to the database
+        :param session: current session
+        :param product: string of products name
+        :param stock: int products stock
+        :param category: string either food or hygiene
+        :param required_level: int level of stock required
+        """
         session.add(Product(product, stock, category, required_level))
         session.commit()
 
     #FR10
     @staticmethod
     def adjust_stock(session, product_id, mode):
-        # need to add type checking
+        """
+        Adjust the stock of a product
+        :param session: current session
+        :param product_id: int id of the product to adjust
+        :param mode: boolean, true to increase by one false to decrease by one
+        """
         product_to_edit = Product.query.get(product_id)
         if mode:
             product_to_edit.stock += 1
@@ -86,8 +109,13 @@ class DbManager():
 
     #FR17
     @staticmethod
-    def change_order_level(self,session, product_id, new_stock):
-        # check ProductID and NewNumber are ints
+    def change_stock_level(session, product_id, new_stock):
+        """
+        Change the stock level of a product
+        :param session: current session
+        :param product_id: int id of the product to change
+        :param new_stock: new stock level of the product
+        """
         product = Product.query.get(product_id)
         product.stock = new_stock
         session.commit()
@@ -95,17 +123,33 @@ class DbManager():
     #FR5
     @staticmethod
     def delete_product(session, product_id):
+        """
+        Delete a product from the database
+        :param session: current session
+        :param product_id: id of the product to delete
+        """
         session.delete(Product.query.get(product_id))
         session.commit()
 
     #FR4
     @staticmethod
     def get_all_users():
+        """
+        Get all users in the database
+        :return: list of user objects
+        """
         return User.query.all()
 
     #FR2,7
     @staticmethod
     def change_password(session, user_id, current_password, new_password):
+        """
+        Change the password of a user
+        :param session: current session
+        :param user_id: int id of the user to change password
+        :param current_password: string of the current password
+        :param new_password: string of the new password
+        """
         user = User.query.get(user_id)
         if user.password == current_password:
             user.password = new_password
@@ -116,6 +160,13 @@ class DbManager():
     #FR1,3#
     @staticmethod
     def add_staff(session, email, password, access_level):
+        """
+        Add a staff member to the database
+        :param session: current session
+        :param email: str email of the staff member
+        :param password: str password of the staff member
+        :param access_level: str access level of the staff member either "user" or "admin"
+        """
         if access_level != ("user" or "admin"):
             raise ValueError("Access level must be user or admin")
         session.add(User(email, password, access_level))
@@ -124,11 +175,22 @@ class DbManager():
     #FR4
     @staticmethod
     def delete_staff(session, user_id):
+        """
+        Delete a staff member from the database
+        :param session: current session
+        :param user_id: int id of the staff member to delete
+        """
         session.delete(User.query.get(user_id))
         session.commit()
 
     #FR12
     @staticmethod
     def verify_password(user_id, test_password):
+        """
+        Verify the password of a user
+        :param user_id: id of the user of password to verify
+        :param test_password: password to be verified against the users password
+        :return: boolean true if password matches false if not
+        """
         user = User.query.get(user_id)
         return user.password == test_password
