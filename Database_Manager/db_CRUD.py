@@ -1,12 +1,10 @@
-from app import db, app
-from models import Product
-from sqlmodel import Session
+
 from models import Product
 from sqlmodel import Session
 from sqlalchemy import create_engine
 
 
-class DB_Manager():
+class DbManager():
     def __init__(self):
         # Define the database URI
         db_uri = 'mysql+pymysql://root:Team32@localhost/Inventory'
@@ -15,13 +13,14 @@ class DB_Manager():
         engine = create_engine(db_uri, echo=True)
         self.engine = engine
 
-    def create_product(self, product: Product, session: Session) -> None:
+    @staticmethod
+    def create_product(product: Product, session: Session) -> None:
         """
         Create a task in the database
 
         Args:
             product (Product): The product to create
-            Session (Session): The database session
+            session (Session): The database session
 
         Returns:
             int: The ID of the created task
@@ -30,6 +29,7 @@ class DB_Manager():
         session.add(product)
         session.commit()
 
+    @staticmethod
     def delete_all_products(self, session):
 
         try:
@@ -42,19 +42,22 @@ class DB_Manager():
             session.close()
 
     # FR11
-    def get_required_stock(self, session: Session):
+    @staticmethod
+    def get_required_stock(session: Session):
         # Returns list of Product objects
         stock = Product.query.filter(Product.stock < Product.required_level).all()
         return stock
 
     #FR8
-    def get_all_products(self):
+    @staticmethod
+    def get_all_products():
         # Returns list of all product Objects
         stock = Product.query.all()
         return stock
 
     #FR15
-    def query_products(self, search_string):
+    @staticmethod
+    def query_products(search_string):
         # Returns any products that contain the substring search_string not case dependant
         if not isinstance(search_string, str):
             raise TypeError("SearchString must be a string")
@@ -84,8 +87,8 @@ class DB_Manager():
     #     # close connection
     #
     # #FR10
-
-    def adjust_stock(self,session, product_id, mode):
+    @staticmethod
+    def adjust_stock(session, product_id, mode):
         # need to add type checking
         product_to_edit = Product.query.get(product_id)
         if mode:
@@ -95,30 +98,32 @@ class DB_Manager():
         session.commit()
 
 
-    # #FR17
+    #FR17
+    @staticmethod
     def change_order_level(self,session, product_id, new_stock):
         # check ProductID and NewNumber are ints
         product = Product.query.get(product_id)
         product.stock = new_stock
         session.commit()
-    #
-    # #FR5
-    # def delete_product(ProductID):
-    #     # check ProductID is int
-    #     # connect to server
-    #     # create cursor
-    #     #
-    #     # form query
-    #     # delete from Product where ID = ProductID
-    #     #
-    #     # execute query
-    #     #
-    #     # try commit with cursor
-    #     # else close cursor, connection and return false
-    #     #
-    #     # close cursor
-    #     # close connection
-    #     # return true
+
+    #FR5
+    # @staticmethod
+    # def delete_product(self,ProductID):
+        # check ProductID is int
+        # connect to server
+        # create cursor
+        #
+        # form query
+        # delete from Product where ID = ProductID
+        #
+        # execute query
+        #
+        # try commit with cursor
+        # else close cursor, connection and return false
+        #
+        # close cursor
+        # close connection
+        # return true
     #
     # #FR4
     # def get_all_users():
