@@ -7,7 +7,7 @@ def add_products(db_instance_empty, session,stocked_food_product, unstocked_food
 def test_get_required_stock(db_instance_empty, session, stocked_food_product, unstocked_food_product):
 
     add_products(db_instance_empty, session, stocked_food_product, unstocked_food_product)
-    test_stock = db_instance_empty.get_required_stock(session= session)
+    test_stock = db_instance_empty.get_required_stock()
 
     #check list is only one item (as only one fits paramater
     assert len(test_stock) == 1
@@ -16,7 +16,7 @@ def test_get_required_stock(db_instance_empty, session, stocked_food_product, un
 def test_get_all_product(db_instance_empty, session, stocked_food_product, unstocked_food_product):
     add_products(db_instance_empty, session, stocked_food_product, unstocked_food_product)
 
-    test_product = db_instance_empty.get_all_products(session=session)
+    test_product = db_instance_empty.get_all_products()
 
     #checls list is length 2 and has both products
     assert len(test_product) == 2
@@ -57,11 +57,11 @@ def test_adjust_stock(db_instance_empty, session, stocked_food_product, unstocke
     assert decrease_stock[0].stock == (unstocked_food_product.stock - 1)
 
 
-def test_change_order_level(db_instance_empty, session, stocked_food_product, unstocked_food_product):
+def test_change_stock_level(db_instance_empty, session, stocked_food_product, unstocked_food_product):
     add_products(db_instance_empty, session, stocked_food_product, unstocked_food_product)
 
     # Change order level
-    db_instance_empty.change_order_level(session=session, product_id=stocked_food_product.product_id, new_stock=100)
+    db_instance_empty.change_stock_level(session=session, product_id=stocked_food_product.product_id, new_stock=100)
 
     # searches for stocks
     change_stock = db_instance_empty.query_products(search_string=stocked_food_product.product)
