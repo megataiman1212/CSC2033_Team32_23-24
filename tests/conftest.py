@@ -3,7 +3,7 @@ from models import Product
 import pytest
 from sqlmodel import Session
 
-from Database_Manager.db_CRUD import DB_Manager
+from Database_Manager.db_CRUD import DbManager
 
 # create a product that is in stock
 @pytest.fixture
@@ -23,7 +23,7 @@ def unstocked_food_product():
 
 @pytest.fixture
 def db_instance(scope="session"):
-    db = DB_Manager()
+    db = DbManager()
     #Create a DB Instance
     yield db
 
@@ -43,11 +43,11 @@ def db_instance_empty(db_instance, session):
 
     # Create a fresh database
 
-    db_instance.delete_all_products(session)
+    db_instance.delete_all_products(session=session)
 
     yield db_instance
 
-    db_instance.delete_all_products(session)
+    db_instance.delete_all_products(session=session)
 
 
 

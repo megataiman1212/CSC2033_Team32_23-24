@@ -1,12 +1,10 @@
+
+from models import Product, User
 from sqlmodel import Session
 from sqlalchemy import create_engine
-from models import Product, User
 
 
 class DbManager():
-    """
-    Class with all the crud of
-    """
     def __init__(self):
         # Define the database URI
         db_uri = 'mysql+pymysql://root:Team32@localhost/Inventory'
@@ -83,14 +81,6 @@ class DbManager():
     #FR9
     @staticmethod
     def add_product(session, product, stock, category, required_level):
-        """
-        Add a product to the database
-        :param session: current session
-        :param product: string of products name
-        :param stock: int products stock
-        :param category: string either food or hygiene
-        :param required_level: int level of stock required
-        """
         session.add(Product(product, stock, category, required_level))
         session.commit()
 

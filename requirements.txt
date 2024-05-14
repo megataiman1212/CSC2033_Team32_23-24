@@ -11,3 +11,5 @@ mysql-connector-python
 pytest
 sqlmodel
 sqlalchemy
+sqlmodel
+sqlalchemy
