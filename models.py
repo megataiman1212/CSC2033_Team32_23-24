@@ -2,15 +2,14 @@ from app import db, app
 from flask_login import UserMixin
 
 class User(db.Model, UserMixin):
-    user_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable=False)
 
     access_level = db.Column(db.String(100), nullable=False)
 
-    def __init__(self, user_id, email, password, access_level="user"):
-        self.user_id = user_id
+    def __init__(self, email, password, access_level="user"):
         self.email = email
         self.password = password
         self.access_level = access_level
@@ -39,6 +38,6 @@ class Product(db.Model):
 with app.app_context():
     db.drop_all()
     db.create_all()
-    db.session.add(User(user_id=1, email="admin@admin.com", password="admin123!", access_level="admin"))
+    db.session.add(User(email="admin@admin.com", password="admin123!", access_level="admin"))
     db.session.commit()
 

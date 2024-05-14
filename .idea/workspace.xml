@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="723c5178-0763-46e4-8616-c91ceb95d5c7" name="Changes" comment="" />
+    <list default="true" id="723c5178-0763-46e4-8616-c91ceb95d5c7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/models.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,6 +43,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -83,7 +87,7 @@
       <recent name="C:\Users\danie\Desktop\Uni\stage_two\csc2033\CSC2033_Team32_23-24" />
     </key>
   </component>
-  <component name="RunManager" selected="Flask server.Flask">
+  <component name="RunManager" selected="Flask server.CSC2033_Team32_23-24e">
     <configuration name="CSC2033_Team32_23-24e" type="Python.FlaskServer">
       <module name="CSC2033_Team32_23-24e" />
       <option name="target" value="$PROJECT_DIR$/app.py" />
@@ -195,7 +199,7 @@
       <workItem from="1715596340805" duration="6347000" />
       <workItem from="1715619385478" duration="1845000" />
       <workItem from="1715646801952" duration="440000" />
-      <workItem from="1715680182148" duration="1848000" />
+      <workItem from="1715680182148" duration="4245000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -293,7 +297,23 @@
       <option name="project" value="LOCAL" />
       <updated>1715682019983</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Implemented logout features">
+      <option name="closed" value="true" />
+      <created>1715682135748</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1715682135748</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Update">
+      <option name="closed" value="true" />
+      <created>1715682210656</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1715682210656</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -339,14 +359,15 @@
     <MESSAGE value="Merged master and front end" />
     <MESSAGE value="Implemented the basic functions of register" />
     <MESSAGE value="Implemented logout features" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented logout features" />
+    <MESSAGE value="Update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CSC2033_Team32_23_24$models.coverage" NAME="models Coverage Results" MODIFIED="1715681271073" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CSC2033_Team32_23_24$create_db.coverage" NAME="create_db Coverage Results" MODIFIED="1715602951070" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CSC2033_Team32_23_24$views.coverage" NAME="views Coverage Results" MODIFIED="1715342406241" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/users" />
-    <SUITE FILE_PATH="coverage/CSC2033_Team32_23_24$CSC2033_Team32_23_24e.coverage" NAME="CSC2033_Team32_23-24e Coverage Results" MODIFIED="1715681212095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/CSC2033_Team32_23_24$CSC2033_Team32_23_24e.coverage" NAME="CSC2033_Team32_23-24e Coverage Results" MODIFIED="1715684090533" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/CSC2033_Team32_23_24$app.coverage" NAME="app Coverage Results" MODIFIED="1715032656262" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/CSC2033_Team32_23_24$Flask.coverage" NAME="Flask Coverage Results" MODIFIED="1715681887215" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/CSC2033_Team32_23_24$Flask.coverage" NAME="Flask Coverage Results" MODIFIED="1715682871080" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
