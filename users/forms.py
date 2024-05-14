@@ -96,7 +96,6 @@ class LoginForm(FlaskForm):
 
 class RegisterForm(FlaskForm):
     email = EmailField(validators=[Email(),DataRequired()])
-    phone = StringField(validators=[DataRequired()])
     password = PasswordField(validators=[Length(min=6, message = "Length of password must be a minimum of 6 characters."), DataRequired()])
     confirm_password = PasswordField(validators=[EqualTo('password', message="The confirm password does not match."),DataRequired()])
     submit = SubmitField()

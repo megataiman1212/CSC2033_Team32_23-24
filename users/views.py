@@ -56,5 +56,11 @@ def register():
         # add the new user to the database
         db.session.add(new_user)
         db.session.commit()
+        return redirect(url_for('users.login'))
 
     return render_template('users/register.html', form=form)
+
+@users_blueprint.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
