@@ -1,5 +1,88 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+
+<!-- Header -->
 
 {% block content %}
-    <h1>{% block title %} Admin {% endblock %}</h1>
+<script type="text/javascript" src="{{ url_for('static', filename='rng.js') }}"></script>
+<h3 class="title is-3">Admin</h3>
+<h4 class="subtitle is-4">
+    Welcome, {{ name }}
+</h4>
+
+<!-- View User Information -->
+<div class="column is-10 is-offset-1">
+    <h4 class="title is-4">Users Information</h4>
+    <div class="box">
+        {% if current_users %}
+            <div class="field">
+                <table class="table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Access Level</th>
+                    </tr>
+                    {% for user in current_users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.access_level }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endif %}
+        <form action="/view_all_users">
+            <div>
+                <button class="button is-info is-centered">View All Users</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- End of User Information -->
+
+<!-- Register New Admin Button -->
+<!-- ToDo: Add 'admin.register_admin' page (page to register new admins) -->
+<div class="column is-8 is-offset-2 " id="register-admin">
+    <h4 class="title is-4">Register New Admin</h4>
+    <div class="box">
+        <a href="{{ url_for('admin.register_admin') }}" class="button is-info is-centred">Register New Admin</a>
+    </div>
+</div>
+
+<!-- View Stock Information -->
+<div class="column is-8 is-offset-2">
+    <h4 class="title is-4">Stocks Information</h4>
+    <div class="box">
+        {% if current_product %}
+            <div class="field">
+                <table class="table">
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Product</th>
+                        <th>Stock</th>
+                        <th>Category</th>
+                        <th>Required Level</th>
+                    </tr>
+                    {% for product in current_product %}
+                        <tr>
+                            <td>{{ product.product_id }}</td>
+                            <td>{{ product.product }}</td>
+                            <td>{{ product.stock }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.required_level }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endif %}
+        <form action="/view_stock_information">
+            <div>
+                <button id="viewStockInformation" class="button is-info is-centered">View Stock Information</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 {% endblock %}
+<!-- End of View Stock Information-->
+

@@ -28,6 +28,9 @@ class User(db.Model):
         self.password = password
         self.access_level = access_level
 
+    def get_id(self):
+        return self.user_id
+
 class Product(db.Model):
     """Product table"""
     product_id = db.Column(db.Integer, primary_key=True)
@@ -69,3 +72,4 @@ with app.app_context():
     db.create_all()
     db.session.add(User(email="admin@admin.com", password="admin123!", access_level="admin"))
     db.session.commit()
+
