@@ -28,3 +28,26 @@ def login():
         # Displays error message
         flash("You are already logged in")
         return render_template('main/index.html')
+
+
+@users_blueprint.route('/change_password', methods=['GET', 'POST'])
+def change_password():
+    # create password form object
+    form = PasswordForm()
+
+    if form.validate_on_submit():
+        # if current password match with the password in the database
+        # if new password not same as current password in the database
+
+        if current_user.password == form.current_password.data and form.new_password.data != current_user.password:
+            # update the password and commit in the database
+            current_user.password = form.new_password.data
+            db.session.commit()
+            flash('Password changed successfully', 'success')
+
+        else:
+            # password is not changed
+            flash('Password is not changed successfully.Please try again')
+
+
+    return render_template('users/update_password.html', form=form)
