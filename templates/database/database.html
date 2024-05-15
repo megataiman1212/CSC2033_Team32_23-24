@@ -4,7 +4,8 @@
 
     <div class="column is-6 is-offset-3">
         <h1>{% block title %} Database {% endblock %}</h1>
-        <table class="table" cellpadding="4">
+        <input type="text" class="input" placeholder="Search" name="search_string" hx-get="/query" hx-trigger="keyup changed delay:500ms" hx-target="#results">
+        <table class="table-is-full-width">
             <tbody>
                 <tr>
                     <th>Product Name</th>
@@ -14,16 +15,8 @@
                     <th>Reorder Level</th>
                     <th>Category</th>
                 </tr>
-            <!--{% for product in products %}
-                <tr>
-                    <td>product.product</td>
-                    <td><a class="navbar-item" href="{{ url_for('database.addstock', id=product.id) }}">+</a></td>
-                    <td>product.stock</td>
-                    <td><a class="navbar-item" href="{{ url_for('database.removestock', id=product.id) }}">-</a></td>
-                    <td>product.required_level</td>
-                    <td>product.category</td>
-                </tr>
-            {% endfor %}-->
+            </tbody>
+            <tbody id="results">
             </tbody>
         </table>
     </div>
