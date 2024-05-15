@@ -5,23 +5,33 @@ import databaseControl
 database_blueprint = Blueprint('database', __name__, template_folder='templates')
 
 
-@database_blueprint.route('/database', methods=['GET', 'POST'])
+@database_blueprint.route('/database')
 def database():
-    products = databaseControl.get_all_products()
-
-    return render_template('database/database.html', products=products)
+    return render_template("database/database.html")
 
 
-@database_blueprint.route('/database.query', methods=['GET', 'POST'])
+@database_blueprint.route('/query')
 def query():
-    form = SearchForm()
+    search_string = request.args.get("search_string")
 
-    if form.validate_on_submit():
-        search_string = form.search.data
+    if search_string:
+        results = databaseControl.query_products(search_string)
+    else:
 
-        products = databaseControl.query_products(search_string)
+        results = []
 
-        render_template('database/database.html', products=products)
+    return render_template("database/query_results.html", results=results)
 
-    # if string is invalid, full table is displayed
-    return database()
+
+@database_blueprint.route('/<int:product_id>/<int:mode>/adjust_stock')
+def adjust_stock(product_id, mode):
+    databaseControl.adjust_stock(product_id, mode)
+    search_string = request.args.get("search_string")
+
+    if search_string:
+        results = databaseControl.query_products(search_string)
+    else:
+
+        results = []
+
+    return render_template("database/database.html", results=results)

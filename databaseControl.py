@@ -1,8 +1,11 @@
 # Used below as reference for whats possible
 # https://dev.mysql.com/doc/connector-python/en/connector-python-example-cursor-select.html
 
+from models import Product
+
 # FR11
 def get_required_stock():
+    pass
     # connect to server
     # create cursor
     #
@@ -17,6 +20,7 @@ def get_required_stock():
 
 #FR8
 def get_all_products():
+    pass
     # connect to server
     # create cursor
     #
@@ -29,24 +33,19 @@ def get_all_products():
     # close connection
     # return variable
 
+
 #FR15
 def query_products(SearchString):
-    # check SearchString is string
-    #
-    # connect to server
-    # create cursor
-    #
-    # form query:
-    # from Products select all ID, name, stock, required level where name contains SearchString
-    # execute query
-    #
-    # create returnable variable (list / 2D array)
-    # close cursor
-    # close connection
-    # return variable
+    results = Product.query.filter(Product.product.icontains(SearchString))\
+        .order_by(Product.product.asc())
+    print(results)
+
+    return results
+
 
 #FR9
 def add_product(Product, Stock, Category, Required_Level):
+    pass
     # check passed datatypes
     #
     # connect to server
@@ -62,36 +61,16 @@ def add_product(Product, Stock, Category, Required_Level):
     # close cursor
     # close connection
 
+
 #FR10
-def adjust_stock(ProductID, mode):
-    # mode is true (increase) or false (decrease)
-    # check ProductID is int
-    #
-    # connect to server
-    # create cursor
-    #
-    # form query
-    # from Products get Stock where ID = Product ID
-    #
-    # if product returned and mode
-    # form query
-    # update products Stock+1 where ID = Product ID
-    #
-    # id product returned and !mode and stock!=0
-    # form query
-    # update products Stock-1 where ID = Product ID
-    #
-    # execute query
-    #
-    # commit with cursor
-    #
-    # close cursor
-    # close connection
-    # return true if successful
-    # return false if not
+def adjust_stock(product_id, mode):
+    pass
+    # mode is 0 (increase) or 1 (decrease)
+    # check id and mode are int
 
 #FR17
 def change_order_level(ProductID, NewNumber):
+    pass
     # check ProductID and NewNumber are ints
     # connect to server
     # create cursor
@@ -110,6 +89,7 @@ def change_order_level(ProductID, NewNumber):
 
 #FR5
 def delete_product(ProductID):
+    pass
     # check ProductID is int
     # connect to server
     # create cursor
@@ -128,6 +108,7 @@ def delete_product(ProductID):
 
 #FR4
 def get_all_users():
+    pass
     # connect to server
     # create cursor
     #
@@ -142,6 +123,7 @@ def get_all_users():
 
 #FR2,7
 def change_password(ID, CurrentPassword, NewPassword):
+    pass
     # (Both passwords should already be encrypted)
     # connect to server
     # create cursor
@@ -163,6 +145,7 @@ def change_password(ID, CurrentPassword, NewPassword):
 
 #FR1,3
 def add_staff(Email, Password, AccessLevel):
+    pass
     # Check email is string, Access level is bool (1=Admin, 2=Staff)
     # Password should be encrypted by this stage
     #
@@ -181,6 +164,7 @@ def add_staff(Email, Password, AccessLevel):
 
 #FR4
 def delete_staff(UserID):
+    pass
     # check UserID is int
     # connect to server
     # create cursor
@@ -199,6 +183,7 @@ def delete_staff(UserID):
 
 #FR12
 def verify_password(UserID, test_password):
+    pass
     # check UserID is int
     # password should be encrypted
     #
