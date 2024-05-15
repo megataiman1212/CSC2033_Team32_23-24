@@ -6,6 +6,7 @@ from sqlmodel import Session
 from Database_Manager.db_crud import DbManager
 
 # create a product that is in stock
+
 @pytest.fixture
 def stocked_food_product():
 
@@ -13,7 +14,7 @@ def stocked_food_product():
     stocked_food_product = Product(product="Beans", stock=50, category="food", required_level=30)
     yield stocked_food_product
 
-#create a product that is not in stock
+# create a product that is not in stock
 @pytest.fixture
 def unstocked_food_product():
 

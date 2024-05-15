@@ -107,11 +107,12 @@ class DbManager():
         :param product_id: int id of the product to adjust
         :param mode: boolean, true to increase by one false to decrease by one
         """
-        product_to_edit = Product.query.get(product_id)
+        product_to_edit = session.query(Product).get(product_id)
         if mode:
             product_to_edit.stock += 1
         else:
             product_to_edit.stock -= 1
+
         session.commit()
 
     #FR17

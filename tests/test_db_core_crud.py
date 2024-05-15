@@ -1,18 +1,19 @@
-def add_products(db_instance_empty, session,stocked_food_product, unstocked_food_product):
+def add_products(db_instance_empty, session, stocked_food_product, unstocked_food_product):
 
     # Adds the two pre-made products to a temporary session in the db
     db_instance_empty.create_product(product=stocked_food_product, session=session)
     db_instance_empty.create_product(product=unstocked_food_product, session=session)
 
-
-def test_get_required_stock(db_instance_empty, session, stocked_food_product, unstocked_food_product):
+def test_get_required_stock(db_instance_empty, session,
+                            stocked_food_product, unstocked_food_product):
 
     add_products(db_instance_empty, session, stocked_food_product, unstocked_food_product)
     test_stock = db_instance_empty.get_required_stock()
 
-    # Check list is only one item (as only one fits paramater
+    # Check list is only one item (as only one fits parameter)
     assert len(test_stock) == 1
     assert test_stock[0].product == unstocked_food_product.product
+
 
 def test_get_all_product(db_instance_empty, session, stocked_food_product, unstocked_food_product):
     add_products(db_instance_empty, session, stocked_food_product, unstocked_food_product)
@@ -31,8 +32,10 @@ def test_query_products(db_instance_empty, session, stocked_food_product, unstoc
     add_products(db_instance_empty, session, stocked_food_product, unstocked_food_product)
 
     # Runs the query_product function and stores result in a list
-    test_stocked_food_product = db_instance_empty.query_products(session=session, search_string=stocked_food_product.product)
-    test_unstocked_food_product = db_instance_empty.query_products(session=session,search_string=unstocked_food_product.product)
+    test_stocked_food_product = db_instance_empty.query_products(session=session,
+                                                                 search_string=stocked_food_product.product)
+    test_unstocked_food_product = db_instance_empty.query_products(session=session,
+                                                                   search_string=unstocked_food_product.product)
 
     # Checks the found items match the added items (probably only need to check one
     assert test_stocked_food_product[0].stock == stocked_food_product.stock
@@ -46,6 +49,11 @@ def test_query_products(db_instance_empty, session, stocked_food_product, unstoc
 def test_adjust_stock(db_instance_empty, session, stocked_food_product, unstocked_food_product):
     add_products(db_instance_empty, session, stocked_food_product, unstocked_food_product)
 
+    # get original stock
+    pre_unstocked_stock = unstocked_food_product.stock
+    pre_stocked_stock = stocked_food_product.stock
+
+
     # increase stock
     db_instance_empty.adjust_stock(session=session, product_id=stocked_food_product.product_id, mode=True)
     db_instance_empty.adjust_stock(session=session, product_id=unstocked_food_product.product_id, mode=False)
@@ -55,8 +63,8 @@ def test_adjust_stock(db_instance_empty, session, stocked_food_product, unstocke
     decrease_stock = db_instance_empty.query_products(session=session, search_string=unstocked_food_product.product)
 
     # check increased has increased stock by one
-    assert increase_stock[0].stock == (stocked_food_product.stock + 1)
-    assert decrease_stock[0].stock == (unstocked_food_product.stock - 1)
+    assert increase_stock[0].stock == (pre_stocked_stock + 1)
+    assert decrease_stock[0].stock == (pre_unstocked_stock - 1)
 
 
 def test_change_stock_level(db_instance_empty, session, stocked_food_product, unstocked_food_product):
@@ -66,8 +74,8 @@ def test_change_stock_level(db_instance_empty, session, stocked_food_product, un
     db_instance_empty.change_stock_level(session=session, product_id=stocked_food_product.product_id, new_stock=100)
 
     # searches for stocks
-    change_stock = db_instance_empty.query_products(session=session,search_string=stocked_food_product.product)
-    same_stock = db_instance_empty.query_products(session=session,search_string=unstocked_food_product.product)
+    change_stock = db_instance_empty.query_products(session=session, search_string=stocked_food_product.product)
+    same_stock = db_instance_empty.query_products(session=session, search_string=unstocked_food_product.product)
 
     # Check order level as changed
     assert change_stock[0].stock == 100
@@ -90,11 +98,21 @@ def test_delete_product(db_instance_empty, session, stocked_food_product, unstoc
     assert len(post_deletion) == (pre_deletion - 1)
     assert post_deletion[0].product == unstocked_food_product.product
 
+
 def test_get_all_users(db_instance_empty, session, non_admin_user):
     db_instance_empty.create_user(user=non_admin_user, session=session)
 
-    #Get all users
+    # Get all users
     all_users = db_instance_empty.get_all_users(session)
 
     # Test all users are gathered
     assert len(all_users) == 2
+
+
+# def test_change_password(db_instance_empty, session, non_admin_user):
+#     db_instance_empty.create_user(user=non_admin_user, session=session)
+#
+#     db_instance_empty.change_password(session=session, user_id=non_admin_user.user_id, current_password=non_admin_user.password, new_password="Change123")
+#
+#     updated_user =
+
