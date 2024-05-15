@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_user, current_user, login_required, logout_user
-from users.forms import LoginForm, RegisterForm
+from users.forms import LoginForm, RegisterForm, UpdatePasswordForm
 from models import User
 from app import db
 
@@ -51,7 +51,7 @@ def register():
         # create a new user with the form data
         new_user = User(email=form.email.data,
                         password=form.password.data,
-                        access_level='user')
+                        access_level='staff')
 
         # add the new user to the database
         db.session.add(new_user)
@@ -64,3 +64,21 @@ def register():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+@users_blueprint.route('/update_password', methods=['GET', 'POST'])
+def update_password():
+    form = UpdatePasswordForm()
+    # validate submitted ChangePasswordForm
+    if form.validate_on_submit():
+        if current_user.password != form.current_password.data:
+            flash('Incorrect current password.')
+            return render_template('users/update_password.html', form=form)
+        if current_user.password == form.new_password.data:
+            flash('New password must be different from the current password.')
+            return render_template('users/update_password.html', form=form)
+        current_user.password = form.new_password.data
+        db.session.commit()
+        flash('Password has been changed successfully.')
+        return redirect(url_for('users.account'))
+
+    return render_template('users/update_password.html', form=form)
