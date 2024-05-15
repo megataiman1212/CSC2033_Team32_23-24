@@ -5,6 +5,7 @@ from flask_login import LoginManager
 from users.forms import LoginForm
 
 
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'SECRETKEY'
 
