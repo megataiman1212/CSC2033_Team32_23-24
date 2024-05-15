@@ -38,26 +38,26 @@ def db_instance(scope="session"):
     yield db
 
 
-@pytest.fixture
-def session(db_instance, scope="session"):
-
-    # Create a session,close after test session, uses 'db_instance' fixture
-    with app.app_context():
-        session = Session(db_instance.engine)
-        yield session
-        session.close()
-
-
 @pytest.fixture(scope="function")
-def db_instance_empty(db_instance, session):
+def db_instance_empty(db_instance):
 
     # Create a fresh database
 
-    db_instance.delete_all_products(session=session)
+    db_instance.delete_all_products()
 
     yield db_instance
 
-    db_instance.delete_all_products(session=session)
+    db_instance.delete_all_products()
+
+
+# @pytest.fixture
+# def session(db_instance, scope="session"):
+#
+#     # Create a session,close after test session, uses 'db_instance' fixture
+#     with app.app_context():
+#         session = Session(db_instance.engine)
+#         yield session
+#         session.close()
 
 
 
