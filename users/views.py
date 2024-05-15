@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, login_required
 from users.forms import LoginForm
 from models import User
 
@@ -14,8 +14,10 @@ def login():
             user = User.query.filter_by(email=form.email.data).first()
 
             # Checks the users credentials
-            if not user or not user.verify_password(form.password.data):
+            if not user or not user.password:
+                flash("Invalid login")
                 return render_template('users/login.html', form=form)
+
 
             else:
                 # Log the user in
@@ -23,7 +25,7 @@ def login():
                 return redirect(url_for('admin.admin'))
 
                 # Redirects the user depending on their role
-        return render_template('users/login.html', form=form)
+        #return render_template('users/login.html', form=form)
     else:
         # Displays error message
         flash("You are already logged in")
