@@ -18,11 +18,19 @@
         <div id="navbarMenuHeroA" class="navbar-menu">
             <div class="navbar-end align-items-center">
                 <a href="{{ url_for('index') }}" class="navbar-item btn-link"> Home</a>
-                <a href="{{ url_for('users.register') }}" class="navbar-item btn-link"> Register</a>
+                {% if current_user.access_level == 'admin' %}
+                    <a href="{{ url_for('users.register') }}" class="navbar-item btn-link"> Register</a>
+                {% endif %}
                 <a href="{{ url_for('users.login')}}" class="navbar-item btn-link"> Login</a>
-                <a href="{{ url_for('database.database')}}" class="navbar-item btn-link" >Database</a>
-                <a href="{{ url_for('admin.admin')}}" class="navbar-item btn-link">Admin</a>
-                <a href="{{ url_for('users.logout')}}" class="navbar-item btn-link">Logout</a>
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('database.database')}}" class="navbar-item btn-link" >Database</a>
+                {% endif %}
+                {% if current_user.role == 'admin' %}
+                    <a href="{{ url_for('admin.admin')}}" class="navbar-item btn-link">Admin</a>
+                {% endif %}
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('users.logout')}}" class="navbar-item btn-link">Logout</a>
+                {% endif %}
             </div>
         </div>
     </nav>
