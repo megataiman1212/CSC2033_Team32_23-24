@@ -18,19 +18,23 @@ def login():
             if not user or not user.password:
                 flash("Invalid login")
                 return render_template('users/login.html', form=form)
-
-
             else:
                 # Log the user in
                 login_user(user)
-                return redirect(url_for('admin.admin'))
-
-                # Redirects the user depending on their role
-        #return render_template('users/login.html', form=form)
+                # Redirect based on user role
+                if current_user.access_level == 'staff':
+                    return redirect(url_for('users.account'))
+                elif current_user.access_level == 'admin':
+                    return redirect(url_for('admin.admin'))
+                else:
+                    # Redirect to a default page if user role is not defined
+                    return redirect(url_for('main.index'))
+            # Add a return statement here to handle the case when form is not submitted
+        return render_template('users/login.html', form=form)
     else:
         # Displays error message
-        flash("You are already logged in")
-        return render_template('main/index.html')
+        flash("You are already logged in.")
+        return redirect(url_for('main.index'))
 
 @users_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
