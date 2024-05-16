@@ -37,7 +37,10 @@ def login():
         return redirect(url_for('main.index'))
 
 @users_blueprint.route('/register', methods=['GET', 'POST'])
-def register():
+def register_staff():
+    if current_user.access_level != 'admin':
+        flash("You do not have permission to register a new staff!")
+        return(redirect(url_for('admin.admin')))
     # create signup form object
     form = RegisterForm()
 
@@ -49,7 +52,7 @@ def register():
         # if email already exists redirect user back to signup page with error message so user can try again
         if user:
             flash('Email address already exists')
-            return render_template('users/register.html', form=form)
+            return render_template('users/register_staff.html', form=form)
 
 
         # create a new user with the form data
@@ -62,7 +65,7 @@ def register():
         db.session.commit()
         return redirect(url_for('users.login'))
 
-    return render_template('users/register.html', form=form)
+    return render_template('users/register_staff.html', form=form)
 
 @users_blueprint.route('/logout')
 def logout():

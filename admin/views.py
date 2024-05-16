@@ -24,7 +24,7 @@ def register_admin():
         # if the email already exists, redirect to sign up page with error message so user can try again
         if user:
             flash("Email address already exists")
-            return render_template('users/register.html', form=form)
+            return render_template('users/register_admin.html', form=form)
 
         # create a new admin
         new_admin = User(email=form.email.data,
@@ -39,4 +39,4 @@ def register_admin():
         flash("New admin user has been registered succesfully.")
         return redirect(url_for('admin.admin'))
 
-    return render_template('users/register.html', form=form)
+    return render_template('users/register_staff.html', form=form)
