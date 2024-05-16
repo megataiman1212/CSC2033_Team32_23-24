@@ -82,3 +82,11 @@ def update_password():
         return redirect(url_for('users.account'))
 
     return render_template('users/update_password.html', form=form)
+
+@users_blueprint.route('/account')
+@login_required
+def account():
+    return render_template('users/account.html',
+                           user_id=current_user.user_id,
+                           email=current_user.email,
+                           access_level=current_user.access_level)
