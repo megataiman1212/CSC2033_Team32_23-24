@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import request
 from Database_Manager.db_crud import DbManager
 from flask import Blueprint, render_template
-from flask_login import login_required, current_user
+from flask_login import login_required
 
 database_blueprint = Blueprint('database', __name__, template_folder='templates')
 
@@ -13,6 +13,7 @@ def database():
 
 
 @database_blueprint.route('/query', methods=['GET', 'POST'])
+@login_required
 def query():
     search_string = request.args.get("search_string")
 
@@ -26,6 +27,7 @@ def query():
 
 
 @database_blueprint.route('/<int:product_id>/<int:mode>/adjust_stock', methods=['GET', 'POST'])
+@login_required
 def adjust_stock(product_id, mode):
     DbManager.adjust_stock(product_id, mode)
     search_string = request.args.get("search_string")

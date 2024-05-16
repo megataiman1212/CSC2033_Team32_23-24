@@ -8,11 +8,13 @@ admin_blueprint = Blueprint('admin', __name__, template_folder='templates')
 
 
 @admin_blueprint.route('/admin', methods=['GET', 'POST'])
+@login_required
 def admin():
     return render_template('admin/admin.html')
 
 
 @admin_blueprint.route('/add_admin', methods=['GET', 'POST'])
+@login_required
 def add_admin():
     form = RegisterForm
     if form.validate_on_submit():
@@ -22,6 +24,7 @@ def add_admin():
 
 
 @admin_blueprint.route('/add_staff', methods=['GET', 'POST'])
+@login_required
 def add_staff():
     form = RegisterForm
     if form.validate_on_submit():
@@ -31,6 +34,7 @@ def add_staff():
 
 
 @admin_blueprint.route('/delete_staff', methods=['POST'])
+@login_required
 def delete_staff():
 
     DbManager.delete_staff()
@@ -39,6 +43,7 @@ def delete_staff():
 
 
 @admin_blueprint.route('/get_staff_account', methods=['POST'])
+@login_required
 def get_staff_account():
     accounts = DbManager.get_all_users()
 
