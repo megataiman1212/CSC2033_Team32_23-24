@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_user, current_user, login_required, logout_user
+
+from Database_Manager.db_crud import DbManager
 from users.forms import LoginForm, RegisterForm, UpdatePasswordForm
 from models import User
 from app import db
@@ -54,16 +56,8 @@ def register_staff():
             flash('Email address already exists')
             return render_template('users/register_staff.html', form=form)
 
-
         # create a new user with the form data
-        new_user = User(email=form.email.data,
-                        password=form.password.data,
-                        access_level='staff')
-
-        # add the new user to the database
-        db.session.add(new_user)
-        db.session.commit()
-        return redirect(url_for('users.login'))
+        DbManager.add_staff(form.email.data, form.password.data)
 
     return render_template('users/register_staff.html', form=form)
 
