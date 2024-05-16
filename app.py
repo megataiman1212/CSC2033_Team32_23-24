@@ -18,14 +18,15 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# Initalise login manager
+# Initialise login manager
 login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.init_app(app)
 
-from models import User
+
 @login_manager.user_loader
 def load_user(id):
+    from models import User
     return User.query.get(int(id))
 
 

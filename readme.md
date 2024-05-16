@@ -10,8 +10,6 @@ Instruction for setting up Database
 
 You can run models py everytime you want to reset the database and run the yml file if docker has stopped running
 
-To Connect to the database use the locolhost address and the password Team32
+To Connect to the database use the localhost address and the password Team32
 
 To run the website run the app.py file
-
-a
