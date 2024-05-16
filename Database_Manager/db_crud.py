@@ -37,7 +37,7 @@ class DbManager():
         self.session.add(user)
         self.session.commit()
     
-    def delete_all_products(self):
+    def reset_db(self):
         """
         Delete all products in the database
 
@@ -45,6 +45,8 @@ class DbManager():
         """
         try:
             self.session.query(Product).delete()
+            self.session.query(User).delete()
+            self.session.add((User(email="admin@admin.com", password="admin123!", access_level="admin")))
             self.session.commit()
         except Exception as e:
             self.session.rollback()
@@ -73,7 +75,8 @@ class DbManager():
         return stock
 
     #FR15
-    def query_products(self, search_string):
+    @staticmethod
+    def query_products(search_string):
         """
         Returns any products that contain the substring search_string
         :param search_string: String to search (not case dependant)
@@ -187,31 +190,27 @@ class DbManager():
 
     #FR4
     
-    def delete_staff(self, user_id):
+    def delete_staff(self, email):
         """
         Delete a staff member from the database
         :param self.session: current self.session
         :param user_id: int id of the staff member to delete
         """
-        self.session.delete(self.session.query(User).get(user_id))
+        self.session.delete(self.session.query(User).filter_by(email=email).first())
         self.session.commit()
 
     #FR12
     
-    def verify_password(self, user_id, test_password):
+    def verify_password(self, email, test_password):
         """
         Verify the password of a user
         :param self.session: current self.session
-        :param user_id: id of the user of password to verify
+        :param email: email of the user of password to verify
         :param test_password: password to be verified against the users password
         :return: boolean true if password matches false if not
         """
-        user = self.session.query(User).get(user_id)
+        user = self.session.query(User).filter_by(email=email).first()
         return user.password == test_password
-
-    def find_user(self, user_id):
-        user = self.session.query(User).get(user_id)
-        return user
 
     def get_user(self, email):
         user = self.session.query(User).filter_by(email=email).first()

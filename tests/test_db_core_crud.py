@@ -129,7 +129,7 @@ def test_get_user(db_instance_empty, non_admin_user):
     user = db_instance_empty.get_user("Test@Test.com")
     assert user == non_admin_user
 
-def test_add_staff(db_instance_empty,non_admin_user):
+def test_add_staff(db_instance_empty):
     # Add non admin user
     db_instance_empty.add_staff("Test@Test.com", "password123", "user")
 
@@ -139,4 +139,31 @@ def test_add_staff(db_instance_empty,non_admin_user):
     assert user.email == "Test@Test.com"
     assert user.password == "password123"
     assert user.access_level == "user"
+
+def test_add_product(db_instance_empty):
+    #Add stock
+    with app.app_context():
+        db_instance_empty.add_product("Beans", 50, "food", 30)
+        #get stock
+        stock = db_instance_empty.query_products("Beans")
+    assert stock[0].stock == 50
+    assert stock[0].product == "Beans"
+    assert stock[0].category == "food"
+    assert stock[0].required_level == 30
+
+def test_delete_staff(db_instance_empty,non_admin_user):
+    #Add non admin user
+    db_instance_empty.create_user(user=non_admin_user)
+    #Test delete
+    db_instance_empty.delete_staff("Test@Test.com")
+    users = db_instance_empty.get_all_users()
+    assert len(users) == 1
+
+def test_verify_password(db_instance_empty,non_admin_user):
+    #Add non admin user
+    db_instance_empty.create_user(user=non_admin_user)
+    assert db_instance_empty.verify_password("Test@Test.com", "password123")
+
+def test_find_user(db_instance_empty, non_admin_user):
+    db_instance_empty.create_user(user=non_admin_user)
 
