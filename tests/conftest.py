@@ -22,6 +22,7 @@ def unstocked_food_product():
 
     yield unstocked_food_product
 
+
 @pytest.fixture
 def non_admin_user():
 
