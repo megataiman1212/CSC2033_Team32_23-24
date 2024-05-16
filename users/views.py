@@ -1,10 +1,9 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_user, current_user, login_required, logout_user
-
-from Database_Manager.db_crud import DbManager
 from users.forms import LoginForm, RegisterForm, UpdatePasswordForm
 from models import User
 from app import db
+from Database_Manager.db_crud import DbManager
 
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
 
@@ -15,7 +14,7 @@ def login():
         form = LoginForm()
         if form.validate_on_submit():
             user = User.query.filter_by(email=form.email.data).first()
-
+            #user = DbManager.get_staff(form.email.data)
             # Checks the users credentials
             if not user or not user.password:
                 flash("Invalid login")
@@ -56,8 +55,9 @@ def register_staff():
             flash('Email address already exists')
             return render_template('users/register_staff.html', form=form)
 
-        # create a new user with the form data
-        DbManager.add_staff(form.email.data, form.password.data)
+        # add the new user to the database
+        DbManager.add_staff(form.email.data, form.password.data, "user")
+        return redirect(url_for('users.login'))
 
     return render_template('users/register_staff.html', form=form)
 
