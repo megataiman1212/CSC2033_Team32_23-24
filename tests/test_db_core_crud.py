@@ -57,8 +57,7 @@ def test_adjust_stock(db_instance_empty, stocked_food_product, unstocked_food_pr
     pre_unstocked_stock = unstocked_food_product.stock
     pre_stocked_stock = stocked_food_product.stock
 
-
-    # increase stock
+    # Increase stock
     db_instance_empty.adjust_stock(product_id=stocked_food_product.product_id, mode=True)
     db_instance_empty.adjust_stock(product_id=unstocked_food_product.product_id, mode=False)
 
