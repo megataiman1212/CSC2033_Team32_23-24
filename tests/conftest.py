@@ -6,6 +6,7 @@ from sqlmodel import Session
 from Database_Manager.db_crud import DbManager
 
 # create a product that is in stock
+
 @pytest.fixture
 def stocked_food_product():
 
@@ -13,7 +14,7 @@ def stocked_food_product():
     stocked_food_product = Product(product="Beans", stock=50, category="food", required_level=30)
     yield stocked_food_product
 
-#create a product that is not in stock
+# create a product that is not in stock
 @pytest.fixture
 def unstocked_food_product():
 
@@ -37,26 +38,26 @@ def db_instance(scope="session"):
     yield db
 
 
-@pytest.fixture
-def session(db_instance, scope="session"):
-
-    # Create a session,close after test session, uses 'db_instance' fixture
-    with app.app_context():
-        session = Session(db_instance.engine)
-        yield session
-        session.close()
-
-
 @pytest.fixture(scope="function")
-def db_instance_empty(db_instance, session):
+def db_instance_empty(db_instance):
 
     # Create a fresh database
 
-    db_instance.delete_all_products(session=session)
+    db_instance.delete_all_products()
 
     yield db_instance
 
-    db_instance.delete_all_products(session=session)
+    db_instance.delete_all_products()
+
+
+# @pytest.fixture
+# def session(db_instance, scope="session"):
+#
+#     # Create a session,close after test session, uses 'db_instance' fixture
+#     with app.app_context():
+#         session = Session(db_instance.engine)
+#         yield session
+#         session.close()
 
 
 
