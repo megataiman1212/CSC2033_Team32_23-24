@@ -123,13 +123,20 @@ def test_get_all_users(db_instance_empty,non_admin_user):
 #     updated_user =
 
 def test_get_user(db_instance_empty, non_admin_user):
-
+    # Add non admin user
+    db_instance_empty.create_user(user=non_admin_user)
+    #Check user has been retrieved
+    user = db_instance_empty.get_user("Test@Test.com")
+    assert user == non_admin_user
 
 def test_add_staff(db_instance_empty,non_admin_user):
     # Add non admin user
     db_instance_empty.add_staff("Test@Test.com", "password123", "user")
 
     #Get user
-    user = db_instance_empty.
-    assert len(all_users) == 1
-    assert all_users[0].
+    user = db_instance_empty.get_user("Test@Test.com")
+    # Check user details match
+    assert user.email == "Test@Test.com"
+    assert user.password == "password123"
+    assert user.access_level == "user"
+

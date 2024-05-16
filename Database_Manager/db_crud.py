@@ -20,7 +20,7 @@ class DbManager():
 
     def create_product(self, product: Product) -> None:
         """
-        Create a product in the database
+        Create a product in the database (used for testing)
 
         :param product: The product to create
         :param self.session: The database self.session
@@ -30,7 +30,10 @@ class DbManager():
         self.session.commit()
 
     def create_user(self, user):
-
+        """
+        create user (used for testing)
+        :param user: user to be added
+        """
         self.session.add(user)
         self.session.commit()
     
