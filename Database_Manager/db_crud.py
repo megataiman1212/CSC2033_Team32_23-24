@@ -18,7 +18,6 @@ class DbManager():
         # Close the self.session when the class is destroyed
         self.session.close()
 
-
     def create_product(self, product: Product) -> None:
         """
         Create a product in the database
@@ -34,7 +33,6 @@ class DbManager():
 
         self.session.add(user)
         self.session.commit()
-
     
     def delete_all_products(self):
         """
@@ -72,7 +70,6 @@ class DbManager():
         return stock
 
     #FR15
-    
     def query_products(self, search_string):
         """
         Returns any products that contain the substring search_string
@@ -209,9 +206,10 @@ class DbManager():
         user = self.session.query(User).get(user_id)
         return user.password == test_password
 
-    
     def find_user(self, user_id):
         user = self.session.query(User).get(user_id)
         return user
 
-
+    def get_user(self, email):
+        user = self.session.query(User).filter_by(email=email).first()
+        return user
