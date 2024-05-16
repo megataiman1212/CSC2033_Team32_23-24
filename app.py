@@ -52,7 +52,7 @@ from database.views import database_blueprint
 
 app.register_blueprint(users_blueprint)
 app.register_blueprint(admin_blueprint)
-app.register_blueprint((database_blueprint))
+app.register_blueprint(database_blueprint)
 
 if __name__ == "__main__":
     app.run()

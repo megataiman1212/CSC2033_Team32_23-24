@@ -68,7 +68,7 @@ class DbManager():
 
     #FR15
     @staticmethod
-    def query_products(session,search_string):
+    def query_products(search_string):
         """
         Returns any products that contain the substring search_string
         :param search_string: String to search (not case dependant)
