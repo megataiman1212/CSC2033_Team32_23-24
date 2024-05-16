@@ -23,7 +23,6 @@ class DbManager():
         Create a product in the database (used for testing)
 
         :param product: The product to create
-        :param self.session: The database self.session
         """
         # Write to database
         self.session.add(product)
@@ -40,8 +39,6 @@ class DbManager():
     def reset_db(self):
         """
         Delete all products in the database
-
-        :param self.session: The database self.session
         """
         try:
             self.session.query(Product).delete()
@@ -55,8 +52,8 @@ class DbManager():
             self.session.close()
 
     # FR11
-    
-    def get_required_stock(self):
+    @staticmethod
+    def get_required_stock():
         """
         Get a list of products with stock below the required stock
         :return: A list of Product objects
@@ -65,7 +62,6 @@ class DbManager():
         return stock
 
     #FR8
-    
     def get_all_products(self):
         """
         Get all products in the database
@@ -92,11 +88,9 @@ class DbManager():
         return searched_stock
 
     #FR9
-    
     def add_product(self, product, stock, category, required_level):
         """
-        Add a prodcut in the database
-        :param self.session: current self.session
+        Add a product in the database
         :param product: string product name
         :param stock: int stock of product
         :param category: string either "food" or "hygiene"
@@ -107,11 +101,9 @@ class DbManager():
         self.session.commit()
 
     #FR10
-    
     def adjust_stock(self, product_id, mode):
         """
         Adjust the stock of a product
-        :param self.session: current self.session
         :param product_id: int id of the product to adjust
         :param mode: boolean, true to increase by one false to decrease by one
         """
@@ -124,11 +116,9 @@ class DbManager():
         self.session.commit()
 
     #FR17
-    
     def change_stock_level(self, product_id, new_stock):
         """
         Change the stock level of a product
-        :param self.session: current self.session
         :param product_id: int id of the product to change
         :param new_stock: new stock level of the product
         """
@@ -137,18 +127,15 @@ class DbManager():
         self.session.commit()
 
     #FR5
-    
     def delete_product(self, product_id):
         """
         Delete a product from the database
-        :param self.session: current self.session
         :param product_id: id of the product to delete
         """
         self.session.delete(self.session.query(Product).get(product_id))
         self.session.commit()
 
     #FR4
-    
     def get_all_users(self):
         """
         Get all users in the database
@@ -157,11 +144,9 @@ class DbManager():
         return self.session.query(User).all()
 
     #FR2,7
-    
     def change_password(self, user_id, current_password, new_password):
         """
         Change the password of a user
-        :param self.session: current self
         :param user_id: int id of the user to change password
         :param current_password: string of the current password
         :param new_password: string of the new password
@@ -174,11 +159,9 @@ class DbManager():
             raise ValueError("Password does not match")
 
     #FR1,3#
-    
     def add_staff(self, email, password, access_level):
         """
         Add a staff member to the database
-        :param self.session: current self.session
         :param email: str email of the staff member
         :param password: str password of the staff member
         :param access_level: str access level of the staff member either "user" or "admin"
@@ -189,12 +172,10 @@ class DbManager():
         self.session.commit()
 
     #FR4
-    
     def delete_staff(self, email):
         """
         Delete a staff member from the database
-        :param self.session: current self.session
-        :param user_id: int id of the staff member to delete
+        :param email: int id of the staff member to delete
         """
         self.session.delete(self.session.query(User).filter_by(email=email).first())
         self.session.commit()
@@ -204,7 +185,6 @@ class DbManager():
     def verify_password(self, email, test_password):
         """
         Verify the password of a user
-        :param self.session: current self.session
         :param email: email of the user of password to verify
         :param test_password: password to be verified against the users password
         :return: boolean true if password matches false if not
@@ -213,5 +193,10 @@ class DbManager():
         return user.password == test_password
 
     def get_user(self, email):
+        """
+        returns a user by searching with their email
+        :param email: string email of user to get
+        :return: User object
+        """
         user = self.session.query(User).filter_by(email=email).first()
         return user
