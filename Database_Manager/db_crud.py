@@ -73,7 +73,8 @@ class DbManager():
         return stock
 
     #FR15
-    def query_products(self, search_string):
+    @staticmethod
+    def query_products(search_string):
         """
         Returns any products that contain the substring search_string
         :param search_string: String to search (not case dependant)
@@ -104,7 +105,8 @@ class DbManager():
         self.session.commit()
 
     #FR10
-    
+
+    # @staticmethod
     def adjust_stock(self, product_id, mode):
         """
         Adjust the stock of a product

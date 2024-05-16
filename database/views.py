@@ -13,7 +13,6 @@ def database():
 
 
 @database_blueprint.route('/query', methods=['GET', 'POST'])
-@login_required
 def query():
     search_string = request.args.get("search_string")
 
@@ -27,9 +26,10 @@ def query():
 
 
 @database_blueprint.route('/<int:product_id>/<int:mode>/adjust_stock', methods=['GET', 'POST'])
-@login_required
 def adjust_stock(product_id, mode):
-    DbManager.adjust_stock(product_id, mode)
+    Db = DbManager()
+    Db.adjust_stock(product_id, mode)
+
     search_string = request.args.get("search_string")
 
     if search_string:

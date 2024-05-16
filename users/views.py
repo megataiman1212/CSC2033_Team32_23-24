@@ -17,8 +17,6 @@ def login():
             if not user or not user.password:
                 flash("Invalid login")
                 return render_template('users/login.html', form=form)
-
-
             else:
                 # Log the user in
                 login_user(user)
