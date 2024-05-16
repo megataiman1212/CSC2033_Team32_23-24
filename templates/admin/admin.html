@@ -31,9 +31,9 @@
                 </table>
             </div>
         {% endif %}
-        <form action="/view_all_users">
+        <form action="/get_staff_account">
             <div>
-                <button class="button is-info is-centered">View All Users</button>
+                <button class="button is-info is-centered">Get Staff Accounts</button>
             </div>
         </form>
     </div>
@@ -43,9 +43,18 @@
 <!-- Register New Admin Button -->
 <!-- ToDo: Add 'admin.register_admin' page (page to register new admins) -->
 <div class="column is-8 is-offset-2 " id="register-admin">
-    <h4 class="title is-4">Register New Admin</h4>
+    <h4 class="title is-4">Add New Admin</h4>
     <div class="box">
-        <a href="{{ url_for('admin.register_admin') }}" class="button is-info is-centred">Register New Admin</a>
+        <a href="{{ url_for('admin.add_admin') }}" class="button is-info is-centred">Add New Admin</a>
+    </div>
+</div>
+
+<!-- Register New Staff Button -->
+<!-- ToDo: Add 'admin.register_admin' page (page to register new admins) -->
+<div class="column is-8 is-offset-2 " id="register-staff">
+    <h4 class="title is-4">Add New Staff</h4>
+    <div class="box">
+        <a href="{{ url_for('admin.add_staff') }}" class="button is-info is-centred">Add New Staff</a>
     </div>
 </div>
 
