@@ -38,7 +38,10 @@ def login():
         return redirect(url_for('main.index'))
 
 @users_blueprint.route('/register', methods=['GET', 'POST'])
-def register():
+def register_staff():
+    if current_user.access_level != 'admin':
+        flash("You do not have permission to register a new staff!")
+        return(redirect(url_for('admin.admin')))
     # create signup form object
     form = RegisterForm()
 
