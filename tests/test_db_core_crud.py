@@ -5,6 +5,7 @@ def add_products(db_instance_empty, stocked_food_product, unstocked_food_product
     db_instance_empty.create_product(product=stocked_food_product)
     db_instance_empty.create_product(product=unstocked_food_product)
 
+
 def test_get_required_stock(db_instance_empty,
                             stocked_food_product, unstocked_food_product):
 
