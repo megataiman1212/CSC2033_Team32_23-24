@@ -114,7 +114,6 @@ def test_get_all_users(db_instance_empty,non_admin_user):
     assert len(all_users) == 2
 
 
-
 #
 # def test_change_password(db_instance_empty, , non_admin_user):
 #     db_instance_empty.create_user(user=non_admin_user, =)
