@@ -39,3 +39,20 @@ def adjust_stock(product_id, mode):
         results = []
 
     return render_template("database/database.html", results=results)
+
+
+@database_blueprint.route('/<int:product_id>/delete_product', methods=['GET', 'POST'])
+def delete_product(product_id):
+    Db = DbManager()
+    Db.delete_product(product_id)
+
+    search_string = request.args.get("search_string")
+
+    if search_string:
+        results = DbManager.query_products(search_string)
+
+    else:
+        results = []
+
+    return render_template("database/database.html", results=results)
+
