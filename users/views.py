@@ -2,11 +2,10 @@ from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_user, current_user, login_required, logout_user
 from users.forms import LoginForm, RegisterForm, UpdatePasswordForm
 from models import User
-from app import db
 from Database_Manager.db_crud import DbManager
 
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
-
+db = DbManager()
 
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
@@ -14,7 +13,7 @@ def login():
         form = LoginForm()
         if form.validate_on_submit():
             user = User.query.filter_by(email=form.email.data).first()
-            #user = DbManager.get_staff(form.email.data)
+
             # Checks the users credentials
             if not user or not user.password:
                 flash("Invalid login")
@@ -55,8 +54,8 @@ def register_staff():
             flash('Email address already exists')
             return render_template('users/register_staff.html', form=form)
 
-        # add the new user to the database
-        DbManager.add_staff(form.email.data, form.password.data, "user")
+        # create a new user with the form data
+        db.add_staff(form.email.data,form.password.data,"user")
         return redirect(url_for('users.login'))
 
     return render_template('users/register_staff.html', form=form)
@@ -77,8 +76,7 @@ def update_password():
         if current_user.password == form.new_password.data:
             flash('New password must be different from the current password.')
             return render_template('users/update_password.html', form=form)
-        current_user.password = form.new_password.data
-        db.session.commit()
+        db.change_password(current_user.id,current_user.password, form.new_password.data)
         flash('Password has been changed successfully.')
         return redirect(url_for('users.account'))
 
