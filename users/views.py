@@ -3,6 +3,7 @@ from flask_login import login_user, current_user, login_required, logout_user
 from users.forms import LoginForm, RegisterForm, UpdatePasswordForm
 from models import User
 from app import db
+from Database_Manager.db_crud import DbManager
 
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
 
@@ -13,7 +14,7 @@ def login():
         form = LoginForm()
         if form.validate_on_submit():
             user = User.query.filter_by(email=form.email.data).first()
-
+            #user = DbManager.get_staff(form.email.data)
             # Checks the users credentials
             if not user or not user.password:
                 flash("Invalid login")
@@ -37,7 +38,10 @@ def login():
         return redirect(url_for('main.index'))
 
 @users_blueprint.route('/register', methods=['GET', 'POST'])
-def register():
+def register_staff():
+    if current_user.access_level != 'admin':
+        flash("You do not have permission to register a new staff!")
+        return(redirect(url_for('admin.admin')))
     # create signup form object
     form = RegisterForm()
 
@@ -49,20 +53,13 @@ def register():
         # if email already exists redirect user back to signup page with error message so user can try again
         if user:
             flash('Email address already exists')
-            return render_template('users/register.html', form=form)
-
-
-        # create a new user with the form data
-        new_user = User(email=form.email.data,
-                        password=form.password.data,
-                        access_level='staff')
+            return render_template('users/register_staff.html', form=form)
 
         # add the new user to the database
-        db.session.add(new_user)
-        db.session.commit()
+        DbManager.add_staff(form.email.data, form.password.data, "user")
         return redirect(url_for('users.login'))
 
-    return render_template('users/register.html', form=form)
+    return render_template('users/register_staff.html', form=form)
 
 @users_blueprint.route('/logout')
 def logout():

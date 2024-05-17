@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import current_user
+
+from Database_Manager.db_crud import DbManager
 from users.forms import RegisterForm
 from models import User
 from app import db
@@ -24,19 +26,13 @@ def register_admin():
         # if the email already exists, redirect to sign up page with error message so user can try again
         if user:
             flash("Email address already exists")
-            return render_template('users/register.html', form=form)
+            return render_template('admin/register_admin.html', form=form)
 
         # create a new admin
-        new_admin = User(email=form.email.data,
-                        password=form.password.data,
-                        access_level='admin')
-
-        # add the new admin to the database
-        db.session.add(new_admin)
-        db.session.commit()
+        DbManager.add_staff(form.email.data, form.password.data)
 
         # sends user back to admin page
         flash("New admin user has been registered succesfully.")
         return redirect(url_for('admin.admin'))
 
-    return render_template('users/register.html', form=form)
+    return render_template('admin/register_admin.html', form=form)
