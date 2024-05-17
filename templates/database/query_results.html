@@ -1,12 +1,11 @@
 {% for result in results %}
 <tr>
     <td>{{ result.product }}</td>
-    <td><a class="navbar-item" href="{{ url_for('database.adjust_stock', product_id=result.product_id, mode=0) }}">+</a></td>
+    <td><a class="navbar-item" href="{{ url_for('database.adjust_stock', product_id=result.product_id, mode=1) }}">+</a></td>
     <td>{{ result.stock }}</td>
-    <td><a class="navbar-item" href="{{ url_for('database.adjust_stock', product_id=result.product_id, mode=1) }}">-</a></td>
+    <td><a class="navbar-item" href="{{ url_for('database.adjust_stock', product_id=result.product_id, mode=0) }}">-</a></td>
     <td>{{ result.required_level }}</td>
     <td>{{ result.category }}</td>
     <td><a class="navbar-item" href="{{ url_for('database.delete_product', product_id= result.product_id) }}">Delete Row</a> </td>
-
 </tr>
 {% endfor %}
