@@ -7,8 +7,12 @@ admin_blueprint = Blueprint('admin', __name__, template_folder='templates')
 db = DbManager()
 
 @admin_blueprint.route('/admin', methods=['GET', 'POST'])
+
 def admin():
-    return render_template('admin/admin.html')
+    if current_user.access_level == 'admin':
+        return render_template('admin/admin.html')
+    else:
+        return render_template('Error403.html')
 
 @admin_blueprint.route('/register_admin', methods=['GET', 'POST'])
 def register_admin():
