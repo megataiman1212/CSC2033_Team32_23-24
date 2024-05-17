@@ -161,7 +161,8 @@ def test_delete_staff(db_instance_empty,non_admin_user):
     assert len(users) == 1
 
 def test_verify_password(db_instance_empty,non_admin_user):
-    #Add non admin user
+
+    # Add non admin user
     db_instance_empty.create_user(user=non_admin_user)
     assert db_instance_empty.verify_password("Test@Test.com", "password123")
 

@@ -26,6 +26,7 @@ class User(db.Model):
             raise ValueError("Access level must be 'user' or 'admin'")
 
         self.email = email
+        # encrypt the password
         self.password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
         self.access_level = access_level
 
