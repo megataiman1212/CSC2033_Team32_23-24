@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField
-from wtforms.validators import Email, ValidationError, Length, EqualTo, DataRequired
+from wtforms import StringField, SubmitField, PasswordField, EmailField, BooleanField
+from wtforms.validators import Email, ValidationError, Length, EqualTo, DataRequired, Regexp
 import re
 
 
@@ -93,3 +93,25 @@ class LoginForm(FlaskForm):
     email = StringField(validators=[DataRequired(), Email()])
     password = PasswordField(validators=[DataRequired()])
     submit = SubmitField()
+
+class RegisterForm(FlaskForm):
+    password_validation = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d])(?=.*[a-zA-Z\d\S])'
+
+    email = EmailField(validators=[Email(),DataRequired()])
+    password = PasswordField(
+        validators=[Length(min=6, message = "Length of password must be a minimum of 6 characters."),
+                    Regexp(password_validation,
+                           message="Password must contain at least 1 digit, at least 1 lowercase and at least 1 "
+                                   "uppercase word character, and at least 1 special character"), DataRequired()])
+    confirm_password = PasswordField(validators=[EqualTo('password', message="The confirm password does not match."),DataRequired()])
+    submit = SubmitField()
+
+class UpdatePasswordForm(FlaskForm):
+    password_validation = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d])(?=.*[a-zA-Z\d\S])'
+
+    current_password = PasswordField('Current Password', id='password', validators=[DataRequired()])
+    show_password = BooleanField('Show Password', id='check')
+    new_password = PasswordField('New Password', validators=[DataRequired(), Length("Length of password must be a minimum of 6 characters."), Regexp(password_validation, message="Password must contain at least 1 digit, at least 1 lowercase and at least 1 uppercase word character, and at least 1 special character")])
+    confirm_new_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('new_password', message="Password confirmation must match the new password")])
+    submit = SubmitField('Change Password')
+

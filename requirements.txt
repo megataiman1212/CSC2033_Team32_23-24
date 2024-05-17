@@ -14,3 +14,4 @@ sqlalchemy
 sqlmodel
 sqlalchemy
 bcrypt
+email_validator

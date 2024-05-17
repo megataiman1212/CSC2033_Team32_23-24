@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="column is-6 is-offset-3">
+    <h3 class="title">Your Account</h3>
+
+    <div class="box">
+        <table class="table">
+        <tbody>
+            <tr>
+                <th>User ID</th>
+                <th>{{ user_id }}</th>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <th>{{ email }}</th>
+            </tr>
+            <tr>
+                <th>Access Level</th>
+                <th>{{ access_level }}</th>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <th><a style='color: blue' href="{{ url_for('users.update_password') }}">Change Password</a></th>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,8 +1,9 @@
 """contains models of each table in the database and the method to create them"""
 from app import db,app
 import bcrypt
+from flask_login import UserMixin
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     """User table """
     user_id = db.Column(db.Integer, primary_key=True)
 
