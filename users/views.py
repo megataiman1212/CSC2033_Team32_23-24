@@ -12,7 +12,7 @@ def login():
     if current_user.is_anonymous:
         form = LoginForm()
         if form.validate_on_submit():
-            user = User.query.filter_by(email=form.email.data).first()
+            user = db.get_user(form.email.data)
 
             # Checks the users credentials
             if not user or not user.password:
@@ -22,7 +22,7 @@ def login():
                 # Log the user in
                 login_user(user)
                 # Redirect based on user role
-                if current_user.access_level == 'staff':
+                if current_user.access_level == 'user':
                     return redirect(url_for('users.account'))
                 elif current_user.access_level == 'admin':
                     return redirect(url_for('admin.admin'))
