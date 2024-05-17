@@ -1,7 +1,8 @@
+from functools import wraps
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 from users.forms import LoginForm
 
 
@@ -23,6 +24,16 @@ login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.init_app(app)
 
+
+def access_level_required(*access_levels):
+    def wrapper(f):
+        @wraps(f)
+        def wrapped(*args, **kwargs):
+            if current_user.access_level not in access_levels:
+                return render_template('Error403.html')
+            return f(*args, **kwargs)
+        return wrapped
+    return wrapper
 
 @login_manager.user_loader
 def load_user(id):

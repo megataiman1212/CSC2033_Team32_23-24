@@ -1,18 +1,21 @@
+from functools import wraps
 from flask import Blueprint, render_template, flash, redirect, url_for
-from flask_login import current_user
+from flask_login import current_user, login_required
+from app import access_level_required
 from users.forms import RegisterForm
 from models import User
 from Database_Manager.db_crud import DbManager
+
+
 admin_blueprint = Blueprint('admin', __name__, template_folder='templates')
 db = DbManager()
 
-@admin_blueprint.route('/admin', methods=['GET', 'POST'])
 
+@admin_blueprint.route('/admin', methods=['GET', 'POST'])
+@login_required
+@access_level_required('admin')
 def admin():
-    if current_user.access_level == 'admin':
-        return render_template('admin/admin.html')
-    else:
-        return render_template('Error403.html')
+    return render_template('admin/admin.html')
 
 @admin_blueprint.route('/register_admin', methods=['GET', 'POST'])
 def register_admin():
