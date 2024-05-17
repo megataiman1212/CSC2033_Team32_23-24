@@ -138,7 +138,7 @@ def test_add_staff(db_instance_empty):
     user = db_instance_empty.get_user("Test@Test.com")
     # Check user details match
     assert user.email == "Test@Test.com"
-    assert user.password == "password123"
+    assert db_instance_empty.verify_password(email="Test@Test.com", test_password= "password123")
     assert user.access_level == "user"
 
 def test_add_product(db_instance_empty):
