@@ -1,5 +1,6 @@
 """contains models of each table in the database and the method to create them"""
 from app import db,app
+import bcrypt
 
 class User(db.Model):
     """User table """
@@ -25,7 +26,7 @@ class User(db.Model):
             raise ValueError("Access level must be 'user' or 'admin'")
 
         self.email = email
-        self.password = password
+        self.password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
         self.access_level = access_level
 
     def get_id(self):

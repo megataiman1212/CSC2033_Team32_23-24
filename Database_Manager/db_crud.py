@@ -2,6 +2,7 @@
 from sqlmodel import Session
 from sqlalchemy import create_engine
 from models import Product, User
+import bcrypt
 from app import app
 class DbManager():
     """Class containing all the crud methods which interact with the database"""
@@ -190,7 +191,11 @@ class DbManager():
         :return: boolean true if password matches false if not
         """
         user = self.session.query(User).filter_by(email=email).first()
-        return user.password == test_password
+
+        # Ensure the stored hashed password is in bytes
+        stored_hashed_password = user.password.encode('utf-8')
+
+        return bcrypt.checkpw(test_password.encode('utf-8'), stored_hashed_password)
 
     def get_user(self, email):
         """
