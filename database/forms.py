@@ -3,9 +3,9 @@ from wtforms import StringField, IntegerField, SubmitField
 from wtforms.validators import DataRequired, ValidationError
 
 
-def is_real(form, stock):
-    if 0 > stock.data or stock.data > 99999:
-        raise ValidationError('Stock must be between 0 and 100000')
+def is_real(form, number):
+    if 0 > number.data or number.data > 99999:
+        raise ValidationError('Number must be between 0 and 100000')
 
 
 def validate_category(form, category):
@@ -20,5 +20,11 @@ class ProductForm(FlaskForm):
     category = StringField(validators=[DataRequired(),
                                        validate_category])
     required_stock = IntegerField(validators=[DataRequired(),
+                                              is_real])
+    submit = SubmitField()
+
+
+class RequiredStockForm(FlaskForm):
+    new_level = IntegerField(validators=[DataRequired(),
                                               is_real])
     submit = SubmitField()

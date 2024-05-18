@@ -2,7 +2,7 @@ from flask import request
 from Database_Manager.db_crud import DbManager
 from flask import Blueprint, render_template
 from flask_login import login_required
-from database.forms import ProductForm
+from database.forms import ProductForm, RequiredStockForm
 
 database_blueprint = Blueprint('database', __name__, template_folder='templates')
 
@@ -40,6 +40,18 @@ def adjust_stock(product_id, mode):
         results = []
 
     return render_template("database/database.html", results=results)
+
+
+@database_blueprint.route('/<int:product_id>/<int:current_level>/change_reorder_level', methods=['GET', 'POST'])
+def change_reorder_level(product_id, current_level):
+    form = RequiredStockForm()
+
+    if form.validate_on_submit():
+        Db = DbManager()
+        Db.change_stock_level(product_id, form.new_level.data)
+        return render_template("database/database.html")
+
+    return render_template('database/change_reorder_level.html', form=form, current_level=current_level)
 
 
 @database_blueprint.route('/add_product', methods=['GET', 'POST'])
