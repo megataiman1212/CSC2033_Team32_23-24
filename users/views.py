@@ -89,3 +89,8 @@ def account():
                            user_id=current_user.user_id,
                            email=current_user.email,
                            access_level=current_user.access_level)
+
+@users_blueprint.route('/request_info')
+def request_info():
+    low_stock_products = DbManager.get_required_stock()
+    return render_template('main/index.html', products=low_stock_products)

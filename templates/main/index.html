@@ -11,4 +11,28 @@
     </iframe>
     <a class="twitter-timeline" data-width="600" data-height="500" href="https://twitter.com/NewcastlePantry?ref_src=twsrc%5Etfw">Tweets by NewcastlePantry</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <div class="fb-page" data-href="https://www.facebook.com/NewcastleCommunityPantry" data-tabs="timeline" data-width="600" data-height="500" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/NewcastleCommunityPantry" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/NewcastleCommunityPantry">Newcastle Community Pantry</a></blockquote></div>
+
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Stock Information</title>
+    </head>
+    <body>
+        <form action="/request_info" method="get">
+            <button type="submit" class="button is-info is-centered">Request Info</button>
+        </form>
+
+        {% if products %}
+            <h2>Products below required stock level:</h2>
+            <ul>
+                {% for product in products %}
+                    <li>{{ product.name }} - Current Stock: {{ product.stock }} - Required Level: {{ product.required_level }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </body>
+</html>
+
 {% endblock %}
+
+
