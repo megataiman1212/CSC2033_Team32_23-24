@@ -53,7 +53,7 @@ from database.views import database_blueprint
 
 app.register_blueprint(users_blueprint)
 app.register_blueprint(admin_blueprint)
-app.register_blueprint((database_blueprint))
+app.register_blueprint(database_blueprint)
 
 # error 400 bad request handling
 @app.errorhandler(400)
