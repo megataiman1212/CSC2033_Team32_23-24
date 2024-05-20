@@ -114,14 +114,14 @@ def test_get_all_users(db_instance_empty,non_admin_user):
     # Test all users are gathered
     assert len(all_users) == 2
 
-
-#
-# def test_change_password(db_instance_empty, , non_admin_user):
-#     db_instance_empty.create_user(user=non_admin_user, =)
-#
-#     db_instance_empty.change_password(=, user_id=non_admin_user.user_id, current_password=non_admin_user.password, new_password="Change123")
-#
-#     updated_user =
+def test_change_password(db_instance_empty, non_admin_user):
+    #Add non admin user
+    db_instance_empty.create_user(user=non_admin_user)
+    #Update password
+    db_instance_empty.change_password(user_id=non_admin_user.user_id, current_password=non_admin_user.password, new_password="Change123")
+    #Check password updated
+    updated_user = db_instance_empty.get_user(non_admin_user.email)
+    assert updated_user.password == "Change123"
 
 def test_get_user(db_instance_empty, non_admin_user):
     # Add non admin user
@@ -151,6 +151,15 @@ def test_add_product(db_instance_empty):
     assert stock[0].product == "Beans"
     assert stock[0].category == "food"
     assert stock[0].required_level == 30
+    #Test if product already exists
+    with app.app_context():
+        db_instance_empty.add_product("Beans", 50, "food", 30)
+        #get stock
+        stock = db_instance_empty.query_products("Beans")
+    # check duplicate no added
+    assert len(db_instance_empty.get_all_products()) == 1
+    #Check stock has been appended since duplicate added
+    assert stock[0].stock == 100
 
 def test_delete_staff(db_instance_empty,non_admin_user):
     #Add non admin user

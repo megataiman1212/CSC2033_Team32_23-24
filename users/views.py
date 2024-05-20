@@ -15,7 +15,7 @@ def login():
             user = db.get_user(form.email.data)
 
             # Checks the users credentials
-            if not user or not user.password:
+            if not user or not db.verify_password(user.email, form.password.data):
                 flash("Invalid login")
                 return render_template('users/login.html', form=form)
             else:
