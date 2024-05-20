@@ -52,13 +52,13 @@ def register_staff():
         # if email already exists redirect user back to signup page with error message so user can try again
         if user:
             flash('Email address already exists')
-            return render_template('users/register_staff.html', form=form)
+            return render_template('users/../templates/admin/add_staff.html', form=form)
 
         # create a new user with the form data
         db.add_staff(form.email.data,form.password.data,"user")
         return redirect(url_for('users.login'))
 
-    return render_template('users/register_staff.html', form=form)
+    return render_template('users/../templates/admin/add_staff.html', form=form)
 
 @users_blueprint.route('/logout')
 def logout():
