@@ -22,6 +22,7 @@ def unstocked_food_product():
 
     yield unstocked_food_product
 
+
 @pytest.fixture
 def non_admin_user():
 
@@ -41,13 +42,15 @@ def db_instance(scope="session"):
 @pytest.fixture(scope="function")
 def db_instance_empty(db_instance):
 
-    # Create a fresh database
+    #Create a fresh database
 
-    db_instance.delete_all_products()
+    db_instance.reset_db()
 
     yield db_instance
 
-    db_instance.delete_all_products()
+    db_instance.reset_db()
+
+
 
 
 # @pytest.fixture
