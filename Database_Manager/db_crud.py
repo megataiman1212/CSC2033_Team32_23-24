@@ -91,14 +91,18 @@ class DbManager():
     #FR9
     def add_product(self, product, stock, category, required_level):
         """
-        Add a product in the database
+        Add a product in the database if already exist then add stock to product
         :param product: string product name
         :param stock: int stock of product
         :param category: string either "food" or "hygiene"
         :param required_level: int required level of stock of product
         :return:
         """
-        self.session.add(Product(product, stock, category, required_level))
+        dupe_product = self.session.query(Product).filter_by(product=product).first()
+        if dupe_product:
+            self.change_stock_level(dupe_product.product_id, dupe_product.stock + stock)
+        else:
+            self.session.add(Product(product, stock, category, required_level))
         self.session.commit()
 
     #FR10
