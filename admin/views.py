@@ -15,7 +15,7 @@ db = DbManager()
 @login_required
 @access_level_required('admin')
 def admin():
-    return render_template('admin/admin.html')
+    return render_template('admin/admin.html', email=current_user.email)
 
 @admin_blueprint.route('/register_admin', methods=['GET', 'POST'])
 def register_admin():

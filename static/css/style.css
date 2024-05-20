@@ -1,5 +1,16 @@
 body {
     font-family: 'Inter', sans-serif;
+    background-color: #ffd650;
+}
+
+.navbar{
+    background-color: #ffffff;
+    padding: 10px 0;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
 }
 
 h1 {
@@ -10,11 +21,6 @@ h1 {
     text-align: center;
     padding: 10px;
     margin: 0 auto;
-}
-
-/* Additional CSS to align navbar links to the right */
-.custom-navbar .navbar-end {
-    margin-left: auto;
 }
 
 .btn-link {
