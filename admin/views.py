@@ -1,55 +1,39 @@
-from flask import Blueprint, render_template, redirect, url_for, get_flashed_messages
-
+from flask import Blueprint, render_template, flash, redirect, url_for
+from flask_login import current_user
+from users.forms import RegisterForm
+from models import User
 from Database_Manager.db_crud import DbManager
-from admin.forms import RegisterForm
-from flask_login import login_required
-
 admin_blueprint = Blueprint('admin', __name__, template_folder='templates')
-
+db = DbManager()
 
 @admin_blueprint.route('/admin', methods=['GET', 'POST'])
-@login_required
+
 def admin():
-    return render_template('admin/admin.html')
+    if current_user.access_level == 'admin':
+        return render_template('admin/admin.html')
+    else:
+        return render_template('Error403.html')
 
+@admin_blueprint.route('/register_admin', methods=['GET', 'POST'])
+def register_admin():
+    if current_user.access_level != 'admin':
+        flash("You do not have permission to register a new admin!")
+        return(redirect(url_for('admin.admin')))
 
-@admin_blueprint.route('/add_admin', methods=['GET', 'POST'])
-@login_required
-def add_admin():
-    form = RegisterForm
+    form = RegisterForm()
+
     if form.validate_on_submit():
-        DbManager.add_staff(RegisterForm.email.data, RegisterForm.password.data, "admin")
+        user = db.get_user(form.email.data)
+        # if the email already exists, redirect to sign up page with error message so user can try again
+        if user:
+            flash("Email address already exists")
+            return render_template('admin/register_admin.html', form=form)
 
-    return redirect(url_for('admin.admin'))
+        # create a new admin
+        db.add_staff(form.email.data, form.password.data,"admin")
 
+        # sends user back to admin page
+        flash("New admin user has been registered succesfully.")
+        return redirect(url_for('admin.admin'))
 
-@admin_blueprint.route('/add_staff', methods=['GET', 'POST'])
-@login_required
-def add_staff():
-    form = RegisterForm
-    if form.validate_on_submit():
-        DbManager.add_staff(form.email.data, form.password.data, "staff")
-
-    return redirect(url_for('admin.admin'))
-
-
-@admin_blueprint.route('/delete_staff', methods=['POST'])
-@login_required
-def delete_staff():
-
-    DbManager.delete_staff()
-
-    return redirect(url_for('admin.admin'))
-
-
-@admin_blueprint.route('/get_staff_account', methods=['POST'])
-@login_required
-def get_staff_account():
-    accounts = DbManager.get_all_users()
-
-    return render_template('admin/account.html', accounts=accounts)
-
-
-
-
-
+    return render_template('admin/register_admin.html', form=form)
