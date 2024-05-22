@@ -51,3 +51,24 @@ h1 {
     height: 100vh;
     background-color: #1644b9;
 }
+
+.request-info-btn {
+    font-size: 1.5em;
+    padding: 10px 20px;
+    margin: 20px auto;
+    display: block;
+    background-color: #1644b9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.request-info-btn:hover {
+    background-color: #1644b9;
+}
+
+.request-info-btn:active {
+    background-color: #1644b9;
+}
