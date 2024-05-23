@@ -71,3 +71,24 @@ h1 {
     font-size: 1.5em;
     margin: 70px auto 20px auto;
 }
+
+.request-info-btn {
+    font-size: 1.5em;
+    padding: 10px 20px;
+    margin: 20px auto;
+    display: block;
+    background-color: #1644b9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.request-info-btn:hover {
+    background-color: #1644b9;
+}
+
+.request-info-btn:active {
+    background-color: #1644b9;
+}
