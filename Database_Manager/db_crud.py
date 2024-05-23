@@ -178,10 +178,11 @@ class DbManager():
         :param password: str password of the staff member
         :param access_level: str access level of the staff member either "user" or "admin"
         """
-        if access_level != ("user" or "admin"):
-            raise ValueError("Access level must be user or admin")
-        self.session.add(User(email, password, access_level))
-        self.session.commit()
+        if access_level == "user" or access_level == "admin":
+            self.session.add(User(email, password, access_level))
+            self.session.commit()
+        else:
+            raise ValueError("access_level must be either user or admin")
 
     #FR4
     def delete_staff(self, email):

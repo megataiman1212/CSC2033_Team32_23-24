@@ -6,7 +6,7 @@
 <script type="text/javascript" src="{{ url_for('static', filename='rng.js') }}"></script>
 <h1 class="title is-3">Admin</h1>
 <h4 class="subtitle is-4">
-    Welcome, {{ email }}
+    Welcome,  {{ email }}
 </h4>
 
 <!-- View User Information -->
@@ -14,28 +14,17 @@
     <h4 class="title is-4">Users Information</h4>
     <div class="box">
         {% if current_users %}
-            <div class="field">
-                <table class="table">
-                    <tr>
-                        <th>ID</th>
-                        <th>Username</th>
-                        <th>Access Level</th>
-                    </tr>
-                    {% for user in current_users %}
-                        <tr>
-                            <td>{{ user.id }}</td>
-                            <td>{{ user.username }}</td>
-                            <td>{{ user.access_level }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
+            <ul>
+              {% for user in current_users %}
+                <li style="display: flex; align-items: center;">
+                  <button type="submit" name="staff_id" value="{{ user.user_id }}">
+                    Delete
+                  </button>
+                  <span class="info">  - {{ user.email }} , Access level: {{ user.access_level }} </span>
+                </li>
+              {% endfor %}
+            </ul>
         {% endif %}
-        <form action="/get_staff_account">
-            <div>
-                <button class="button is-info is-centered">Get Staff Accounts</button>
-            </div>
-        </form>
     </div>
 </div>
 <!-- End of User Information -->
