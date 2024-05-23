@@ -5,8 +5,6 @@ from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager, current_user
 from users.forms import LoginForm
 
-
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'SECRETKEY'
 
