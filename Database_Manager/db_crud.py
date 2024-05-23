@@ -157,11 +157,18 @@ class DbManager():
         :param new_password: string of the new password
         """
         user = self.session.query(User).get(user_id)
-        if user.password == current_password:
-            user.password = new_password
-            self.session.commit()
+
+        if bcrypt.checkpw(current_password.encode('utf-8'), user.password.encode('utf-8')):
+            encoded_new_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
+            if encoded_new_password == user.password:
+                #if user tries to change password to same password
+                return "samepassword"
+            else:
+                user.password = encoded_new_password
+                self.session.commit()
         else:
-            raise ValueError("Password does not match")
+            #if user enters current password wrong
+            return "wrongpassword"
 
     #FR1,3#
     def add_staff(self, email, password, access_level):
