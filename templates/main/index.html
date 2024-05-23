@@ -31,9 +31,9 @@
                 <tbody>
                     {% for product in products %}
                         <tr>
-                            <td>product.product</td>
-                            <td>product.stock</td>
-                            <td>product.required_level</td>
+                            <td>{{ product.product }}</td>
+                            <td>{{ product.stock }}</td>
+                            <td>{{ product.required_level }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
