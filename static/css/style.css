@@ -75,7 +75,7 @@ h1 {
 .request-info-btn {
     font-size: 1.5em;
     padding: 10px 20px;
-    margin: 20px auto;
+    margin: 20px 370px;
     display: block;
     background-color: #1644b9;
     color: white;
@@ -96,13 +96,14 @@ h1 {
 .black-text-box {
     border: 2px solid black;
     padding: 10px;
-    margin: 20px 0;
+    margin: 20px 47px;
     width: 60%;
+    text-align: justify;
 }
 
 table {
     width: 60%;
-    margin: 0 auto;
+    margin: 0 60px;
     border-collapse: collapse;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: white;
@@ -123,6 +124,7 @@ tr:hover {
 }
 
 h2 {
-    text-align: center;
+    text-align: left;
+    margin-left: 250px;
 }
 
