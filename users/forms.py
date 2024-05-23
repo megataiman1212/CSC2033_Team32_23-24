@@ -111,7 +111,7 @@ class UpdatePasswordForm(FlaskForm):
 
     current_password = PasswordField('Current Password', id='password', validators=[DataRequired()])
     show_password = BooleanField('Show Password', id='check')
-    new_password = PasswordField('New Password', validators=[DataRequired(), Length("Length of password must be a minimum of 6 characters."), Regexp(password_validation, message="Password must contain at least 1 digit, at least 1 lowercase and at least 1 uppercase word character, and at least 1 special character")])
+    new_password = PasswordField('New Password', validators=[DataRequired(), Length(min=6, message="Length of password must be a minimum of 6 characters."), Regexp(password_validation, message="Password must contain at least 1 digit, at least 1 lowercase and at least 1 uppercase word character, and at least 1 special character")])
     confirm_new_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('new_password', message="Password confirmation must match the new password")])
     submit = SubmitField('Change Password')
 

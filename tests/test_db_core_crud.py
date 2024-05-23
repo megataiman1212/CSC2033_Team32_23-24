@@ -118,10 +118,9 @@ def test_change_password(db_instance_empty, non_admin_user):
     #Add non admin user
     db_instance_empty.create_user(user=non_admin_user)
     #Update password
-    db_instance_empty.change_password(user_id=non_admin_user.user_id, current_password=non_admin_user.password, new_password="Change123")
+    db_instance_empty.change_password(user_id=non_admin_user.user_id, current_password="password123", new_password="Change123")
     #Check password updated
-    updated_user = db_instance_empty.get_user(non_admin_user.email)
-    assert updated_user.password == "Change123"
+    assert db_instance_empty.verify_password(non_admin_user.email,"Change123")
 
 def test_get_user(db_instance_empty, non_admin_user):
     # Add non admin user
