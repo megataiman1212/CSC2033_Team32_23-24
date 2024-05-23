@@ -2,13 +2,19 @@
 
     {% block content %}
         <h1>{% block title %} Food bank {% endblock %}</h1>
-        <p>
-            {{ email }}
-            {{ access_level }}
-        </p>
-        <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2289.9018649704813!2d-1.6323796571018263!3d54.97482011029028!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487e773616cc057d%3A0xd0cdb6a793b54927!2sNUCASTLE%20-%20Newcastle%20United%20Foundation!5e0!3m2!1sen!2suk!4v1715947721111!5m2!1sen!2suk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-        <a class="twitter-timeline" data-width="600" data-height="500" href="https://twitter.com/NewcastlePantry?ref_src=twsrc%5Etfw">Tweets by NewcastlePantry</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-        <div class="fb-page" data-href="https://www.facebook.com/NewcastleCommunityPantry" data-tabs="timeline" data-width="600" data-height="500" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/NewcastleCommunityPantry" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/NewcastleCommunityPantry">Newcastle Community Pantry</a></blockquote></div>
+
+        <div class="blue-panel">
+            <h2 class="blue-panel-header"> Socials </h2>
+            <div class="blue-panel-content">
+                <a class="twitter-timeline" data-width="600" data-height="500" href="https://twitter.com/NewcastlePantry?ref_src=twsrc%5Etfw">Tweets by NewcastlePantry</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
+            <div class="blue-panel-content">
+                <div class="fb-page" data-href="https://www.facebook.com/NewcastleCommunityPantry" data-tabs="timeline" data-width="600" data-height="500" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/NewcastleCommunityPantry" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/NewcastleCommunityPantry">Newcastle Community Pantry</a></blockquote></div>
+            </div>
+            <h2 class="blue-panel-header"> Where we are </h2>
+            <div class="blue-panel-content">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1619.201230397562!2d-1.6283875613913583!3d54.9749169937369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487e773616cc057d%3A0xd0cdb6a793b54927!2sNUCASTLE%20-%20Newcastle%20United%20Foundation!5e0!3m2!1sen!2suk!4v1716238596595!5m2!1sen!2suk" width="400" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+
     {% endblock %}
