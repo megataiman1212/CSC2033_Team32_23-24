@@ -4,7 +4,10 @@
 
     <div class="column is-6 is-offset-3">
         <h1>{% block title %} Database {% endblock %}</h1>
-        <input type="text" class="input" placeholder="Search" name="search_string" hx-get="/query" hx-trigger="keyup changed delay:500ms" hx-target="#results">
+        <br>
+        <div  hx-get="/query" hx-trigger="load" hx-target="#results">
+        <h3><input type="text" class="input" placeholder="Search" name="search_string" hx-get="/query" hx-trigger="keyup changed delay:500ms" hx-target="#results"></h3>
+        <br>
         <table class="table-is-full-width">
             <tbody>
                 <tr>
@@ -20,7 +23,8 @@
             <tbody id="results">
             </tbody>
         </table>
-        <a href="{{ url_for('database.add_product') }}" class="navbar-item"> Add Product </a>
+        <br>
+        <h3><a href="{{ url_for('database.add_product') }}" class="navbar-item"> Add Product </a></h3>
     </div>
 
 {% endblock %}

@@ -18,7 +18,7 @@
             </div>
             <div class="field">
                 <div class = "control">
-                    {{ form.stock(class="input", placeholder=1) }}
+                    {{ form.stock(class="input", placeholder="Stock Level") }}
                     {% for error in form.stock.errors %}
                         {{ error }}
                     {% endfor %}
@@ -34,7 +34,7 @@
             </div>
             <div class="field">
                 <div class = "control">
-                    {{ form.required_stock(class="input", placeholder=10) }}
+                    {{ form.required_stock(class="input", placeholder="Required Stock Level") }}
                     {% for error in form.required_stock.errors %}
                         {{ error }}
                     {% endfor %}
