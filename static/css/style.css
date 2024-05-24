@@ -128,3 +128,74 @@ h2 {
     margin-left: 250px;
 }
 
+ul {
+  list-style-type: none; /* Remove bullet points */
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+li:last-child {
+  border-bottom: none;
+}
+
+.delete-staff-btn {
+  background-color: #ff3860; /* Red background */
+  color: #fff; /* White text */
+  border: none; /* Remove default border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 8px 16px; /* Padding */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+  margin-right: 10px; /* Space between button and text */
+}
+
+.delete-staff-btn:hover {
+  background-color: #ff1744;
+}
+
+.delete-staff-btn:focus {
+  outline: none; /* Remove focus outline */
+  box-shadow: 0 0 0 3px rgba(255, 56, 96, 0.5); /* Add shadow on focus */
+}
+
+.delete-staff-btn:active {
+  background-color: #e00034; /* Even darker red when active */
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+}
+
+.info span {
+  margin-right: 20px;
+}
+
+.add-admin-btn {
+  background-color: #1644b9;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-staff-btn {
+    background-color: #1644b9;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+

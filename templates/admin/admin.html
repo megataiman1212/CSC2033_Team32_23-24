@@ -17,7 +17,7 @@
             <ul>
               {% for user in current_users %}
                 <li style="display: flex; align-items: center;">
-                  <button type="submit" name="staff_id" value="{{ user.user_id }}">
+                  <button type="submit" name="staff_id" class="delete-staff-btn" value="{{ user.user_id }}">
                     Delete
                   </button>
                   <span class="info">  - {{ user.email }} , Access level: {{ user.access_level }} </span>
@@ -33,7 +33,7 @@
 <div class="column is-8 is-offset-2 " id="register-admin">
     <h4 class="title is-4">Add New Admin</h4>
     <div class="box">
-        <a href="{{ url_for('admin.add_staff', role="admin") }}" class="button is-info is-centred">Add New Admin</a>
+        <a href="{{ url_for('admin.add_staff', role="admin") }}" class="add-admin-btn">Add New Admin</a>
     </div>
 </div>
 
@@ -41,7 +41,7 @@
 <div class="column is-8 is-offset-2 " id="register-staff">
     <h4 class="title is-4">Add New Staff</h4>
     <div class="box">
-        <a href="{{ url_for('admin.add_staff', role="user") }}" class="button is-info is-centred">Add New Staff</a>
+        <a href="{{ url_for('admin.add_staff', role="user") }}" class="add-staff-btn">Add New Staff</a>
     </div>
 </div>
 
