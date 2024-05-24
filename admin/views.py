@@ -14,6 +14,14 @@ def admin():
     else:
         return render_template('Error403.html')
 
+@admin_blueprint.route("/<string:email>/delete_user", methods=['GET', 'POST'])
+def delete_user(email):
+    if email == current_user.email:
+        return render_template('admin/admin.html', email=current_user.email, current_users=db.get_all_users(), message="You Cannot Delete Yourself")
+    else:
+        db.delete_staff(email)
+        return render_template('admin/admin.html', email=current_user.email, current_users=db.get_all_users())
+
 
 @admin_blueprint.route('/<string:role>/add_staff', methods=['GET', 'POST'])
 def add_staff(role):

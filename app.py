@@ -33,9 +33,10 @@ def access_level_required(*access_levels):
         return wrapped
     return wrapper
 
+from models import User
+
 @login_manager.user_loader
 def load_user(id):
-    from models import User
     return User.query.get(int(id))
 
 

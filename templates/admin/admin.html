@@ -15,12 +15,18 @@
     <div class="box">
         {% if current_users %}
             <ul>
+            {% if message %}
+                    <span class="info" style="color: red; font-weight: bold;">    You Cannot Delete Yourself !</span>
+            {% endif %}
               {% for user in current_users %}
                 <li style="display: flex; align-items: center;">
-                  <button type="submit" name="staff_id" class="delete-staff-btn" value="{{ user.user_id }}">
-                    Delete
-                  </button>
+                  <a href="{{ url_for("admin.delete_user", email=user.email) }}">
+                      <button type="submit" name="staff_id" class="delete-staff-btn" value="{{ user.email }}">
+                        Delete
+                      </button>
+                  </a>
                   <span class="info">  - {{ user.email }} , Access level: {{ user.access_level }} </span>
+
                 </li>
               {% endfor %}
             </ul>
@@ -42,40 +48,6 @@
     <h4 class="title is-4">Add New Staff</h4>
     <div class="box">
         <a href="{{ url_for('admin.add_staff', role="user") }}" class="add-staff-btn">Add New Staff</a>
-    </div>
-</div>
-
-<!-- View Stock Information -->
-<div class="column is-8 is-offset-2">
-    <h4 class="title is-4">Stocks Information</h4>
-    <div class="box">
-        {% if current_product %}
-            <div class="field">
-                <table class="table">
-                    <tr>
-                        <th>Product ID</th>
-                        <th>Product</th>
-                        <th>Stock</th>
-                        <th>Category</th>
-                        <th>Required Level</th>
-                    </tr>
-                    {% for product in current_product %}
-                        <tr>
-                            <td>{{ product.product_id }}</td>
-                            <td>{{ product.product }}</td>
-                            <td>{{ product.stock }}</td>
-                            <td>{{ product.category }}</td>
-                            <td>{{ product.required_level }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
-        {% endif %}
-        <form action="/view_stock_information">
-            <div>
-                <button id="viewStockInformation" class="button is-info is-centered">View Stock Information</button>
-            </div>
-        </form>
     </div>
 </div>
 
