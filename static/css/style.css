@@ -230,3 +230,8 @@ li:last-child {
   margin-top: 15px;
   margin-left: 417px
 }
+
+.search-input {
+    position: relative;
+    left: -80px; /* Adjust the value as needed */
+}
