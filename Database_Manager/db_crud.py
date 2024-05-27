@@ -180,6 +180,7 @@ class DbManager():
         :param password: str password of the staff member
         :param access_level: str access level of the staff member either "user" or "admin"
         """
+        email = email.upper()
         if access_level == "user" or access_level == "admin":
             self.session.add(User(email, password, access_level))
             self.session.commit()
@@ -192,6 +193,7 @@ class DbManager():
         Delete a staff member from the database
         :param email: int id of the staff member to delete
         """
+        email = email.upper()
         self.session.delete(self.session.query(User).filter_by(email=email).first())
         self.session.commit()
 
@@ -204,6 +206,7 @@ class DbManager():
         :param test_password: password to be verified against the users password
         :return: boolean true if password matches false if not
         """
+        email = email.upper()
         user = self.session.query(User).filter_by(email=email).first()
 
         # Ensure the stored hashed password is in bytes
@@ -217,5 +220,6 @@ class DbManager():
         :param email: string email of user to get
         :return: User object
         """
+        email = email.upper()
         user = self.session.query(User).filter_by(email=email).first()
         return user
