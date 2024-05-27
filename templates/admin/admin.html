@@ -46,21 +46,31 @@
 </div>
 
 
-<!-- Register New Admin Button -->
-<div class="column is-8 is-offset-2 " id="register-admin">
-    <h4 class="title is-4">Add New Admin</h4>
+<!-- Register New User Button -->
+<div class="column is-8 is-offset-2" id="register-users">
+    <h4 class="title is-4">Add New Users</h4>
     <div class="box">
-        <a href="{{ url_for('admin.add_staff', role="admin") }}" class="add-admin-btn">Add New Admin</a>
+        <table class="table is-fullwidth">
+            <thead>
+                <tr>
+                    <th>Role</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Admin</td>
+                    <td><a href="{{ url_for('admin.add_staff', role='admin') }}" class="button is-primary">Add New Admin</a></td>
+                </tr>
+                <tr>
+                    <td>Staff</td>
+                    <td><a href="{{ url_for('admin.add_staff', role='user') }}" class="button is-link">Add New Staff</a></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
-<!-- Register New Staff Button -->
-<div class="column is-8 is-offset-2 " id="register-staff">
-    <h4 class="title is-4">Add New Staff</h4>
-    <div class="box">
-        <a href="{{ url_for('admin.add_staff', role="user") }}" class="add-staff-btn">Add New Staff</a>
-    </div>
-</div>
 
 {% endblock %}
 <!-- End of View Stock Information-->
