@@ -1,14 +1,19 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import current_user
 from users.forms import RegisterForm
-from models import User
 from Database_Manager.db_crud import DbManager
 admin_blueprint = Blueprint('admin', __name__, template_folder='templates')
 db = DbManager()
 
 
-@admin_blueprint.route('/admin', methods=['GET', 'POST'])
+@admin_blueprint.route('/admin/admin', methods=['GET', 'POST'])
 def admin():
+    """
+    Checks permission is correct and then sends to admin page
+    :return: admin.html
+    :return: Error403.html
+    """
+
     if current_user.access_level == 'admin':
         return render_template('admin/admin.html')
     else:
@@ -17,6 +22,12 @@ def admin():
 
 @admin_blueprint.route('/<string:role>/add_staff', methods=['GET', 'POST'])
 def add_staff(role):
+    """
+    Adds new staff to the database
+    :param role: role of new staff (admin/ user)
+    :return: add_staff.html
+    """
+
     if current_user.access_level != 'admin':
         flash("You do not have permission to register a new admin!")
         return redirect(url_for('admin.admin'))

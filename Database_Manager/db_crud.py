@@ -3,8 +3,9 @@ from sqlmodel import Session
 from sqlalchemy import create_engine
 from models import Product, User
 import bcrypt
-from app import app
-class DbManager():
+
+
+class DbManager:
     """Class containing all the crud methods which interact with the database"""
     def __init__(self):
         # Define the database URI
@@ -62,7 +63,7 @@ class DbManager():
         stock = Product.query.filter(Product.stock < Product.required_level).all()
         return stock
 
-    #FR8
+    # FR8
     def get_all_products(self):
         """
         Get all products in the database
@@ -71,7 +72,7 @@ class DbManager():
         stock = self.session.query(Product).all()
         return stock
 
-    #FR15
+    # FR15
     @staticmethod
     def query_products(search_string):
         """
@@ -88,7 +89,7 @@ class DbManager():
                 searched_stock.append(i)
         return searched_stock
 
-    #FR9
+    # FR9
     def add_product(self, product, stock, category, required_level):
         """
         Add a product in the database if already exist then add stock to product
@@ -105,7 +106,7 @@ class DbManager():
             self.session.add(Product(product, stock, category, required_level))
         self.session.commit()
 
-    #FR10
+    # FR10
     def adjust_stock(self, product_id, mode):
         """
         Adjust the stock of a product
@@ -120,7 +121,7 @@ class DbManager():
 
         self.session.commit()
 
-    #FR17
+    # FR17
     def change_stock_level(self, product_id, new_stock):
         """
         Change the stock level of a product
@@ -131,7 +132,7 @@ class DbManager():
         product.stock = new_stock
         self.session.commit()
 
-    #FR5
+    # FR5
     def delete_product(self, product_id):
         """
         Delete a product from the database
@@ -140,7 +141,7 @@ class DbManager():
         self.session.delete(self.session.query(Product).get(product_id))
         self.session.commit()
 
-    #FR4
+    # FR4
     def get_all_users(self):
         """
         Get all users in the database
@@ -148,7 +149,7 @@ class DbManager():
         """
         return self.session.query(User).all()
 
-    #FR2,7
+    # FR2,7
     def change_password(self, user_id, current_password, new_password):
         """
         Change the password of a user
@@ -161,16 +162,16 @@ class DbManager():
         if bcrypt.checkpw(current_password.encode('utf-8'), user.password.encode('utf-8')):
             encoded_new_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
             if encoded_new_password == user.password:
-                #if user tries to change password to same password
-                return "samepassword"
+                # if user tries to change password to same password
+                return "same password"
             else:
                 user.password = encoded_new_password
                 self.session.commit()
         else:
-            #if user enters current password wrong
-            return "wrongpassword"
+            # if user enters current password wrong
+            return "wrong password"
 
-    #FR1,3#
+    # FR1,3
     def add_staff(self, email, password, access_level):
         """
         Add a staff member to the database
@@ -183,7 +184,7 @@ class DbManager():
         self.session.add(User(email, password, access_level))
         self.session.commit()
 
-    #FR4
+    # FR4
     def delete_staff(self, email):
         """
         Delete a staff member from the database
@@ -192,7 +193,7 @@ class DbManager():
         self.session.delete(self.session.query(User).filter_by(email=email).first())
         self.session.commit()
 
-    #FR12
+    # FR12
     
     def verify_password(self, email, test_password):
         """
