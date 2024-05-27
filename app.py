@@ -42,7 +42,8 @@ def load_user(id):
 
 @app.route('/')
 def index():
-    return render_template('main/index.html', blue_panel=True)
+    from Database_Manager.db_crud import DbManager
+    return render_template('main/index.html', blue_panel=True, products=DbManager.get_required_stock())
 @app.route('/login')
 def login():
     form = LoginForm()
