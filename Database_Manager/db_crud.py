@@ -196,7 +196,10 @@ class DbManager:
         Delete a staff member from the database
         :param email: int id of the staff member to delete
         """
-        self.session.delete(self.session.query(User).filter_by(email=email).first())
+        user = self.session.query(User).filter_by(email=email).first()
+        if not user:
+            raise AssertionError("User does not exist")
+        self.session.delete(user)
         self.session.commit()
 
     # FR12
@@ -209,6 +212,8 @@ class DbManager:
         :return: boolean true if password matches false if not
         """
         user = self.session.query(User).filter_by(email=email).first()
+        if not user:
+            raise AssertionError("User does not exist")
 
         # Ensure the stored hashed password is in bytes
         stored_hashed_password = user.password.encode('utf-8')
@@ -222,4 +227,6 @@ class DbManager:
         :return: User object
         """
         user = self.session.query(User).filter_by(email=email).first()
+        if not user:
+            raise AssertionError("User does not exist")
         return user

@@ -1,5 +1,7 @@
-from app import app
+import pytest
 
+from app import app
+from pytest import raises
 
 def add_products(db_instance_empty, stocked_food_product, un_stocked_food_product):
     """
@@ -242,10 +244,12 @@ def test_delete_staff(db_instance_empty, non_admin_user):
     """
     # Add non admin user
     db_instance_empty.create_user(user=non_admin_user)
-    # Test delete
+    # Test delete non existing user
+    pytest.raises(AssertionError, db_instance_empty.delete_staff("wrong_email"))
+    # Test delete user
     db_instance_empty.delete_staff("Test@Test.com")
-    users = db_instance_empty.get_all_users()
-    assert len(users) == 1
+    # Test error thrown as staff deleted
+    pytest.raises(AssertionError, db_instance_empty.get_user("Test@Test.com"))
 
 
 def test_verify_password(db_instance_empty, non_admin_user):
@@ -257,3 +261,17 @@ def test_verify_password(db_instance_empty, non_admin_user):
     # Add non admin user
     db_instance_empty.create_user(user=non_admin_user)
     assert db_instance_empty.verify_password("Test@Test.com", "password123")
+    # Check method returns false with wrong password
+    assert db_instance_empty.verify_password("Test@Test.com", "wrong password") is False
+
+
+def test_verify_password_wrong_data(db_instance_empty, non_admin_user):
+    """
+    test verify_password function
+    :param db_instance_empty: creates an empty database
+    :param non_admin_user: a user without admin privilege
+    """
+    # Add non admin user
+    db_instance_empty.create_user(user=non_admin_user)
+    # Check error is thrown if user doesn't exist
+    pytest.raises(AssertionError, db_instance_empty.verify_password, "wrong_email", "password")
