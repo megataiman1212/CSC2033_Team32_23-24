@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} Food bank {% endblock %}</h1>
+    <h1>{% block title %} Newcastle Community Pantry {% endblock %}</h1>
 
     <div class="blue-panel">
         <h2 class="blue-panel-header"> Socials </h2>
@@ -19,7 +19,7 @@
 
     <!-- Request Info Button-->
     <form action="/request_info" method="get">
-        <button type="submit" class="request-info-btn">Request Info</button>
+        <button type="submit" class="request-info-btn">Reload Items</button>
     </form>
 
     {% if products is defined %}
