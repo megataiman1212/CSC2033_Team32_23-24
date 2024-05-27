@@ -38,17 +38,21 @@
 <!-- Register New Admin Button -->
 <div class="column is-8 is-offset-2 " id="register-admin">
     <h4 class="title is-4">Add New Admin</h4>
-    <div class="box">
-        <a href="{{ url_for('admin.add_staff', role="admin") }}" class="add-admin-btn">Add New Admin</a>
-    </div>
+    <h3>
+        <button onclick="window.location.href='{{ url_for('admin.add_staff', role="admin") }}'" class="navbar-item" style="background-color: blue; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+            Add New Admin
+        </button>
+    </h3>
 </div>
 
 <!-- Register New Staff Button -->
 <div class="column is-8 is-offset-2 " id="register-staff">
     <h4 class="title is-4">Add New Staff</h4>
-    <div class="box">
-        <a href="{{ url_for('admin.add_staff', role="user") }}" class="add-staff-btn">Add New Staff</a>
-    </div>
+    <h3>
+        <button onclick="window.location.href='{{ url_for('admin.add_staff', role="user") }}'" class="navbar-item" style="background-color: blue; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+            Add New Staff
+        </button>
+    </h3>
 </div>
 
 {% endblock %}
