@@ -5,10 +5,11 @@ from models import User
 from Database_Manager.db_crud import DbManager
 
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
-db = DbManager()
+
 
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
+    db = DbManager()
     if current_user.is_anonymous:
         form = LoginForm()
         if form.validate_on_submit():
@@ -38,6 +39,8 @@ def login():
 
 @users_blueprint.route('/register', methods=['GET', 'POST'])
 def register_staff():
+    db = DbManager()
+
     if current_user.access_level != 'admin':
         flash("You do not have permission to register a new staff!")
         return(redirect(url_for('admin.admin')))
@@ -67,6 +70,8 @@ def logout():
 
 @users_blueprint.route('/update_password', methods=['GET', 'POST'])
 def update_password():
+    db = DbManager()
+
     form = UpdatePasswordForm()
     # validate submitted ChangePasswordForm
     if form.validate_on_submit():

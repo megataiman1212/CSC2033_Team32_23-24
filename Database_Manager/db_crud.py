@@ -68,8 +68,10 @@ class DbManager():
         Get all products in the database
         :return: A list of product objects
         """
-        stock = self.session.query(Product).all()
-        return stock
+        with app.app_context():
+            stock = self.session.query(Product).all()
+            print(stock)
+            return stock
 
     #FR15
     @staticmethod

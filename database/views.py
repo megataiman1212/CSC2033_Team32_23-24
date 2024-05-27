@@ -5,7 +5,6 @@ from flask_login import login_required
 from database.forms import ProductForm, RequiredStockForm
 
 database_blueprint = Blueprint('database', __name__, template_folder='templates')
-db = DbManager()
 
 @database_blueprint.route('/database', methods=['GET', 'POST'])
 @login_required
@@ -20,6 +19,7 @@ def query():
     if search_string:
         results = DbManager.query_products(search_string)
     else:
+        db = DbManager()
         results = db.get_all_products()
 
     return render_template("database/query_results.html", results=results)

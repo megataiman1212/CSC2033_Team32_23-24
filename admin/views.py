@@ -4,7 +4,6 @@ from users.forms import RegisterForm
 from models import User
 from Database_Manager.db_crud import DbManager
 admin_blueprint = Blueprint('admin', __name__, template_folder='templates')
-db = DbManager()
 
 
 @admin_blueprint.route('/admin/admin', methods=['GET', 'POST'])
@@ -16,6 +15,8 @@ def admin():
 
 @admin_blueprint.route("/<string:email>/delete_user", methods=['GET', 'POST'])
 def delete_user(email):
+    db = DbManager()
+
     if email == current_user.email:
         return render_template('admin/admin.html', email=current_user.email, current_users=db.get_all_users(), message="You Cannot Delete Yourself")
     else:
@@ -25,6 +26,7 @@ def delete_user(email):
 
 @admin_blueprint.route('/<string:role>/add_staff', methods=['GET', 'POST'])
 def add_staff(role):
+    db = DbManager()
     if current_user.access_level != 'admin':
         flash("You do not have permission to register a new admin!")
         return redirect(url_for('admin.admin'))
@@ -42,7 +44,7 @@ def add_staff(role):
         db.add_staff(form.email.data, form.password.data, role)
 
         # sends user back to admin page
-        flash("New admin user has been registered successfully.")
+        #flash("New admin user has been registered successfully.")
         return redirect(url_for('admin.admin'))
 
     return render_template('admin/add_staff.html', form=form)
