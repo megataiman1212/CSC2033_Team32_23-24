@@ -120,8 +120,10 @@ class DbManager:
         if mode:
             product_to_edit.stock += 1
         else:
-            product_to_edit.stock -= 1
-
+            if product_to_edit.stock > 0:
+                product_to_edit.stock -= 1
+            else:
+                raise
         self.session.commit()
 
     # FR17
