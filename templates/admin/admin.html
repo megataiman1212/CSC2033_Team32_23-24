@@ -14,41 +14,56 @@
     <h4 class="title is-4">Users Information</h4>
     <div class="box">
         {% if current_users %}
-            <ul>
             {% if message %}
                     <span class="info" style="color: red; font-weight: bold;">    You Cannot Delete Yourself !</span>
             {% endif %}
-              {% for user in current_users %}
-                <li style="display: flex; align-items: center;">
-                  <a href="{{ url_for("admin.delete_user", email=user.email) }}">
-                      <button type="submit" name="staff_id" class="delete-staff-btn" value="{{ user.email }}">
-                        Delete
-                      </button>
-                  </a>
-                  <span class="info">  - {{ user.email }} , Access level: {{ user.access_level }} </span>
-
-                </li>
-              {% endfor %}
-            </ul>
+            <table class="table is-fullwidth is-striped">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Access Level</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in current_users %}
+                        <tr>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.access_level }}</td>
+                            <td>
+                                <a href="{{ url_for("admin.delete_user", email=user.email) }}">
+                                <button type="submit" name="staff_id" class="delete-staff-btn styled-delete-btn" value="{{ user.user_id }}">
+                                    Delete
+                                </button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         {% endif %}
     </div>
 </div>
-<!-- End of User Information -->
+
 
 <!-- Register New Admin Button -->
 <div class="column is-8 is-offset-2 " id="register-admin">
     <h4 class="title is-4">Add New Admin</h4>
-    <div class="box">
-        <a href="{{ url_for('admin.add_staff', role="admin") }}" class="add-admin-btn">Add New Admin</a>
-    </div>
+    <h3>
+        <button onclick="window.location.href='{{ url_for('admin.add_staff', role="admin") }}'" class="navbar-item" style="background-color: blue; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+            Add New Admin
+        </button>
+    </h3>
 </div>
 
 <!-- Register New Staff Button -->
 <div class="column is-8 is-offset-2 " id="register-staff">
     <h4 class="title is-4">Add New Staff</h4>
-    <div class="box">
-        <a href="{{ url_for('admin.add_staff', role="user") }}" class="add-staff-btn">Add New Staff</a>
-    </div>
+    <h3>
+        <button onclick="window.location.href='{{ url_for('admin.add_staff', role="user") }}'" class="navbar-item" style="background-color: blue; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+            Add New Staff
+        </button>
+    </h3>
 </div>
 
 {% endblock %}
