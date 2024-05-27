@@ -3,6 +3,7 @@ from sqlmodel import Session
 from sqlalchemy import create_engine
 from models import Product, User
 import bcrypt
+from app import app
 
 
 class DbManager:

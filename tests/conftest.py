@@ -16,11 +16,11 @@ def stocked_food_product():
 
 # create a product that is not in stock
 @pytest.fixture
-def unstocked_food_product():
+def un_stocked_food_product():
 
-    unstocked_food_product = Product(product="Grapes", stock=5, category="food", required_level=25)
+    un_stocked_food_product = Product(product="Grapes", stock=5, category="food", required_level=25)
 
-    yield unstocked_food_product
+    yield un_stocked_food_product
 
 
 @pytest.fixture
