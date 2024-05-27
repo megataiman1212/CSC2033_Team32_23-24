@@ -14,26 +14,37 @@
     <h4 class="title is-4">Users Information</h4>
     <div class="box">
         {% if current_users %}
-            <ul>
             {% if message %}
                     <span class="info" style="color: red; font-weight: bold;">    You Cannot Delete Yourself !</span>
             {% endif %}
-              {% for user in current_users %}
-                <li style="display: flex; align-items: center;">
-                  <a href="{{ url_for("admin.delete_user", email=user.email) }}">
-                      <button type="submit" name="staff_id" class="delete-staff-btn" value="{{ user.email }}">
-                        Delete
-                      </button>
-                  </a>
-                  <span class="info">  - {{ user.email }} , Access level: {{ user.access_level }} </span>
-
-                </li>
-              {% endfor %}
-            </ul>
+            <table class="table is-fullwidth is-striped">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Access Level</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in current_users %}
+                        <tr>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.access_level }}</td>
+                            <td>
+                                <a href="{{ url_for("admin.delete_user", email=user.email) }}">
+                                <button type="submit" name="staff_id" class="delete-staff-btn styled-delete-btn" value="{{ user.user_id }}">
+                                    Delete
+                                </button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         {% endif %}
     </div>
 </div>
-<!-- End of User Information -->
+
 
 <!-- Register New Admin Button -->
 <div class="column is-8 is-offset-2 " id="register-admin">
