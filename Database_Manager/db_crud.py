@@ -47,7 +47,7 @@ class DbManager:
         try:
             self.session.query(Product).delete()
             self.session.query(User).delete()
-            self.session.add((User(email="admin@admin.com", password="admin123!", access_level="admin")))
+            self.session.add((User(email="admin@admin.com", password="Admin123!", access_level="admin")))
             self.session.commit()
         except Exception as e:
             self.session.rollback()

@@ -153,7 +153,7 @@ def test_change_stock_level(db_instance_empty, stocked_food_product, un_stocked_
     add_products(db_instance_empty, stocked_food_product, un_stocked_food_product)
 
     # Change order level
-    db_instance_empty.change_stock_level(product_id=stocked_food_product.product_id, new_stock=100)
+    db_instance_empty.change_stock_level(product_id=stocked_food_product.product_id, new_level=100)
 
     with app.app_context():
         # searches for stocks
