@@ -1,5 +1,5 @@
 import pytest
-
+from Database_Manager.db_crud import UserNotFoundError
 from app import app
 from pytest import raises
 
@@ -231,6 +231,17 @@ def test_get_user(db_instance_empty, non_admin_user):
     user = db_instance_empty.get_user("Test@Test.com")
     assert user == non_admin_user
 
+def test_get_user_wrong_data(db_instance_empty, non_admin_user):
+    """
+            test get_user function
+            :param db_instance_empty: creates an empty database
+            :param non_admin_user: a user without admin privilege
+            """
+    # Add non admin user
+    db_instance_empty.create_user(user=non_admin_user)
+    with pytest.raises(ValueError):
+        user = db_instance_empty.get_user(0)
+
 
 def test_add_staff(db_instance_empty):
     """
@@ -243,9 +254,20 @@ def test_add_staff(db_instance_empty):
     # Get user
     user = db_instance_empty.get_user("Test@Test.com")
     # Check user details match
-    assert user.email == "Test@Test.com"
+    assert user.email == "TEST@TEST.COM"
     assert db_instance_empty.verify_password(email="Test@Test.com", test_password="password123")
     assert user.access_level == "user"
+
+def test_add_staff_wrong_data(db_instance_empty):
+    """
+    test adding staff with wrong data types
+    """
+    with pytest.raises(TypeError):
+        db_instance_empty.add_staff(10, "password123", "user")
+    with pytest.raises(TypeError):
+        db_instance_empty.add_staff("Test@Test.com", 10, "user")
+    with pytest.raises(ValueError):
+        db_instance_empty.add_staff("Test@Test.com", "password123", "wrong")
 
 
 def test_add_product(db_instance_empty):
@@ -253,7 +275,6 @@ def test_add_product(db_instance_empty):
     test add_product function
     :param db_instance_empty: creates an empty database
     """
-
     # Add stock
     with app.app_context():
         db_instance_empty.add_product("Beans", 50, "food", 30)
@@ -274,6 +295,23 @@ def test_add_product(db_instance_empty):
     # Check stock has been appended since duplicate added
     assert stock[0].stock == 100
 
+def test_add_product_wrong_data(db_instance_empty):
+    """
+    test add_product function with wrong data types for the product
+    """
+    with pytest.raises(TypeError):
+        with app.app_context():
+            db_instance_empty.add_product(10, 50, "food", 30)
+    with pytest.raises(TypeError):
+        with app.app_context():
+            db_instance_empty.add_product("Beans", "50", "food", 30)
+    with pytest.raises(ValueError):
+        with app.app_context():
+            db_instance_empty.add_product("beans", 50, "wrong", 30)
+    with pytest.raises(TypeError):
+        with app.app_context():
+            db_instance_empty.add_product("beans", 50, "food", "30")
+
 
 def test_delete_staff(db_instance_empty, non_admin_user):
     """
@@ -284,12 +322,12 @@ def test_delete_staff(db_instance_empty, non_admin_user):
     # Add non admin user
     db_instance_empty.create_user(user=non_admin_user)
     # Test delete non existing user
-    with pytest.raises(AssertionError):
+    with pytest.raises(UserNotFoundError):
         db_instance_empty.delete_staff("wrong_email")
     # Test delete user
     db_instance_empty.delete_staff("Test@Test.com")
     # Test error thrown as staff deleted
-    with pytest.raises(AssertionError):
+    with pytest.raises(UserNotFoundError):
         db_instance_empty.get_user("Test@Test.com")
 
 
@@ -315,5 +353,5 @@ def test_verify_password_wrong_data(db_instance_empty, non_admin_user):
     # Add non admin user
     db_instance_empty.create_user(user=non_admin_user)
     # Check error is thrown if user doesn't exist
-    with pytest.raises(AssertionError):
+    with pytest.raises(UserNotFoundError):
         db_instance_empty.verify_password("wrong_email", "password")
