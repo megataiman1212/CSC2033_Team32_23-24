@@ -25,7 +25,7 @@ class User(db.Model, UserMixin):
         allowed_access_levels = ["user", "admin"]
         if access_level not in allowed_access_levels:
             raise ValueError("Access level must be 'user' or 'admin'")
-
+        #Store email as upper as email is not case-sensitive
         self.email = email.upper()
         # encrypt the password
         self.password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
