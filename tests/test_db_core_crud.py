@@ -284,11 +284,13 @@ def test_delete_staff(db_instance_empty, non_admin_user):
     # Add non admin user
     db_instance_empty.create_user(user=non_admin_user)
     # Test delete non existing user
-    pytest.raises(AssertionError, db_instance_empty.delete_staff("wrong_email"))
+    with pytest.raises(AssertionError):
+        db_instance_empty.delete_staff("wrong_email")
     # Test delete user
     db_instance_empty.delete_staff("Test@Test.com")
     # Test error thrown as staff deleted
-    pytest.raises(AssertionError, db_instance_empty.get_user("Test@Test.com"))
+    with pytest.raises(AssertionError):
+        db_instance_empty.get_user("Test@Test.com")
 
 
 def test_verify_password(db_instance_empty, non_admin_user):
@@ -313,4 +315,5 @@ def test_verify_password_wrong_data(db_instance_empty, non_admin_user):
     # Add non admin user
     db_instance_empty.create_user(user=non_admin_user)
     # Check error is thrown if user doesn't exist
-    pytest.raises(AssertionError, db_instance_empty.verify_password, "wrong_email", "password")
+    with pytest.raises(AssertionError):
+        db_instance_empty.verify_password("wrong_email", "password")
