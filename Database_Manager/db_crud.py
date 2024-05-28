@@ -137,7 +137,7 @@ class DbManager:
         :param new_level: new required level of the product
         """
         product = self.session.query(Product).get(product_id)
-        product.required_level = new_level
+        product.stock = new_level
         self.session.commit()
 
     # FR5
