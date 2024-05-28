@@ -1,3 +1,5 @@
+import pytest
+
 from app import app
 
 
@@ -76,6 +78,17 @@ def test_query_products(db_instance_empty, stocked_food_product, un_stocked_food
     assert test_un_stocked_food_product[0].product == un_stocked_food_product.product
 
 
+def test_query_products_not_string(db_instance_empty):
+    """
+    test query_products when None is passed
+    :param db_instance_empty: cretaes an empty database
+    """
+    with app.app_context():
+        # Ensure that a TypeError is raised when search_string is None
+        with pytest.raises(TypeError):
+            db_instance_empty.query_products(search_string=None)
+
+
 def test_adjust_stock(db_instance_empty, stocked_food_product, un_stocked_food_product):
     """
     tests the adjust_stock function by getting original stock, changing it and then re checking stock
@@ -100,6 +113,34 @@ def test_adjust_stock(db_instance_empty, stocked_food_product, un_stocked_food_p
     # checks stock levels have changed
     assert increase_stock[0].stock == (pre_stocked_stock + 1)
     assert decrease_stock[0].stock == (pre_un_stocked_stock - 1)
+
+
+def test_adjust_stock_not_bool(db_instance_empty, stocked_food_product, un_stocked_food_product):
+    """
+    test adjust stock when mode isn't a bool
+    :param db_instance_empty: creates an empty database
+    :param stocked_food_product: food product which is stocked (stock > required level)
+    :param un_stocked_food_product: food product which is un_stocked (stock < required level)
+    """
+    add_products(db_instance_empty, stocked_food_product, un_stocked_food_product)
+
+    # Increase stock
+    with pytest.raises(TypeError):
+        db_instance_empty.adjust_stock(product_id=stocked_food_product.product_id, mode=None)
+        db_instance_empty.adjust_stock(product_id=un_stocked_food_product.product_id, mode="Fail")
+
+
+def test_adjust_stock_below_zero(db_instance_empty, zero_stock_food_product):
+    """
+    Tests if you can move stock below zero
+    :param db_instance_empty: creates an empty database
+    :param zero_stock_food_product: a product object with 0 stock
+    """
+
+    db_instance_empty.create_product(product=zero_stock_food_product)
+
+    with pytest.raises(ValueError):
+        db_instance_empty.adjust_stock(product_id=zero_stock_food_product.product_id, mode=False)
 
 
 def test_change_stock_level(db_instance_empty, stocked_food_product, un_stocked_food_product):
