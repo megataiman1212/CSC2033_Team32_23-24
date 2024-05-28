@@ -234,9 +234,11 @@ class DbManager:
         :param email: string email of user to get
         :return: User object
         """
+        #Check email is string
         if not isinstance(email,str):
             raise ValueError("Email must be a string")
-        email = email.upper()
+        email = email.upper()  # Upper email as all emails stored in upper case
+        # get user and check they exist
         user = self.session.query(User).filter_by(email=email).first()
         if not user:
             raise UserNotFoundError("User does not exist")
