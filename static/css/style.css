@@ -97,12 +97,14 @@ h1 {
 
 .blue-panel-header {
     width: 70%;
-    background: #d9d9d9;
-    color: #000000;
+    color: white;
     text-align: center;
     padding: 10px;
     font-size: 1.5em;
     margin: 70px auto 20px auto;
+    border-bottom: 2px solid white;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
 }
 
 /* Request Info in Home Page */
