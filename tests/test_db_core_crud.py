@@ -212,9 +212,14 @@ def test_change_password(db_instance_empty, non_admin_user):
 
     # Add non admin user
     db_instance_empty.create_user(user=non_admin_user)
+    # test if user id does not exist
+    with pytest.raises(UserNotFoundError):
+        db_instance_empty.change_password(user_id=123456789, current_password="password123",
+                                          new_password="Change123")
     #Check fails if wrong password
     assert db_instance_empty.change_password(user_id=non_admin_user.user_id, current_password="wrong",
                                              new_password="Change123") == "wrong password"
+    #check fails if password tried to change to same password
     assert db_instance_empty.change_password(user_id=non_admin_user.user_id, current_password="password123",
                                              new_password="password123") == "same password"
     # Update password
@@ -222,6 +227,21 @@ def test_change_password(db_instance_empty, non_admin_user):
                                       new_password="Change123")
     # Check password updated
     assert db_instance_empty.verify_password(non_admin_user.email, "Change123")
+
+def test_change_password_wrong_data(db_instance_empty):
+    """
+    test change password with wrong data types
+    """
+    with pytest.raises(TypeError):
+        db_instance_empty.change_password(user_id="123456789", current_password="password123",
+                                          new_password="Change123")
+    with pytest.raises(TypeError):
+        db_instance_empty.change_password(user_id="123456789", current_password=213,
+                                          new_password="Change123")
+    with pytest.raises(TypeError):
+        db_instance_empty.change_password(user_id="123456789", current_password="password123",
+                                          new_password=132)
+
 
 
 def test_get_user(db_instance_empty, non_admin_user):
