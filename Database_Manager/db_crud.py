@@ -125,14 +125,14 @@ class DbManager:
         self.session.commit()
 
     # FR17
-    def change_stock_level(self, product_id, new_stock):
+    def change_stock_level(self, product_id, new_level):
         """
         Change the stock level of a product
         :param product_id: int id of the product to change
-        :param new_stock: new stock level of the product
+        :param new_level: new required level of the product
         """
         product = self.session.query(Product).get(product_id)
-        product.stock = new_stock
+        product.required_level = new_level
         self.session.commit()
 
     # FR5
