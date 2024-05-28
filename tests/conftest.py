@@ -5,22 +5,35 @@ from sqlmodel import Session
 
 from Database_Manager.db_crud import DbManager
 
-# create a product that is in stock
 
 @pytest.fixture
 def stocked_food_product():
+    """
+    Creates an un stocked product
+    :return: a product object
+    """
 
-    # Creates a product to test in the database
     stocked_food_product = Product(product="Beans", stock=50, category="food", required_level=30)
     yield stocked_food_product
 
-# create a product that is not in stock
+
 @pytest.fixture
 def un_stocked_food_product():
-
     un_stocked_food_product = Product(product="Grapes", stock=5, category="food", required_level=25)
 
     yield un_stocked_food_product
+
+
+@pytest.fixture
+def zero_stock_food_product():
+    """
+    Create a product with 0 stock
+    :return: a food product
+    """
+
+    zero_stock_food_product = Product(product="Bacon", stock=0, category="food", required_level=20)
+
+    yield zero_stock_food_product
 
 
 @pytest.fixture

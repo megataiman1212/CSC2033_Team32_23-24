@@ -116,6 +116,8 @@ class DbManager:
         :param product_id: int id of the product to adjust
         :param mode: boolean, true to increase by one false to decrease by one
         """
+        if not isinstance(mode, int):
+            raise TypeError("Mode must be a int")
         product_to_edit = self.session.query(Product).get(product_id)
         if mode:
             product_to_edit.stock += 1
@@ -123,7 +125,7 @@ class DbManager:
             if product_to_edit.stock > 0:
                 product_to_edit.stock -= 1
             else:
-                raise
+                raise ValueError("Stock can't go below zero")
         self.session.commit()
 
     # FR17
