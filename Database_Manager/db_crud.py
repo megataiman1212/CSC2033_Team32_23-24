@@ -165,11 +165,18 @@ class DbManager:
         :param current_password: string of the current password
         :param new_password: string of the new password
         """
+        if not isinstance(user_id,int):
+            raise TypeError("User id must be int")
+        if not isinstance(current_password,str):
+            raise TypeError("Current_password must be string")
+        if not isinstance(new_password,str):
+            raise TypeError("New_password must be string")
         user = self.session.query(User).get(user_id)
-
+        if not user:
+            raise UserNotFoundError("User not found")
         if bcrypt.checkpw(current_password.encode('utf-8'), user.password.encode('utf-8')):
             encoded_new_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
-            if encoded_new_password == user.password:
+            if bcrypt.checkpw(new_password.encode('utf-8'), user.password.encode('utf-8')):
                 # if user tries to change password to same password
                 return "same password"
             else:

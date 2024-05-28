@@ -212,6 +212,11 @@ def test_change_password(db_instance_empty, non_admin_user):
 
     # Add non admin user
     db_instance_empty.create_user(user=non_admin_user)
+    #Check fails if wrong password
+    assert db_instance_empty.change_password(user_id=non_admin_user.user_id, current_password="wrong",
+                                             new_password="Change123") == "wrong password"
+    assert db_instance_empty.change_password(user_id=non_admin_user.user_id, current_password="password123",
+                                             new_password="password123") == "same password"
     # Update password
     db_instance_empty.change_password(user_id=non_admin_user.user_id, current_password="password123",
                                       new_password="Change123")

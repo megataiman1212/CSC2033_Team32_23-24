@@ -76,10 +76,10 @@ def update_password():
     # validate submitted ChangePasswordForm
     if form.validate_on_submit():
         msg = db.change_password(current_user.user_id,form.current_password.data, form.new_password.data)
-        if msg == "wrongpassword":
+        if msg == "wrong password":
             flash('Incorrect current password.')
             return render_template('users/update_password.html', form=form)
-        if msg == "samepassword":
+        if msg == "same password":
             flash('New password must be different from the current password.')
             return render_template('users/update_password.html', form=form)
         flash('Password has been changed successfully.')
