@@ -49,7 +49,6 @@ def add_staff(role):
     :return: add_staff.html
     """
     db = DbManager()
-
     form = RegisterForm()
 
     if form.validate_on_submit():
