@@ -12,7 +12,9 @@
                 <div class = "control">
                     {{ form.name(class="input", placeholder="Product Name") }}
                     {% for error in form.name.errors %}
-                        {{ error }}
+                        <div class="center-flash">
+                            {{ error }}
+                        </div>
                     {% endfor %}
                 </div>
             </div>
@@ -20,7 +22,9 @@
                 <div class = "control">
                     {{ form.stock(class="input", placeholder="Stock Level") }}
                     {% for error in form.stock.errors %}
-                        {{ error }}
+                        <div class="center-flash">
+                            {{ error }}
+                        </div>
                     {% endfor %}
                 </div>
             </div>
@@ -28,7 +32,9 @@
                 <div class = "control">
                     {{ form.category(class="input", placeholder="Category (food/hygiene)") }}
                     {% for error in form.category.errors %}
-                        {{ error }}
+                        <div class="center-flash">
+                            {{ error }}
+                        </div>
                     {% endfor %}
                 </div>
             </div>
@@ -36,7 +42,9 @@
                 <div class = "control">
                     {{ form.required_stock(class="input", placeholder="Required Stock Level") }}
                     {% for error in form.required_stock.errors %}
-                        {{ error }}
+                        <div class="center-flash">
+                            {{ error }}
+                        </div>
                     {% endfor %}
                 </div>
             </div>

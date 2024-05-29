@@ -610,7 +610,6 @@ li:last-child {
     font-family: 'Montserrat', sans-serif;
     font-size: 20px;
     text-transform: uppercase;
-    white-space: nowrap;
     font-weight: bold;
 }
 
@@ -677,3 +676,4 @@ li:last-child {
     border-bottom: 2px solid #000000;
     white-space: nowrap;
 }
+
