@@ -24,6 +24,11 @@ def admin():
 @login_required
 @access_level_required('admin')
 def delete_user(email):
+    """
+    Delete user from the database
+    :param email: email of the user
+    :return: admin.html
+    """
     db = DbManager()
 
     if email.upper() == current_user.email.upper():
