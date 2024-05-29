@@ -16,8 +16,10 @@ def validate_category(form, category):
         raise ValidationError('category must be "food" or "hygiene"')
 
 
-# Create form class for adding products
 class ProductForm(FlaskForm):
+    """
+    Creates product form
+    """
     name = StringField(validators=[InputRequired()])
     stock = IntegerField(validators=[InputRequired(),
                                      is_real])
@@ -28,7 +30,9 @@ class ProductForm(FlaskForm):
     submit = SubmitField()
 
 
-# Create form class for required stock
 class RequiredStockForm(FlaskForm):
+    """
+    Creates required stock form
+    """
     new_level = IntegerField(validators=[InputRequired(), is_real])
     submit = SubmitField()
