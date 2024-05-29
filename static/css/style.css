@@ -281,7 +281,7 @@ li:last-child {
   border-radius: 5px;
   padding: 8px 10px;
   text-align: center;
-  margin: 20px auto;
+  margin: 20px auto 20px 50px;
 
 }
 
@@ -423,7 +423,7 @@ li:last-child {
     font-family: 'Roboto', sans-serif;
     font-size: 1em;
     padding: 4px 8px;
-    margin: 10px 5px;
+    margin: 20px auto 20px 50px;
     display: inline-block;
     background: linear-gradient(135deg, #1644b9, #1a53d2);
     color: white;
