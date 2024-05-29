@@ -24,7 +24,7 @@ class User(db.Model, UserMixin):
 
         # Validate access level
         allowed_access_levels = ["user", "admin"]
-        if access_level.lower not in allowed_access_levels:
+        if access_level.lower() not in allowed_access_levels:
             raise ValueError("Access level must be 'user' or 'admin'")
         #Store email as upper as email is not case-sensitive
         self.email = email.upper()
@@ -56,7 +56,7 @@ class Product(db.Model):
 
         #validate category
         allowed_category = ["food", "hygiene"]
-        if category not in allowed_category:
+        if category.lower() not in allowed_category:
             raise ValueError("Category must be 'food' or 'hygiene'")
 
         #validate required_level
