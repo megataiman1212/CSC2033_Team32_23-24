@@ -12,6 +12,10 @@ database_blueprint = Blueprint('database', __name__, template_folder='templates'
 @login_required
 @access_level_required('admin', 'user')
 def database():
+    """
+    Sends to the database page
+    :return: database.html
+    """
     return render_template('database/database.html')
 
 
@@ -19,6 +23,10 @@ def database():
 @login_required
 @access_level_required('admin', 'user')
 def query():
+    """
+    Get the query from the database
+    :return: query_results.html
+    """
     search_string = request.args.get("search_string")
 
     if search_string:
@@ -34,6 +42,10 @@ def query():
 @login_required
 @access_level_required('admin', 'user')
 def adjust_stock(product_id, mode):
+    """
+    Adjust stock in the database
+    :return: database.html
+    """
     Db = DbManager()
     Db.adjust_stock(product_id, mode)
 
@@ -52,6 +64,10 @@ def adjust_stock(product_id, mode):
 @login_required
 @access_level_required('admin')
 def change_reorder_level(product_id, current_level):
+    """
+    Allow the admin to change the reorder level of products
+    :return: change_reorder_level.html
+    """
 
     form = RequiredStockForm()
 
@@ -67,6 +83,10 @@ def change_reorder_level(product_id, current_level):
 @login_required
 @access_level_required('admin', 'user')
 def add_product():
+    """
+    Add new products to the database
+    :return: add_product.html
+    """
     form = ProductForm()
 
     if form.validate_on_submit():
@@ -84,6 +104,10 @@ def add_product():
 @login_required
 @access_level_required('admin')
 def delete_product(product_id):
+    """
+    Delete product from the database
+    :return: database.html
+    """
     Db = DbManager()
     Db.delete_product(product_id)
 
