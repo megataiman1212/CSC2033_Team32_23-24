@@ -177,7 +177,7 @@ def test_change_stock_level_below_zero(db_instance_empty, stocked_food_product, 
 
     # Change order level to a negative
     with pytest.raises(ValueError):
-        db_instance_empty.change_stock_level(product_id=stocked_food_product.product_id, new_stock=-5)
+        db_instance_empty.change_stock_level(product_id=stocked_food_product.product_id, new_level=-5)
 
 
 def test_delete_product(db_instance_empty, stocked_food_product, un_stocked_food_product):

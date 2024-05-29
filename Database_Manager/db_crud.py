@@ -147,7 +147,13 @@ class DbManager:
         :param new_level: new required level of the product
         """
         product = self.session.query(Product).get(product_id)
-        product.stock = new_level
+        if new_level > 0:
+            if product:
+                product.stock = new_level
+            else:
+                raise ProductNotFoundError
+        else:
+            raise ValueError("Stock can not be less than 0")
         self.session.commit()
 
     def change_stock_required_level(self, product_id, new_level):
@@ -157,7 +163,13 @@ class DbManager:
         :param new_level: new required level of the product
         """
         product = self.session.query(Product).get(product_id)
-        product.required_level = new_level
+        if new_level > 0:
+            if product:
+                product.stock = new_level
+            else:
+                raise ProductNotFoundError
+        else:
+            raise ValueError("Stock can not be less than 0")
         self.session.commit()
 
     # FR5
