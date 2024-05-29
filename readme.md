@@ -22,3 +22,13 @@ Instruction for setting up Database
 create_db.py will reset the database and add an admin user everytime it is run
 
 On restart simply run the database through the services tab in pycharm
+
+---
+Coding Standards
+---
+For our coding standards we have been using Pylint integrated into the github workflow and also pycharms inbuilt linting.
+We have also agreed to other standards which are outlined in the further documentation
+
+---
+For more Documentation we have included a file !!FILENAMEHERE!!
+---

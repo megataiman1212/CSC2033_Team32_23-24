@@ -1,4 +1,5 @@
-"""Main file that runs the the website"""
+"""Main file that runs the website"""
+# File written by Daniel c, Daniel E, Asha, Louis, Najihah, Megat
 from functools import wraps
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy

@@ -1,4 +1,5 @@
 """This Module contains all the crud methods"""
+# File written by Asha, Louis
 from sqlmodel import Session
 from sqlalchemy import create_engine
 from models import Product, User
@@ -165,7 +166,7 @@ class DbManager:
         product = self.session.query(Product).get(product_id)
         if new_level > 0:
             if product:
-                product.stock = new_level
+                product.required_level = new_level
             else:
                 raise ProductNotFoundError
         else:

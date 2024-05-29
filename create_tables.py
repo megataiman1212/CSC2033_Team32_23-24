@@ -1,4 +1,5 @@
 """File to reset the database and add a default admin """
+# Written by Asha
 from app import db,app,User
 
 with app.app_context():

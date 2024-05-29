@@ -1,3 +1,4 @@
+# File written by Daniel c, Daniel E, Asha, Louis, Najihah, Megat
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import current_user, login_required
 from Database_Manager.db_crud import DbManager, UserNotFoundError
@@ -49,13 +50,13 @@ def add_staff(role):
     :return: add_staff.html
     """
     db = DbManager()
-
     form = RegisterForm()
 
     if form.validate_on_submit():
+        # checks if user already exist
         try:
-            user = db.get_user(form.email.data)
-        except UserNotFoundError as e:
+            db.get_user(form.email.data)
+        except UserNotFoundError:
             # create a new admin
             db.add_staff(form.email.data, form.password.data, role)
 
