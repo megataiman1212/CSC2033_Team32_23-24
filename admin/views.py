@@ -18,6 +18,7 @@ def admin():
     :return: Error403.html
     """
     db = DbManager()
+    # queries all the users with 'admin' access level
     return render_template('admin/admin.html', email=current_user.email, current_users=db.get_all_users())
 
 
@@ -31,10 +32,12 @@ def delete_user(email):
     :return: admin.html
     """
     db = DbManager()
-
+    # check if the email to be deleted is same as the currently logged-in email
     if email.upper() == current_user.email.upper():
+        # flash message that the user cannot delete themselves
         return render_template('admin/admin.html', email=current_user.email, current_users=db.get_all_users(),
                                message="You Cannot Delete Yourself")
+    # else, calls delete_staff method from DbManager, passing the email
     else:
         db.delete_staff(email)
         return render_template('admin/admin.html', email=current_user.email, current_users=db.get_all_users())
@@ -61,7 +64,6 @@ def add_staff(role):
             db.add_staff(form.email.data, form.password.data, role)
 
             # sends user back to admin page
-            # flash("New admin user has been registered successfully.")
             return redirect(url_for('admin.admin'))
         # if the email already exists, redirect to sign up page with error message so user can try again
         flash("Email address already exists")
