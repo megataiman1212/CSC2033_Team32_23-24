@@ -67,7 +67,7 @@ h1 {
     color: #000000;
     text-align: center;
     padding: 15px;
-    margin: 0 auto 0 250px;
+    margin: 0 auto;
     font-family: 'Montserrat', sans-serif;
     font-size: 40px;
     text-transform: uppercase;
@@ -302,16 +302,37 @@ li:last-child {
 .info span {
   margin-right: 20px;
 }
+.control{
+    text-align: center;
+    margin: 0 auto;
+}
 
+.box{
+    text-align: center;
+    margin: 0 auto;
+}
 
-.input[name="search_string"] {
+.input{
   font-size: 16px;
   font-family: Arial, sans-serif;
   background-color: #e0e0e0;
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 8px 10px;
-  margin-bottom: 10px;
+  text-align: center;
+  margin: 20px auto;
+
+}
+
+.button{
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  background-color: #4db604;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px 10px;
+  text-align: center;
+  margin: 10px auto;
 }
 /* Accounts Table */
 .accounts-table {
