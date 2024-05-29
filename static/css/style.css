@@ -61,6 +61,7 @@ body {
 
 /* Header Styling */
 
+/*
 h1 {
     width: 400px;
     height: 30px;
@@ -73,6 +74,7 @@ h1 {
     text-transform: uppercase;
     border-bottom: 2px solid #000000;
 }
+*/
 
 /* Blue Panel */
 .blue-panel {
@@ -614,6 +616,30 @@ li:last-child {
     text-transform: uppercase;
     border-bottom: 2px solid #000000;
     white-space: nowrap;
+}
+
+.logo {
+    flex: 0 0 auto;
+    width: 50px;
+    height: auto;
+    margin-right: 10px; /* Adjust margin as needed */
+}
+
+.center-h1 {
+    width: 400px; /* Set a fixed width for the header */
+    max-width: calc(100% - 200px); /* Adjust maximum width based on screen size */
+    margin: 0 0 0 174px; /* Reset margin */
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #000000;
+}
+
+.header-content {
+    display: flex;
+    align-items: center; /* Vertically align items */
+    margin-left: 12px;
 }
 
 .subheader-is-center {
