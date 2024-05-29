@@ -5,8 +5,15 @@ from models import Product, User
 import bcrypt
 from app import app
 
+
 class UserNotFoundError(Exception):
     pass
+
+
+class ProductNotFoundError(Exception):
+    pass
+
+
 class DbManager:
     """Class containing all the crud methods which interact with the database"""
     def __init__(self):
@@ -120,13 +127,16 @@ class DbManager:
         if not isinstance(mode, int):
             raise TypeError("Mode must be a int")
         product_to_edit = self.session.query(Product).get(product_id)
-        if mode:
-            product_to_edit.stock += 1
-        else:
-            if product_to_edit.stock > 0:
-                product_to_edit.stock -= 1
+        if product_to_edit:
+            if mode:
+                product_to_edit.stock += 1
             else:
-                raise ValueError("Stock can't go below zero")
+                if product_to_edit.stock > 0:
+                    product_to_edit.stock -= 1
+                else:
+                    raise ValueError("Stock can't go below zero")
+        else:
+            raise ProductNotFoundError
         self.session.commit()
 
     # FR17
@@ -137,7 +147,13 @@ class DbManager:
         :param new_level: new required level of the product
         """
         product = self.session.query(Product).get(product_id)
-        product.stock = new_level
+        if new_level > 0:
+            if product:
+                product.stock = new_level
+            else:
+                raise ProductNotFoundError
+        else:
+            raise ValueError("Stock can not be less than 0")
         self.session.commit()
 
     def change_stock_required_level(self, product_id, new_level):
@@ -147,7 +163,13 @@ class DbManager:
         :param new_level: new required level of the product
         """
         product = self.session.query(Product).get(product_id)
-        product.required_level = new_level
+        if new_level > 0:
+            if product:
+                product.stock = new_level
+            else:
+                raise ProductNotFoundError
+        else:
+            raise ValueError("Stock can not be less than 0")
         self.session.commit()
 
     # FR5
@@ -156,8 +178,12 @@ class DbManager:
         Delete a product from the database
         :param product_id: id of the product to delete
         """
-        self.session.delete(self.session.query(Product).get(product_id))
-        self.session.commit()
+        product = self.session.query(Product).get(product_id)
+        if not product:
+            raise ProductNotFoundError
+        else:
+            self.session.delete(product)
+            self.session.commit()
 
     # FR4
     def get_all_users(self):
@@ -175,11 +201,11 @@ class DbManager:
         :param current_password: string of the current password
         :param new_password: string of the new password
         """
-        if not isinstance(user_id,int):
+        if not isinstance(user_id, int):
             raise TypeError("User id must be int")
-        if not isinstance(current_password,str):
+        if not isinstance(current_password, str):
             raise TypeError("Current_password must be string")
-        if not isinstance(new_password,str):
+        if not isinstance(new_password, str):
             raise TypeError("New_password must be string")
         user = self.session.query(User).get(user_id)
         if not user:
@@ -231,7 +257,7 @@ class DbManager:
         """
         user = self.get_user(email)
         if not user:
-            raise ("User does not exist")
+            raise "User does not exist"
 
         # Ensure the stored hashed password is in bytes
         stored_hashed_password = user.password.encode('utf-8')
@@ -244,8 +270,8 @@ class DbManager:
         :param email: string email of user to get
         :return: User object
         """
-        #Check email is string
-        if not isinstance(email,str):
+        # Check email is string
+        if not isinstance(email, str):
             raise ValueError("Email must be a string")
         email = email.upper()  # Upper email as all emails stored in upper case
         # get user and check they exist
