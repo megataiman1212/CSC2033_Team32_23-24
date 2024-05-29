@@ -3,6 +3,7 @@ from app import db,app
 import bcrypt
 from flask_login import UserMixin
 
+
 class User(db.Model, UserMixin):
     """User table """
     user_id = db.Column(db.Integer, primary_key=True)
@@ -33,6 +34,7 @@ class User(db.Model, UserMixin):
 
     def get_id(self):
         return self.user_id
+
 
 class Product(db.Model):
     """Product table"""
