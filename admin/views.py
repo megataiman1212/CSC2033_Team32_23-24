@@ -20,6 +20,10 @@ def admin():
 
 @admin_blueprint.route("/<string:email>/delete_user", methods=['GET', 'POST'])
 def delete_user(email):
+    if current_user.access_level != 'admin':
+        flash("You do not have permission to register a new admin!")
+        return redirect(url_for('admin.admin'))
+
     db = DbManager()
 
     if email == current_user.email:

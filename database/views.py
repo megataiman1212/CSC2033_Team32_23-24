@@ -1,7 +1,7 @@
-from flask import request
+from flask import request, flash, redirect, url_for
 from Database_Manager.db_crud import DbManager
 from flask import Blueprint, render_template
-from flask_login import login_required
+from flask_login import login_required, current_user
 from database.forms import ProductForm, RequiredStockForm
 
 database_blueprint = Blueprint('database', __name__, template_folder='templates')
@@ -43,6 +43,9 @@ def adjust_stock(product_id, mode):
 
 @database_blueprint.route('/<int:product_id>/<int:current_level>/change_reorder_level', methods=['GET', 'POST'])
 def change_reorder_level(product_id, current_level):
+    if current_user.access_level != 'admin':
+        flash("You do not have permission to register a new admin!")
+        return redirect(url_for('admin.admin'))
     form = RequiredStockForm()
 
     if form.validate_on_submit():
@@ -70,6 +73,9 @@ def add_product():
 
 @database_blueprint.route('/<int:product_id>/delete_product', methods=['GET', 'POST'])
 def delete_product(product_id):
+    if current_user.access_level != 'admin':
+        flash("You do not have permission to register a new admin!")
+        return redirect(url_for('admin.admin'))
     Db = DbManager()
     Db.delete_product(product_id)
 
