@@ -1,3 +1,4 @@
+"""Test file for adding some simple products to the database"""
 from app import app, db
 from models import User, Product
 

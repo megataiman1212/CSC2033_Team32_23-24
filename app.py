@@ -1,3 +1,4 @@
+"""Main file that runs the the website"""
 from functools import wraps
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
