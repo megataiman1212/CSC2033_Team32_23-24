@@ -325,18 +325,23 @@ li:last-child {
 }
 
 .button{
-  font-size: 16px;
-  font-family: Arial, sans-serif;
-  background-color: #4db604;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 8px 10px;
-  text-align: center;
-  margin: 10px auto;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    padding: 10px 20px;
+    margin: auto;
+    display: block;
+    background: linear-gradient(135deg, #1644b9, #1a53d2);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    font-weight: 500;
 }
 /* Accounts Table */
 .accounts-table {
-    width: 70%;
+    width: 30%;
     margin: 0 auto;
     border-collapse: collapse;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -579,7 +584,8 @@ li:last-child {
 
 
 .center-h1 {
-    width: 400px;
+    width: auto;
+    max-width: calc(50% - 200px);
     height: 30px;
     color: #000000;
     text-align: center;
@@ -589,6 +595,7 @@ li:last-child {
     font-size: 40px;
     text-transform: uppercase;
     border-bottom: 2px solid #000000;
+    white-space: nowrap;
 }
 
 .change-password-btn {
