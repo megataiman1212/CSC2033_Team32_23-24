@@ -5,19 +5,19 @@
 {% block content %}
 <script type="text/javascript" src="{{ url_for('static', filename='rng.js') }}"></script>
 <h1 class="center-h1">Admin</h1>
-<h4 class="subtitle is-4">
-    Welcome,  {{ email }}
+<h4 class="subtitle is-4 welcome-message">
+    Welcome to your admin page,  {{ email }}
 </h4>
 
 <!-- View User Information -->
 <div class="column is-10 is-offset-1">
-    <h4 class="title is-4">Users Information</h4>
+    <h4 class="subheader-is-center">Users Information</h4>
     <div class="box">
         {% if current_users %}
             {% if message %}
                     <span class="info" style="color: red; font-weight: bold;">    You Cannot Delete Yourself !</span>
             {% endif %}
-            <table class="table is-fullwidth is-striped">
+            <table class="admin-table">
                 <thead>
                     <tr>
                         <th>Email</th>
@@ -48,9 +48,9 @@
 
 <!-- Register New User Button -->
 <div class="column is-8 is-offset-2" id="register-users">
-    <h4 class="title is-4">Add New Users</h4>
+    <h4 class="subheader-is-center">Add New Users</h4>
     <div class="box">
-        <table class="table is-fullwidth">
+        <table class="admin-table">
             <thead>
                 <tr>
                     <th>Role</th>
