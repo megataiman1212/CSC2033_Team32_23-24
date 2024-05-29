@@ -61,7 +61,6 @@ body {
 
 /* Header Styling */
 
-/*
 h1 {
     width: 400px;
     height: 30px;
@@ -74,7 +73,6 @@ h1 {
     text-transform: uppercase;
     border-bottom: 2px solid #000000;
 }
-*/
 
 /* Blue Panel */
 .blue-panel {
@@ -625,7 +623,7 @@ li:last-child {
     margin-right: 10px; /* Adjust margin as needed */
 }
 
-.center-h1 {
+.center-home-h1 {
     width: 400px; /* Set a fixed width for the header */
     max-width: calc(100% - 200px); /* Adjust maximum width based on screen size */
     margin: 0 0 0 174px; /* Reset margin */
