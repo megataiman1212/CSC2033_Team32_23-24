@@ -1,11 +1,15 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
-from flask_login import current_user
+from flask_login import current_user, login_required
+from Database_Manager.db_crud import DbManager, UserNotFoundError
+from app import access_level_required
 from users.forms import RegisterForm
-from Database_Manager.db_crud import DbManager,UserNotFoundError
+
 admin_blueprint = Blueprint('admin', __name__, template_folder='templates')
 
 
 @admin_blueprint.route('/admin/admin', methods=['GET', 'POST'])
+@login_required
+@access_level_required('admin')
 def admin():
     """
     Checks permission is correct and then sends to admin page
@@ -13,17 +17,13 @@ def admin():
     :return: Error403.html
     """
     db = DbManager()
-    if current_user.access_level == 'admin':
-        return render_template('admin/admin.html', email=current_user.email, current_users=db.get_all_users())
-    else:
-        return render_template('Error403.html')
+    return render_template('admin/admin.html', email=current_user.email, current_users=db.get_all_users())
+
 
 @admin_blueprint.route("/<string:email>/delete_user", methods=['GET', 'POST'])
+@login_required
+@access_level_required('admin')
 def delete_user(email):
-    if current_user.access_level != 'admin':
-        flash("You do not have permission to register a new admin!")
-        return redirect(url_for('admin.admin'))
-
     db = DbManager()
 
     if email == current_user.email:
@@ -34,6 +34,8 @@ def delete_user(email):
 
 
 @admin_blueprint.route('/<string:role>/add_staff', methods=['GET', 'POST'])
+@login_required
+@access_level_required('admin')
 def add_staff(role):
     """
     Adds new staff to the database
@@ -41,9 +43,6 @@ def add_staff(role):
     :return: add_staff.html
     """
     db = DbManager()
-    if current_user.access_level != 'admin':
-        flash("You do not have permission to register a new admin!")
-        return redirect(url_for('admin.admin'))
 
     form = RegisterForm()
 

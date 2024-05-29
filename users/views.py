@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_user, current_user, login_required, logout_user
+from app import access_level_required
 from users.forms import LoginForm, RegisterForm, UpdatePasswordForm
-from models import User
 from Database_Manager.db_crud import DbManager
 
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
@@ -37,13 +37,13 @@ def login():
         flash("You are already logged in.")
         return redirect(url_for('main.index'))
 
+
 @users_blueprint.route('/register', methods=['GET', 'POST'])
+@login_required
+@access_level_required('admin')
 def register_staff():
     db = DbManager()
 
-    if current_user.access_level != 'admin':
-        flash("You do not have permission to register a new staff!")
-        return(redirect(url_for('admin.admin')))
     # create signup form object
     form = RegisterForm()
 
@@ -63,12 +63,16 @@ def register_staff():
 
     return render_template('users/../templates/admin/add_staff.html', form=form)
 
+
 @users_blueprint.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
+
 @users_blueprint.route('/update_password', methods=['GET', 'POST'])
+@login_required
 def update_password():
     db = DbManager()
 
@@ -87,6 +91,7 @@ def update_password():
 
     return render_template('users/update_password.html', form=form)
 
+
 @users_blueprint.route('/account')
 @login_required
 def account():
@@ -94,6 +99,7 @@ def account():
                            user_id=current_user.user_id,
                            email=current_user.email,
                            access_level=current_user.access_level)
+
 
 @users_blueprint.route('/request_info')
 def request_info():

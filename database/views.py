@@ -1,18 +1,23 @@
-from flask import request, flash, redirect, url_for
+from flask import request
 from Database_Manager.db_crud import DbManager
 from flask import Blueprint, render_template
-from flask_login import login_required, current_user
+from flask_login import login_required
+from app import access_level_required
 from database.forms import ProductForm, RequiredStockForm
 
 database_blueprint = Blueprint('database', __name__, template_folder='templates')
 
+
 @database_blueprint.route('/database', methods=['GET', 'POST'])
 @login_required
+@access_level_required('admin', 'user')
 def database():
     return render_template('database/database.html')
 
 
 @database_blueprint.route('/query', methods=['GET', 'POST'])
+@login_required
+@access_level_required('admin', 'user')
 def query():
     search_string = request.args.get("search_string")
 
@@ -26,6 +31,8 @@ def query():
 
 
 @database_blueprint.route('/<int:product_id>/<int:mode>/adjust_stock', methods=['GET', 'POST'])
+@login_required
+@access_level_required('admin', 'user')
 def adjust_stock(product_id, mode):
     Db = DbManager()
     Db.adjust_stock(product_id, mode)
@@ -42,10 +49,10 @@ def adjust_stock(product_id, mode):
 
 
 @database_blueprint.route('/<int:product_id>/<int:current_level>/change_reorder_level', methods=['GET', 'POST'])
+@login_required
+@access_level_required('admin')
 def change_reorder_level(product_id, current_level):
-    if current_user.access_level != 'admin':
-        flash("You do not have permission to register a new admin!")
-        return redirect(url_for('admin.admin'))
+
     form = RequiredStockForm()
 
     if form.validate_on_submit():
@@ -57,6 +64,8 @@ def change_reorder_level(product_id, current_level):
 
 
 @database_blueprint.route('/add_product', methods=['GET', 'POST'])
+@login_required
+@access_level_required('admin', 'user')
 def add_product():
     form = ProductForm()
 
@@ -72,10 +81,9 @@ def add_product():
 
 
 @database_blueprint.route('/<int:product_id>/delete_product', methods=['GET', 'POST'])
+@login_required
+@access_level_required('admin')
 def delete_product(product_id):
-    if current_user.access_level != 'admin':
-        flash("You do not have permission to register a new admin!")
-        return redirect(url_for('admin.admin'))
     Db = DbManager()
     Db.delete_product(product_id)
 
@@ -88,4 +96,3 @@ def delete_product(product_id):
         results = []
 
     return render_template("database/database.html", results=results)
-
