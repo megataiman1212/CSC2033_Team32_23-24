@@ -1,3 +1,4 @@
+# File written by Daniel, Megat, Louis, Asha
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_user, current_user, login_required, logout_user
 from app import access_level_required
@@ -9,6 +10,9 @@ users_blueprint = Blueprint('users', __name__, template_folder='templates')
 
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
+    """
+    Method to login user, checks  password and username
+    """
     db = DbManager()
     if current_user.is_anonymous:
         form = LoginForm()
@@ -48,6 +52,7 @@ def login():
 @login_required
 @access_level_required('admin')
 def register_staff():
+    """Method to register a new staff member or admin"""
     db = DbManager()
 
     # create signup form object
@@ -79,6 +84,7 @@ def register_staff():
 @users_blueprint.route('/logout')
 @login_required
 def logout():
+    """Method to log out user"""
     logout_user()
     return redirect(url_for('index'))
 
@@ -86,6 +92,7 @@ def logout():
 @users_blueprint.route('/update_password', methods=['GET', 'POST'])
 @login_required
 def update_password():
+    """Method to update a users password"""
     db = DbManager()
 
     form = UpdatePasswordForm()
@@ -107,6 +114,7 @@ def update_password():
 @users_blueprint.route('/account')
 @login_required
 def account():
+    """Method to return account page with users details"""
     return render_template('users/account.html',
                            user_id=current_user.user_id,
                            email=current_user.email,
@@ -115,5 +123,6 @@ def account():
 
 @users_blueprint.route('/request_info')
 def request_info():
+    """Method to show products that have a low stock"""
     low_stock_products = DbManager.get_required_stock()
     return render_template('main/index.html', products=low_stock_products)
