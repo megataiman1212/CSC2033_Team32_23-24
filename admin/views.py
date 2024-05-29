@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import current_user
 from users.forms import RegisterForm
-from Database_Manager.db_crud import DbManager
+from Database_Manager.db_crud import DbManager,UserNotFoundError
 admin_blueprint = Blueprint('admin', __name__, template_folder='templates')
 
 
@@ -48,17 +48,17 @@ def add_staff(role):
     form = RegisterForm()
 
     if form.validate_on_submit():
-        user = db.get_user(form.email.data)
+        try:
+            user = db.get_user(form.email.data)
+        except UserNotFoundError as e:
+            # create a new admin
+            db.add_staff(form.email.data, form.password.data, role)
+
+            # sends user back to admin page
+            # flash("New admin user has been registered successfully.")
+            return redirect(url_for('admin.admin'))
         # if the email already exists, redirect to sign up page with error message so user can try again
-        if user:
-            flash("Email address already exists")
-            return render_template('admin/add_staff.html', form=form)
-
-        # create a new admin
-        db.add_staff(form.email.data, form.password.data, role)
-
-        # sends user back to admin page
-        #flash("New admin user has been registered successfully.")
-        return redirect(url_for('admin.admin'))
+        flash("Email address already exists")
+        return render_template('admin/add_staff.html', form=form)
 
     return render_template('admin/add_staff.html', form=form)

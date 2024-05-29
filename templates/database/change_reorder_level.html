@@ -4,8 +4,11 @@
 
     <div class="column is-6 is-offset-3">
         <h1>{% block title %} Change Order Level {% endblock %}</h1>
-        <div> Current reorder level: {{ current_level }} </div>
-        <div> New reorder level: </div>
+        <br>
+        <br>
+        <br>
+        <div class="box"> Current reorder level: {{ current_level }} </div>
+        <div class="box"> New reorder level: </div>
     <div class="box"></div></div>
         <form method="POST">
             <div class="field">
@@ -17,7 +20,7 @@
                     {% endfor %}
                 </div>
             </div>
-            <div>
+            <div class="box">
                 {{  form.submit(class="button is-infor is-centered") }}
             </div>
         </form>
