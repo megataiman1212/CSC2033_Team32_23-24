@@ -26,8 +26,9 @@ def admin():
 def delete_user(email):
     db = DbManager()
 
-    if email == current_user.email:
-        return render_template('admin/admin.html', email=current_user.email, current_users=db.get_all_users(), message="You Cannot Delete Yourself")
+    if email.upper() == current_user.email.upper():
+        return render_template('admin/admin.html', email=current_user.email, current_users=db.get_all_users(),
+                               message="You Cannot Delete Yourself")
     else:
         db.delete_staff(email)
         return render_template('admin/admin.html', email=current_user.email, current_users=db.get_all_users())
