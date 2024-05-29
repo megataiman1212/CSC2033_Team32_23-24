@@ -164,7 +164,7 @@ class DbManager:
         :param new_level: new required level of the product
         """
         product = self.session.query(Product).get(product_id)
-        if new_level > 0:
+        if new_level >= 0:
             if product:
                 product.required_level = new_level
             else:
