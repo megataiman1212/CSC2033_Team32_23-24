@@ -112,7 +112,7 @@ h1 {
     font-family: 'Roboto', sans-serif;
     font-size: 1.5em;
     padding: 10px 20px;
-    margin: 20px 372px;
+    margin: 20px 420px;
     display: block;
     background: linear-gradient(135deg, #1644b9, #1a53d2);
     color: white;
@@ -608,7 +608,7 @@ li:last-child {
     color: #000000;
     text-align: center;
     padding: 15px;
-    margin: 30px auto 10px 250px;
+    margin: 30px auto 10px 300px;
     font-family: 'Montserrat', sans-serif;
     font-size: 30px;
     text-transform: uppercase;
@@ -624,14 +624,15 @@ li:last-child {
 }
 
 .center-home-h1 {
-    width: 400px; /* Set a fixed width for the header */
+    width: auto; /* Set a fixed width for the header */
     max-width: calc(100% - 200px); /* Adjust maximum width based on screen size */
-    margin: 0 0 0 174px; /* Reset margin */
+    margin: 0 0 0 70px; /* Reset margin */
     padding: 20px;
     font-family: 'Montserrat', sans-serif;
     font-size: 40px;
     text-transform: uppercase;
     border-bottom: 2px solid #000000;
+    white-space: nowrap;
 }
 
 .header-content {
