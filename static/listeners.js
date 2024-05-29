@@ -1,3 +1,4 @@
+// Written by Megat Aiman
 window.addEventListener('load', function(){
     // ALL JAVASCRIPT CODE WILL GO HERE
     var current_password = document.getElementById('password');

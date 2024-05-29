@@ -1,3 +1,4 @@
+# Written by Daniel Cook, Asha Smeaton, Louis Graham
 werkzeug==2.3.7
 Flask
 flask_sqlalchemy
