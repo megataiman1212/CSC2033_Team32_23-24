@@ -168,7 +168,7 @@ h1 {
 
 
 /* Table Styling */
-table {
+.info-table {
     width: 60%;
     margin: 0 60px;
     border-collapse: collapse;
@@ -176,35 +176,35 @@ table {
     background-color: white;
 }
 
-table thead {
+.info-table thead {
     background-color: black;
     color: white;
 }
 
-table th {
+.info-table th {
     text-transform: uppercase;
     font-size: 14px;
     letter-spacing: 1px;
 }
 
-table tbody tr {
+.info-table tbody tr {
     border-bottom: 1px solid #dddddd;
 }
 
-table tbody tr:nth-of-type(even) { /* Every even nth row will be a darker shade */
+.info-table tr:nth-of-type(even) { /* Every even nth row will be a darker shade */
     background-color: #f3f3f3;
 }
 
-table tbody tr:last-of-type { /* Border at bottom of table */
+.info-table tbody tr:last-of-type { /* Border at bottom of table */
     border-bottom: 2px solid #000000;
 }
 
-table tbody tr:hover { /* Hover effect */
+.info-table tbody tr:hover { /* Hover effect */
     background-color: #e0e0e0;
     cursor: pointer;
 }
 
-table tbody td {
+.info-table tbody td {
     color: #333;
 }
 
@@ -315,8 +315,139 @@ li:last-child {
   padding: 8px 10px;
   margin-bottom: 10px;
 }
+/* Accounts Table */
+.accounts-table {
+    width: 70%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: black;
+    border: 2px solid black;
+    border-radius: 8px;
+    overflow: hidden;
+}
 
-h6 {
+
+.accounts-table th {
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: black;
+    background-color: #f2f2f2;
+}
+
+.accounts-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.accounts-table tr:nth-of-type(even) { /* Every even nth row will be a darker shade */
+    background-color: #f3f3f3;
+}
+
+.accounts-table tbody tr:last-of-type { /* Border at bottom of table */
+    border-bottom: 2px solid #000000;
+}
+
+.accounts-table tbody tr:hover { /* Hover effect */
+    background-color: #e0e0e0;
+    cursor: pointer;
+}
+
+.accounts-table tbody td {
+    color: #333;
+}
+.change-pw-btn {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    padding: 3px 10px;
+    margin: 20px auto;
+    display: block;
+    background: linear-gradient(135deg, #1644b9, #1a53d2);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.change-pw-btn:hover {
+    background: linear-gradient(135deg, #1a53d2, #1644b9); /* Reverse gradient when hover*/
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05); /* Enlarge when hover*/
+}
+
+.change-pw-btn:active {
+    background: linear-gradient(135deg, #1632b9, #1a45d2); /* Darker gradient when active */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: scale(0.98);
+}
+
+.change-pw-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(22, 68, 185, 0.5); /* Focus outline for accessibility */
+}
+
+/* Database Table */
+.database-table {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.database-table thead {
+    background-color: black;
+    color: white;
+}
+
+.database-table th {
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: white;
+}
+
+.database-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.database-table tr:nth-of-type(even) { /* Every even nth row will be a darker shade */
+    background-color: #f3f3f3;
+}
+
+.database-table tbody tr:last-of-type { /* Border at bottom of table */
+    border-bottom: 2px solid #000000;
+}
+
+.database-table tbody tr:hover { /* Hover effect */
+    background-color: #e0e0e0;
+    cursor: pointer;
+}
+
+.database-table tbody td {
+    color: #333;
+}
+
+.center-h1 {
+    width: 400px;
+    height: 30px;
+    color: #000000;
+    text-align: center;
+    margin: 0 auto;
+    padding: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #000000;
+}
+
+.subsection-header {
     width: 400px;
     height: 25px;
     color: #000000;
@@ -327,4 +458,19 @@ h6 {
     font-size: 30px;
     text-transform: uppercase;
     border-bottom: 2px solid #000000;
+    white-space: nowrap;
+}
+
+.subheader-is-center {
+    width: 400px;
+    height: 15px;
+    color: #000000;
+    text-align: center;
+    padding: 15px;
+    margin: 0 auto 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 25px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #000000;
+    white-space: nowrap;
 }

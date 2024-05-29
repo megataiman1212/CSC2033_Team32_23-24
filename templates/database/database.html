@@ -3,12 +3,12 @@
 {% block content %}
 
     <div class="column is-6 is-offset-3">
-        <h1>{% block title %} Database {% endblock %}</h1>
+        <h1 class="center-h1">{% block title %} Database {% endblock %}</h1>
         <br>
         <div  hx-get="/query" hx-trigger="load" hx-target="#results">
         <h3><input type="text" class="input" placeholder="Search" name="search_string" hx-get="/query" hx-trigger="keyup changed delay:500ms" hx-target="#results"></h3>
         <br>
-        <table class="table-is-full-width">
+        <table class="database-table">
             <tbody>
                 <tr>
                     <th>Product Name</th>
@@ -25,6 +25,7 @@
         </table>
         <br>
         <h3><a href="{{ url_for('database.add_product') }}" class="navbar-item"> Add Product </a></h3>
+    </div>
     </div>
 
 {% endblock %}

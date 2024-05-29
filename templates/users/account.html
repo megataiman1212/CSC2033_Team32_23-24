@@ -4,10 +4,10 @@
 
 
 <div class="column is-6 is-offset-3">
-    <h1 class="title">Your Account</h1>
-
-    <div class="box">
-        <table class="table">
+    <h1 class="center-h1">Your Account</h1>
+    <h1 class="subheader-is-center"> Account Information </h1>
+        <div class="box">
+        <table class="accounts-table">
         <tbody>
             <tr>
                 <th>User ID</th>
@@ -17,18 +17,30 @@
                 <th>Email</th>
                 <th>{{ email }}</th>
             </tr>
+        </tbody>
+        </table>
+        </div>
+    <h1 class="subheader-is-center"> Account Privilege </h1>
+        <div class="box">
+        <table class="accounts-table">
+        <tbody>
             <tr>
                 <th>Access Level</th>
                 <th>{{ access_level }}</th>
             </tr>
+        </tbody>
+        </table>
+        </div>
+    <h1 class="subheader-is-center"> Password and Security </h1>
+    <div class="box">
+        <table class="accounts-table">
+            <tbody>
             <tr>
                 <th>Password</th>
-                <th><a style='color: blue' href="{{ url_for('users.update_password') }}">Change Password</a></th>
+                <th><a class="change-pw-btn" href="{{ url_for('users.update_password') }}">Change Password</a></th>
             </tr>
-        </tbody>
+            </tbody>
         </table>
     </div>
 </div>
-
-
 {% endblock %}
