@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="column is-5 is-offset-4">
-        <h1 class="title is-3">Register New Staff</h1>
+        <h1 class="center-h1">Register New {{ role }}</h1>
         <div class="box">
             {% with messages = get_flashed_messages() %}
                 {% if messages %}

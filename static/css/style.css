@@ -208,45 +208,6 @@ h1 {
     color: #333;
 }
 
-.admin-table {
-    width: 60%;
-    margin: auto;
-    border-collapse: collapse;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: white;
-}
-
-.admin-table thead {
-    background-color: black;
-    color: white;
-}
-
-.admin-table th {
-    text-transform: uppercase;
-    font-size: 14px;
-    letter-spacing: 1px;
-}
-
-.admin-table tbody tr {
-    border-bottom: 1px solid #dddddd;
-}
-
-.admin-table tr:nth-of-type(even) { /* Every even nth row will be a darker shade */
-    background-color: #f3f3f3;
-}
-
-.admin-table tbody tr:last-of-type { /* Border at bottom of table */
-    border-bottom: 2px solid #000000;
-}
-
-.admin-table tbody tr:hover { /* Hover effect */
-    background-color: #e0e0e0;
-    cursor: pointer;
-}
-
-.admin-table tbody td {
-    color: #333;
-}
 
 th, td {
     padding: 12px;
@@ -494,6 +455,48 @@ li:last-child {
     font-weight: bold;
     color: black;
     text-align: center;
+}
+
+.admin-table {
+    width: 60%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.admin-table thead {
+    background-color: black;
+    color: white;
+}
+
+
+.admin-table th {
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+    width: 80%;
+}
+
+.admin-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.admin-table tr:nth-of-type(even) { /* Every even nth row will be a darker shade */
+    background-color: #f3f3f3;
+}
+
+.admin-table tbody tr:last-of-type { /* Border at bottom of table */
+    border-bottom: 2px solid #000000;
+}
+
+.admin-table tbody tr:hover { /* Hover effect */
+    background-color: #e0e0e0;
+    cursor: pointer;
+}
+
+.admin-table tbody td {
+    color: #333;
 }
 
 .delete-staff-btn {

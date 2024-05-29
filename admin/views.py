@@ -52,7 +52,7 @@ def add_staff(role):
         # if the email already exists, redirect to sign up page with error message so user can try again
         if user:
             flash("Email address already exists")
-            return render_template('admin/add_staff.html', form=form)
+            return render_template('admin/add_staff.html', form=form, role=role)
 
         # create a new admin
         db.add_staff(form.email.data, form.password.data, role)
@@ -61,4 +61,4 @@ def add_staff(role):
         #flash("New admin user has been registered successfully.")
         return redirect(url_for('admin.admin'))
 
-    return render_template('admin/add_staff.html', form=form)
+    return render_template('admin/add_staff.html', form=form, role=role)
