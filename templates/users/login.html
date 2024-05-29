@@ -2,8 +2,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+    <!-- Header -->
     <div class="column is-5 is-offset-4">
         <h1 class="center-h1">Login</h1>
+
+        <!-- Login form -->
         <div class="box">
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
