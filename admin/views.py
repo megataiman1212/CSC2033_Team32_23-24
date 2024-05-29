@@ -27,8 +27,10 @@ def delete_user(email):
     db = DbManager()
 
     if email == current_user.email:
-        return render_template('admin/admin.html', email=current_user.email, current_users=db.get_all_users(), message="You Cannot Delete Yourself")
+        return render_template('admin/admin.html', email=current_user.email, current_users=db.get_all_users(),
+                               message="You Cannot Delete Yourself")
     else:
+
         db.delete_staff(email)
         return render_template('admin/admin.html', email=current_user.email, current_users=db.get_all_users())
 
@@ -47,9 +49,10 @@ def add_staff(role):
     form = RegisterForm()
 
     if form.validate_on_submit():
+        # checks if user already exist
         try:
-            user = db.get_user(form.email.data)
-        except UserNotFoundError as e:
+            db.get_user(form.email.data)
+        except UserNotFoundError:
             # create a new admin
             db.add_staff(form.email.data, form.password.data, role)
 

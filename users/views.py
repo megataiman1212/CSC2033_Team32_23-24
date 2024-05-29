@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_user, current_user, login_required, logout_user
 from app import access_level_required
 from users.forms import LoginForm, RegisterForm, UpdatePasswordForm
-from Database_Manager.db_crud import DbManager
+from Database_Manager.db_crud import DbManager, UserNotFoundError
 
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
 
@@ -13,7 +13,13 @@ def login():
     if current_user.is_anonymous:
         form = LoginForm()
         if form.validate_on_submit():
-            user = db.get_user(form.email.data)
+            try:
+                # see if user exists
+                user = db.get_user(form.email.data)
+            except UserNotFoundError:
+                # create an empty user
+                user = None
+                pass
 
             # Checks the users credentials
             if not user or not db.verify_password(user.email, form.password.data):
@@ -49,7 +55,13 @@ def register_staff():
 
     # if request method is POST or form is valid
     if form.validate_on_submit():
-        user = db.get_user(form.email.data)
+        try:
+            # see if user exists
+            user = db.get_user(form.email.data)
+        except UserNotFoundError:
+            # create an empty user
+            user = None
+            pass
         # if this returns a user, then the email already exists in database
 
         # if email already exists redirect user back to signup page with error message so user can try again
@@ -58,7 +70,7 @@ def register_staff():
             return render_template('users/../templates/admin/add_staff.html', form=form)
 
         # create a new user with the form data
-        db.add_staff(form.email.data,form.password.data,"user")
+        db.add_staff(form.email.data, form.password.data, "user")
         return redirect(url_for('users.login'))
 
     return render_template('users/../templates/admin/add_staff.html', form=form)
@@ -79,7 +91,9 @@ def update_password():
     form = UpdatePasswordForm()
     # validate submitted ChangePasswordForm
     if form.validate_on_submit():
-        msg = db.change_password(current_user.user_id,form.current_password.data, form.new_password.data)
+
+        msg = db.change_password(current_user.user_id, form.current_password.data, form.new_password.data)
+
         if msg == "wrong password":
             flash('Incorrect current password.')
             return render_template('users/update_password.html', form=form)

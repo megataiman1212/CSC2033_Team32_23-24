@@ -1,5 +1,5 @@
 from flask import request
-from Database_Manager.db_crud import DbManager
+from Database_Manager.db_crud import DbManager, ProductNotFoundError
 from flask import Blueprint, render_template
 from flask_login import login_required
 from app import access_level_required
@@ -34,9 +34,11 @@ def query():
 @login_required
 @access_level_required('admin', 'user')
 def adjust_stock(product_id, mode):
-    Db = DbManager()
-    Db.adjust_stock(product_id, mode)
-
+    db = DbManager()
+    try:
+        db.adjust_stock(product_id, mode)
+    except (ValueError, ProductNotFoundError):
+        pass
     search_string = request.args.get("search_string")
 
     if search_string:
@@ -56,8 +58,12 @@ def change_reorder_level(product_id, current_level):
     form = RequiredStockForm()
 
     if form.validate_on_submit():
-        Db = DbManager()
-        Db.change_stock_required_level(product_id, form.new_level.data)
+        db = DbManager()
+        # change stock level with check it can't be below zero
+        try:
+            db.change_stock_required_level(product_id, form.new_level.data)
+        except (ValueError, ProductNotFoundError):
+            pass
         return render_template("database/database.html")
 
     return render_template('database/change_reorder_level.html', form=form, current_level=current_level)
@@ -70,8 +76,8 @@ def add_product():
     form = ProductForm()
 
     if form.validate_on_submit():
-        Db = DbManager()
-        Db.add_product(form.name.data,
+        db = DbManager()
+        db.add_product(form.name.data,
                        form.stock.data,
                        form.category.data,
                        form.required_stock.data)
@@ -84,9 +90,11 @@ def add_product():
 @login_required
 @access_level_required('admin')
 def delete_product(product_id):
-    Db = DbManager()
-    Db.delete_product(product_id)
-
+    db = DbManager()
+    try:
+        db.delete_product(product_id)
+    except ProductNotFoundError:
+        pass
     search_string = request.args.get("search_string")
 
     if search_string:

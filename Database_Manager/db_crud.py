@@ -165,7 +165,7 @@ class DbManager:
         product = self.session.query(Product).get(product_id)
         if new_level > 0:
             if product:
-                product.stock = new_level
+                product.required_level = new_level
             else:
                 raise ProductNotFoundError
         else:
