@@ -3,7 +3,7 @@ from app import db,app
 import bcrypt
 from flask_login import UserMixin
 
-# Written by Asha,Daniel E
+# Written by Asha, Daniel E, Daniel Cook
 class User(db.Model, UserMixin):
     """class that creates user table and defines all the parameters"""
     user_id = db.Column(db.Integer, primary_key=True)
