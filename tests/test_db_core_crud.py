@@ -1,7 +1,7 @@
 import pytest
-from Database_Manager.db_crud import UserNotFoundError
+from Database_Manager.db_crud import UserNotFoundError, ProductNotFoundError
 from app import app
-from pytest import raises
+
 
 def add_products(db_instance_empty, stocked_food_product, un_stocked_food_product):
     """
@@ -81,7 +81,7 @@ def test_query_products(db_instance_empty, stocked_food_product, un_stocked_food
 def test_query_products_not_string(db_instance_empty):
     """
     test query_products when None is passed
-    :param db_instance_empty: cretaes an empty database
+    :param db_instance_empty: creates an empty database
     """
     with app.app_context():
         # Ensure that a TypeError is raised when search_string is None
@@ -165,6 +165,21 @@ def test_change_stock_level(db_instance_empty, stocked_food_product, un_stocked_
     assert same_stock[0].stock == un_stocked_food_product.stock
 
 
+def test_change_stock_level_below_zero(db_instance_empty, stocked_food_product, un_stocked_food_product):
+    """
+    test to change see if you can change stock level below zero
+    :param db_instance_empty:
+    :param stocked_food_product:
+    :param un_stocked_food_product:
+    :return:
+    """
+    add_products(db_instance_empty, stocked_food_product, un_stocked_food_product)
+
+    # Change order level to a negative
+    with pytest.raises(ValueError):
+        db_instance_empty.change_stock_level(product_id=stocked_food_product.product_id, new_stock=-5)
+
+
 def test_delete_product(db_instance_empty, stocked_food_product, un_stocked_food_product):
     """
     test delete_product function
@@ -186,6 +201,20 @@ def test_delete_product(db_instance_empty, stocked_food_product, un_stocked_food
     # Test product has been deleted
     assert len(post_deletion) == (pre_deletion - 1)
     assert post_deletion[0].product == un_stocked_food_product.product
+
+
+def test_delete_product_incorrect_id(db_instance_empty, stocked_food_product, un_stocked_food_product):
+    """
+   test delete_product function
+   :param db_instance_empty: creates an empty database
+   :param stocked_food_product: food product which is stocked (stock > required level)
+   :param un_stocked_food_product: food product which is un stocked (stock < required level)
+   """
+    add_products(db_instance_empty, stocked_food_product, un_stocked_food_product)
+
+    # Delete a product with incorrect id
+    with pytest.raises(ProductNotFoundError):
+        db_instance_empty.delete_product(product_id=888)
 
 
 def test_get_all_users(db_instance_empty, non_admin_user):
@@ -216,10 +245,10 @@ def test_change_password(db_instance_empty, non_admin_user):
     with pytest.raises(UserNotFoundError):
         db_instance_empty.change_password(user_id=123456789, current_password="password123",
                                           new_password="Change123")
-    #Check fails if wrong password
+    # Check fails if wrong password
     assert db_instance_empty.change_password(user_id=non_admin_user.user_id, current_password="wrong",
                                              new_password="Change123") == "wrong password"
-    #check fails if password tried to change to same password
+    # check fails if password tried to change to same password
     assert db_instance_empty.change_password(user_id=non_admin_user.user_id, current_password="password123",
                                              new_password="password123") == "same password"
     # Update password
@@ -227,6 +256,7 @@ def test_change_password(db_instance_empty, non_admin_user):
                                       new_password="Change123")
     # Check password updated
     assert db_instance_empty.verify_password(non_admin_user.email, "Change123")
+
 
 def test_change_password_wrong_data(db_instance_empty):
     """
@@ -243,7 +273,6 @@ def test_change_password_wrong_data(db_instance_empty):
                                           new_password=132)
 
 
-
 def test_get_user(db_instance_empty, non_admin_user):
     """
         test get_user function
@@ -256,6 +285,7 @@ def test_get_user(db_instance_empty, non_admin_user):
     user = db_instance_empty.get_user("Test@Test.com")
     assert user == non_admin_user
 
+
 def test_get_user_wrong_data(db_instance_empty, non_admin_user):
     """
             test get_user function
@@ -265,7 +295,7 @@ def test_get_user_wrong_data(db_instance_empty, non_admin_user):
     # Add non admin user
     db_instance_empty.create_user(user=non_admin_user)
     with pytest.raises(ValueError):
-        user = db_instance_empty.get_user(0)
+        db_instance_empty.get_user(0)
 
 
 def test_add_staff(db_instance_empty):
@@ -282,6 +312,7 @@ def test_add_staff(db_instance_empty):
     assert user.email == "TEST@TEST.COM"
     assert db_instance_empty.verify_password(email="Test@Test.com", test_password="password123")
     assert user.access_level == "user"
+
 
 def test_add_staff_wrong_data(db_instance_empty):
     """
@@ -319,6 +350,7 @@ def test_add_product(db_instance_empty):
     assert len(db_instance_empty.get_all_products()) == 1
     # Check stock has been appended since duplicate added
     assert stock[0].stock == 100
+
 
 def test_add_product_wrong_data(db_instance_empty):
     """
