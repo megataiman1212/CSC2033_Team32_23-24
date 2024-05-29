@@ -19,7 +19,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-
+# Access level decorator
 def access_level_required(*access_levels):
     def wrapper(f):
         @wraps(f)
@@ -48,29 +48,28 @@ login_manager.init_app(app)
 
 from models import User
 
-
+# User loader
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(int(id))
 
-
+# View function for index (Main home page)
 @app.route('/')
 def index():
     from Database_Manager.db_crud import DbManager
     return render_template('main/index.html', blue_panel=True, products=DbManager.get_required_stock())
 
-
+# View function for login page
 @app.route('/login')
 def login():
-    form = LoginForm()
     return render_template('users/login.html', form=LoginForm())
 
-
+# View function for database page
 @app.route('/database')
 def database():
     return render_template('database/database.html')
 
-
+# View function for admin page
 @app.route('/admin')
 def admin():
     return render_template('admin/admin.html')
@@ -78,25 +77,25 @@ def admin():
 
 # error 400 bad request handling
 @app.errorhandler(400)
-def bad_request_error(error):
+def bad_request_error():
     return render_template('Error400.html', error_code=400, error_name='Bad Request'), 400
 
 
 # error 403 forbidden handling
 @app.errorhandler(403)
-def forbidden_error(error):
+def forbidden_error():
     return render_template('Error403.html', error_code=403, error_name='Forbidden'), 403
 
 
 # error 404 not found handling
 @app.errorhandler(404)
-def not_found_error(error):
+def not_found_error():
     return render_template('Error404.html', error_code=404, error_name='Not Found'), 404
 
 
 # error 500 internal server handling
 @app.errorhandler(500)
-def internal_server_error(error):
+def internal_server_error():
     return render_template('Error500.html', error_code=500, error_name='Internal Server Error'), 500
 
 

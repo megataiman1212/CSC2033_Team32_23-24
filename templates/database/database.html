@@ -2,10 +2,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+    <!-- Header -->
     <div class="column is-6 is-offset-3">
         <h1 class="center-h1">{% block title %} Database {% endblock %}</h1>
         <br>
+        <!-- Display table -->
         <div hx-get="/query" hx-trigger="load" hx-target="#results"></div>
         <h3><input type="text" class="input search-input" placeholder="Search" name="search_string" hx-get="/query" hx-trigger="keyup changed delay:500ms" hx-target="#results"></h3>
         <br>
@@ -26,6 +27,7 @@
             <tbody id="results">
             </tbody>
         </table>
+        <!-- Add product button -->
         <br>
         <h3>
         <button class="add-product-btn" onclick="window.location.href='{{ url_for('database.add_product') }}'" style="background-color: blue; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">

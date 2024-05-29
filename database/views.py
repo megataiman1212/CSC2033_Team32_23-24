@@ -1,4 +1,4 @@
-# File Written by Daniel E, Najihah, Asha, Daniel C
+#File Written by Daniel E, Najihah, Asha, Daniel C
 from flask import request
 from Database_Manager.db_crud import DbManager, ProductNotFoundError
 from flask import Blueprint, render_template
@@ -20,6 +20,7 @@ def database():
     return render_template('database/database.html')
 
 
+# View function for querying on the database page
 @database_blueprint.route('/query', methods=['GET', 'POST'])
 @login_required
 @access_level_required('admin', 'user')
@@ -110,7 +111,7 @@ def add_product():
 
     return render_template('database/add_product.html', form=form)
 
-
+# View function for the delete product feature on the database page
 @database_blueprint.route('/<int:product_id>/delete_product', methods=['GET', 'POST'])
 @login_required
 @access_level_required('admin')
@@ -120,7 +121,6 @@ def delete_product(product_id):
     :return: database.html
     """
     db = DbManager()
-    # delete product excepts there is no product
     try:
         db.delete_product(product_id)
     except ProductNotFoundError:
