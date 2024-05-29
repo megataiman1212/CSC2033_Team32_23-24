@@ -17,7 +17,9 @@
                     <th>Remove Stock</th>
                     <th>Reorder Level</th>
                     <th>Category</th>
+                    {% if current_user.is_authenticated and current_user.access_level=='admin' %}
                     <th>Delete Product</th>
+                    {% endif %}
                 </tr>
             </tbody>
             <tbody id="results">
