@@ -1,3 +1,4 @@
+#File Written by Daniel E, Najihah, Asha, Daniel C
 from flask import request
 from Database_Manager.db_crud import DbManager
 from flask import Blueprint, render_template
@@ -90,8 +91,8 @@ def add_product():
     form = ProductForm()
 
     if form.validate_on_submit():
-        Db = DbManager()
-        Db.add_product(form.name.data,
+        db = DbManager()
+        db.add_product(form.name.data,
                        form.stock.data,
                        form.category.data,
                        form.required_stock.data)
