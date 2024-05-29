@@ -3,18 +3,19 @@
 {% block content %}
 
     <div class="column is-6 is-offset-3">
-        <h1>{% block title %} Change Order Level {% endblock %}</h1>
+        <h1 class="center-h1">{% block title %} Change Order Level {% endblock %}</h1>
         <br>
         <br>
         <br>
-        <div class="box"> Current reorder level: {{ current_level }} </div>
-        <div class="box"> New reorder level: </div>
+        <div class="change-order-level-box">
+            <div class="box"> Current reorder level: {{ current_level }} </div>
+        </div>
     <div class="box"></div></div>
         <form method="POST">
             <div class="field">
                 {{  form.csrf_token() }}
                 <div class = "control">
-                    {{ form.new_level(class="input", placeholder="New Level") }}
+                    {{ form.new_level(class="center-input", placeholder="New Level") }}
                     {% for error in form.new_level.errors %}
                         <div class="center-flash">
                             {{ error }}

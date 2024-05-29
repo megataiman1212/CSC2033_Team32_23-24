@@ -10,7 +10,7 @@
             <div class="field">
                 {{  form.csrf_token() }}
                 <div class = "control">
-                    {{ form.name(class="input", placeholder="Product Name") }}
+                    {{ form.name(class="center-input", placeholder="Product Name") }}
                     {% for error in form.name.errors %}
                         <div class="center-flash">
                             {{ error }}
@@ -20,7 +20,7 @@
             </div>
             <div class="field">
                 <div class = "control">
-                    {{ form.stock(class="input", placeholder="Stock Level") }}
+                    {{ form.stock(class="center-input", placeholder="Stock Level") }}
                     {% for error in form.stock.errors %}
                         <div class="center-flash">
                             {{ error }}
@@ -30,7 +30,7 @@
             </div>
             <div class="field">
                 <div class = "control">
-                    {{ form.category(class="input", placeholder="Category (food/hygiene)") }}
+                    {{ form.category(class="center-input", placeholder="Category (food/hygiene)") }}
                     {% for error in form.category.errors %}
                         <div class="center-flash">
                             {{ error }}
@@ -40,7 +40,7 @@
             </div>
             <div class="field">
                 <div class = "control">
-                    {{ form.required_stock(class="input", placeholder="Required Stock Level") }}
+                    {{ form.required_stock(class="center-input", placeholder="Required Stock Level") }}
                     {% for error in form.required_stock.errors %}
                         <div class="center-flash">
                             {{ error }}
@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="box">
-                {{  form.submit(class="button is-infor is-centered") }}
+                {{  form.submit(class="add-btn") }}
             </div>
         </form>
     </div>
