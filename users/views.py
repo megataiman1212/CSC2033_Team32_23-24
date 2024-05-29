@@ -35,7 +35,7 @@ def login():
     else:
         # Displays error message
         flash("You are already logged in.")
-        return redirect(url_for('main.index'))
+        return redirect(url_for('index'))
 
 
 @users_blueprint.route('/register', methods=['GET', 'POST'])
@@ -58,7 +58,7 @@ def register_staff():
             return render_template('users/../templates/admin/add_staff.html', form=form)
 
         # create a new user with the form data
-        db.add_staff(form.email.data,form.password.data,"user")
+        db.add_staff(form.email.data, form.password.data,"user")
         return redirect(url_for('users.login'))
 
     return render_template('users/../templates/admin/add_staff.html', form=form)
