@@ -1,4 +1,4 @@
-#File Written by Daniel E, Najihah, Asha, Daniel C
+# File Written by Daniel E, Najihah, Asha, Daniel C
 from flask import request
 from Database_Manager.db_crud import DbManager, ProductNotFoundError
 from flask import Blueprint, render_template
@@ -28,10 +28,12 @@ def query():
     Get the query from the database
     :return: query_results.html
     """
+    # Get a query from search_string
     search_string = request.args.get("search_string")
-
+    # If the string is not empty, call query_products method from DbManager class
     if search_string:
         results = DbManager.query_products(search_string)
+    # If empty, call get_all_product methods
     else:
         db = DbManager()
         results = db.get_all_products()
@@ -48,16 +50,18 @@ def adjust_stock(product_id, mode):
     :return: database.html
     """
     db = DbManager()
+    # try method to handle potential exceptions
     try:
+        # calls adjust_stock method from DbManager
         db.adjust_stock(product_id, mode)
     except (ValueError, ProductNotFoundError):
         pass
     search_string = request.args.get("search_string")
-
+    # If search_string is not empty, it queries the database for matching products
     if search_string:
         results = DbManager.query_products(search_string)
     else:
-
+        # sets results to empty list
         results = []
 
     return render_template("database/database.html", results=results)
@@ -116,16 +120,18 @@ def delete_product(product_id):
     :return: database.html
     """
     db = DbManager()
+    # delete product excepts there is no product
     try:
         db.delete_product(product_id)
     except ProductNotFoundError:
         pass
     search_string = request.args.get("search_string")
-
+    # If search_string is not empty, it queries the database for matching products
     if search_string:
         results = DbManager.query_products(search_string)
 
     else:
+        #  sets results to empty list
         results = []
 
     return render_template("database/database.html", results=results)
