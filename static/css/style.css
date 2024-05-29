@@ -601,6 +601,19 @@ li:last-child {
     white-space: nowrap;
 }
 
+.center-flash {
+    width: auto;
+    height: 30px;
+    text-align: center;
+    margin: 0 auto 20px;
+    padding: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    font-weight: bold;
+}
+
 .change-password-btn {
   background-color: #ff3860;
   color: #fff;

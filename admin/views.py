@@ -64,6 +64,6 @@ def add_staff(role):
             return redirect(url_for('admin.admin'))
         # if the email already exists, redirect to sign up page with error message so user can try again
         flash("Email address already exists")
-        return render_template('admin/add_staff.html', form=form)
+        return render_template('admin/add_staff.html', form=form, role=role)
 
-    return render_template('admin/add_staff.html', form=form)
+    return render_template('admin/add_staff.html', form=form, role=role)
