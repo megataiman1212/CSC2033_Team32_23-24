@@ -1,9 +1,7 @@
+"""File to reset the database and add a default admin """
+# Written by Asha
 from app import db,app,User
 
-#Instructions to create db
-#Run docker compose file
-#Run create_db file
-#Run this file
 with app.app_context():
     db.drop_all()
     db.create_all()

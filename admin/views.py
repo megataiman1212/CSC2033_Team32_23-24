@@ -1,3 +1,4 @@
+# File written by Daniel c, Daniel E, Asha, Louis, Najihah, Megat
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import current_user, login_required
 from Database_Manager.db_crud import DbManager, UserNotFoundError
@@ -24,6 +25,11 @@ def admin():
 @login_required
 @access_level_required('admin')
 def delete_user(email):
+    """
+    Delete user from the database
+    :param email: email of the user
+    :return: admin.html
+    """
     db = DbManager()
 
     if email.upper() == current_user.email.upper():

@@ -3,9 +3,9 @@ from app import db,app
 import bcrypt
 from flask_login import UserMixin
 
-
+# Written by Asha,Daniel E
 class User(db.Model, UserMixin):
-    """User table """
+    """class that creates user table and defines all the parameters"""
     user_id = db.Column(db.Integer, primary_key=True)
 
     email = db.Column(db.String(100), nullable=False, unique=True)
@@ -35,7 +35,7 @@ class User(db.Model, UserMixin):
     def get_id(self):
         return self.user_id
 
-
+# Written by Asha, Daniel E, Louis
 class Product(db.Model):
     """Product table"""
     product_id = db.Column(db.Integer, primary_key=True)

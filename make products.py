@@ -1,3 +1,5 @@
+"""Test file for adding some simple products to the database"""
+# Written by Asha
 from app import app, db
 from models import User, Product
 
