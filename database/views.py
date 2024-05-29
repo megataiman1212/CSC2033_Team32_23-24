@@ -50,7 +50,7 @@ def change_reorder_level(product_id, current_level):
 
     if form.validate_on_submit():
         Db = DbManager()
-        Db.change_stock_level(product_id, form.new_level.data)
+        Db.change_stock_required_level(product_id, form.new_level.data)
         return render_template("database/database.html")
 
     return render_template('database/change_reorder_level.html', form=form, current_level=current_level)

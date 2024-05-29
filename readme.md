@@ -1,15 +1,24 @@
 
+
+Repository URL:
+https://github.com/newcastleuniversity-computing/CSC2033_Team32_23-24.git
+
 ---
 Instruction for setting up Database
 ---
-1. Ensure docker desktop is running in the background and install all the python packages mentioned in requirements.txt
-2. Run the docker-compose.yml file
-3. Check in the services tab of pycharm that the database is running
-4. Run the create_db.py file
-5. Run the create_tables.py file
+1. Install Dependencies
+ - Docker Desktop: https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe
+ - Install mySql Workbench (Optional for access to database without website): https://dev.mysql.com/downloads/file/?id=525959
+ - Use pycharm IDE as integration with docker: https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=windows
+ - Install all python requirements in requirements.txt (Pycharm should automatically ask to install) , To manually install use "py pip install" then the name of the requirement
+2. Through pycharm Run the docker-compose.yml file by pressing the green arrow
+ - This should install the mysql image for docker and start running the database
+ - Check in the services tab of pycharm that there is a docker compose connection with a subitem called "db". If db is not running; Run it and wait till the console says "X plugin ready for connections"
+ - If you have a mysql server running in the background using the localhost address before this then you will need to stop it
+3. Once the database is started you can run the create_db.py file then the create_tables.py file
+4. The database should now be setup to connect to it through mysql workbench use Hostname:127.0.0.1 port:3306 and password "Team32"
+5. To start the website run the app.py file in pycharm and click the blue link in the console
 
-create db will reset the database and add an admin user everytime it is run
+create_db.py will reset the database and add an admin user everytime it is run
 
-To Connect to the mysql database use the localhost address and the password Team32
-
-To run the website run the app.py file with the database running
+On restart simply run the database through the services tab in pycharm
