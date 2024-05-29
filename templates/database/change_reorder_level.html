@@ -16,7 +16,9 @@
                 <div class = "control">
                     {{ form.new_level(class="input", placeholder="New Level") }}
                     {% for error in form.new_level.errors %}
-                        {{ error }}
+                        <div class="center-flash">
+                            {{ error }}
+                        </div>
                     {% endfor %}
                 </div>
             </div>

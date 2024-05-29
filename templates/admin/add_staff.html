@@ -17,7 +17,9 @@
                     <div class="control">
                         {{ form.email(class="input", placeholder="Email") }}
                         {% for error in form.email.errors %}
-                            {{ error }}
+                            <div class = "center-flash">
+                                {{ error }}
+                            </div>
                         {% endfor %}
                     </div>
                 </div>
@@ -25,7 +27,9 @@
                     <div class="control">
                         {{ form.password(class="input", placeholder="Password") }}
                         {% for error in form.password.errors %}
-                            {{ error }}
+                            <div class="center-flash">
+                                {{ error }}
+                            </div>
                         {% endfor %}
                     </div>
                 </div>
@@ -33,7 +37,9 @@
                     <div class="control">
                         {{ form.confirm_password(class="input", placeholder="Confirm Password") }}
                         {% for error in form.confirm_password.errors %}
-                            {{ error }}
+                            <div class="center-flash">
+                                {{ error }}
+                            </div>
                         {% endfor %}
                     </div>
                 </div>
