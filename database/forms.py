@@ -10,7 +10,7 @@ def is_real(form, number):
 
 
 def validate_category(form, category):
-    if category.data != "food" and category.data != "hygiene":
+    if category.data.lower != "food" and category.data.lower != "hygiene":
         raise ValidationError('category must be "food" or "hygiene"')
 
 
